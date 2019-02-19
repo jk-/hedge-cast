@@ -1,7 +1,10 @@
 import datetime
+import bcrypt
 
 from flask_login import UserMixin
-from app.database import db, CRUDMixin
+from app.database import db
+from app.database import CRUDMixin
+from app.extensions import bcrypt
 
 
 class User(CRUDMixin, db.Model):

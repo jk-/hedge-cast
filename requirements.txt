@@ -4,6 +4,7 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
+alembic==1.0.7            # via flask-migrate
 bcrypt==3.1.6
 certifi==2018.11.29       # via requests
 cffi==1.12.1              # via bcrypt
@@ -12,7 +13,9 @@ click==7.0                # via flask
 cssmin==0.2.0
 faker==1.0.2
 flask-assets==0.12
+flask-bcrypt==0.7.1
 flask-login==0.4.1
+flask-migrate==2.4.0
 flask-sqlalchemy==2.3.2
 flask==1.0.2
 gunicorn==19.9.0
@@ -21,12 +24,15 @@ itsdangerous==1.1.0       # via flask
 jinja2==2.10              # via flask
 jsmin==2.2.2
 libsass==0.17.0
-markupsafe==1.1.0         # via jinja2
+mako==1.0.7               # via alembic
+markupsafe==1.1.0         # via jinja2, mako
+psycopg2==2.7.7
 pycparser==2.19           # via cffi
-python-dateutil==2.8.0    # via faker
+python-dateutil==2.8.0    # via alembic, faker
+python-editor==1.0.4      # via alembic
 requests==2.21.0
 six==1.12.0               # via bcrypt, faker, libsass, python-dateutil
-sqlalchemy==1.2.18        # via flask-sqlalchemy
+sqlalchemy==1.2.18        # via alembic, flask-sqlalchemy
 text-unidecode==1.2       # via faker
 urllib3==1.24.1           # via requests
 webassets==0.12.1         # via flask-assets

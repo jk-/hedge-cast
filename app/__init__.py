@@ -5,6 +5,10 @@ import sys
 from flask import Flask, render_template
 from app.config import base_config, test_config
 from app.assets import assets
+from app.database import db
+from app.commands import create_db
+from app.extensions import migrate
+from app.extensions import bcrypt
 from app.blueprints.portfolio import portfolio
 
 
@@ -19,6 +23,7 @@ def create_app(config=base_config):
     register_blueprints(app)
     register_extensions(app)
     register_jinja_env(app)
+    register_commands(app)
 
     @app.route('/', methods=['GET'])
     def index():
@@ -32,7 +37,10 @@ def create_app(config=base_config):
 
 
 def register_extensions(app):
+    db.init_app(app)
     assets.init_app(app)
+    bcrypt.init_app(app)
+    migrate.init_app(app, db)
 
 
 def register_blueprints(app):
@@ -43,6 +51,11 @@ def register_jinja_env(app):
     app.jinja_env.globals.update({
         'site_name': app.config["SITE_NAME"],
     })
+
+
+def register_commands(app):
+    for command in [create_db]:
+        app.cli.command()(command)
 
 
 def register_errorhandlers(app):
