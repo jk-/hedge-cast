@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{{ site_name }}{% endblock %}</title>
+        <meta charset="utf-8" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        {% block css_header %}
+        {% assets "scss_main" -%}
+            <link rel="stylesheet" href="{{ ASSET_URL }}" media="screen,projection" />
+        {%- endassets %}
+          {% assets "scss_material" -%}
+              <link rel="stylesheet" href="{{ ASSET_URL }}" media="screen,projection" />
+          {%- endassets %}
+        {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body class="{{ bodyClass }}">
+        {% block body %}{% endblock body %}
+        {% block footer -%}
+            {% include 'components/footer.html.j2' %}
+        {%- endblock %}
+
+        {% block js_footer %}
+            {% assets "js_all" -%}
+                <script src="{{ ASSET_URL }}"></script>
+            {%- endassets %}
+        {% endblock %}
+    </body>
+</html>

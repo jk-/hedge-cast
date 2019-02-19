@@ -1,0 +1,58 @@
+{% extends 'base.html.j2' %}
+
+{% set bodyClass = 'landing' %}
+
+{% block body %}
+<div class="landing-bg b-lazy" data-src="/static/images/bg.jpg" ></div>
+<main class="container white-text valign-wrapper center-align">
+    <div class="row col s12 hero">
+        <h4 class="name">Jon Kirkpatrick</h4>
+        <div class="description">
+            <p>Senior Software Engineer</p>
+            <ul class="action">
+                <li><a class="wave-effect waves-light btn-flat white" href="{{ url_for('portfolio.index') }}">History</a></li>
+                <li><a class="wave-effect waves-light btn-flat white" href="{{ url_for('static', filename="downloads/Jon Kirkpatrick - Resume.pdf") }}" target="portfolio">Resume</a></li>
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock body %}
+
+{% block footer %}
+<footer class="page-footer transparent center-align">
+    <div class="footer-copyright">
+        <div class="container lighten-4">
+            <small>© 2019 Jon Kirkpatrick / Image: <a href="https://www.deviantart.com/yakubnihat/art/Amazing-Mountain-Milky-Way-by-Yakub-Nihat-588262997">Yakub Nihat</a></small>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+{% block js_footer %}
+    {{ super() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            M.AutoInit();
+            var elems = document.querySelectorAll('.tooltipped');
+            var instances = M.Tooltip.init(elems, {outDuration: 0});
+
+            var buttons = document.getElementsByClassName('btn-flat');
+            for(var i = 0; i < buttons.length; i++) {
+                buttons[i].addEventListener("click", function(i) {
+                    i.preventDefault();
+                    var goto = i.target.href;
+                    console.log(i);
+                    document.body.classList.remove("animate-out");
+                    document.body.classList.add("animate-out");
+                    setTimeout(function()
+                    {
+                        window.location = goto;
+                    }, 3000);
+                })
+            }
+            var bLazy = new Blazy({
+            // Options
+            });
+        });
+    </script>
+{% endblock %}

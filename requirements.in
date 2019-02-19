@@ -1,0 +1,7 @@
+flask
+cssmin
+jsmin
+gunicorn
+libsass
+flask-assets
+requests
