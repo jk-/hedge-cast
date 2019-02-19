@@ -1,8 +1,16 @@
 {
   "name": "cloud.ai",
   "version": "1.0.0",
-  "main": "index.js",
   "author": "bas <basilieus@gmail.com>",
+  "dependencies": {
+    "vuetify": "^1.5.1"
+  },
+  "devDependencies": {
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "vue-cli-plugin-vuetify": "^0.4.6",
+    "vuetify-loader": "^1.0.5"
+  },
   "license": "MIT",
-  "dependencies": {}
+  "main": "index.js"
 }

@@ -3,18 +3,15 @@
 {% set bodyClass = 'landing' %}
 
 {% block body %}
-<div class="landing-bg b-lazy" data-src="/static/images/bg.jpg" ></div>
-<main class="container white-text valign-wrapper center-align">
-    <div class="row col s12 hero">
-        <h4 class="name">Jon Kirkpatrick</h4>
-        <div class="description">
-            <p>Senior Software Engineer</p>
-            <ul class="action">
-                <li><a class="wave-effect waves-light btn-flat white" href="{{ url_for('portfolio.index') }}">History</a></li>
-                <li><a class="wave-effect waves-light btn-flat white" href="{{ url_for('static', filename="downloads/Jon Kirkpatrick - Resume.pdf") }}" target="portfolio">Resume</a></li>
-            </ul>
-        </div>
-    </div>
+<!-- <div class="landing-bg b-lazy" data-src="/static/images/bg.jpg" ></div> -->
+<main class="container black-text valign-wrapper center-align">
+    <div id="app">
+    <v-app>
+      <v-content>
+        <v-container>Hello world</v-container>
+      </v-content>
+    </v-app>
+  </div>
 </main>
 {% endblock body %}
 
@@ -30,6 +27,12 @@
 
 {% block js_footer %}
     {{ super() }}
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+  <script>
+    new Vue({ el: '#app' })
+  </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             M.AutoInit();
