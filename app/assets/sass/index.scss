@@ -1,6 +1,8 @@
 .landing {
 }
-
+[v-cloak] {
+  display: none;
+}
 .landing-bg {
     background-attachment: fixed;
     background-position: center center;

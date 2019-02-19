@@ -4,15 +4,17 @@
 
 {% block body %}
 <!-- <div class="landing-bg b-lazy" data-src="/static/images/bg.jpg" ></div> -->
-<main class="container black-text valign-wrapper center-align">
-    <div id="app">
-    <v-app>
-      <v-content>
-        <v-container>Hello world</v-container>
-      </v-content>
-    </v-app>
-  </div>
-</main>
+<v-alert
+:value="true"
+type="success"
+>
+This is a success alert.
+</v-alert>
+
+<section>
+    <v-btn color="success">Success</v-btn>
+    yo dawg
+</section>
 {% endblock body %}
 
 {% block footer %}
@@ -28,31 +30,8 @@
 {% block js_footer %}
     {{ super() }}
 
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
-  <script>
-    new Vue({ el: '#app' })
-  </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            M.AutoInit();
-            var elems = document.querySelectorAll('.tooltipped');
-            var instances = M.Tooltip.init(elems, {outDuration: 0});
-
-            var buttons = document.getElementsByClassName('btn-flat');
-            for(var i = 0; i < buttons.length; i++) {
-                buttons[i].addEventListener("click", function(i) {
-                    i.preventDefault();
-                    var goto = i.target.href;
-                    console.log(i);
-                    document.body.classList.remove("animate-out");
-                    document.body.classList.add("animate-out");
-                    setTimeout(function()
-                    {
-                        window.location = goto;
-                    }, 3000);
-                })
-            }
             var bLazy = new Blazy({
             // Options
             });
