@@ -6,6 +6,7 @@ class ConcatFilter(Filter):
     def concat(self, out, hunks, **kw):
         out.write(';'.join([h.data() for h, info in hunks]))
 
+
 scss_main = Bundle(
     '../assets/sass/index.scss',
     '../assets/sass/main.scss',
