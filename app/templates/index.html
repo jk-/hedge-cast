@@ -1,14 +1,14 @@
-{% extends 'base.html.j2' %}
+{% extends 'base.html' %}
 
 {% set bodyClass = 'landing' %}
 
 {% block body %}
-    Hello World.
+    {% include 'components/toolbar.html' %}
+    {% include 'components/index/jumbotron.html' %}
 {% endblock body %}
 
 {% block footer %}
-<footer class="page-footer transparent center-align">
-</footer>
+    {% include 'components/footer.html' %}
 {% endblock %}
 
 {% block js_footer %}

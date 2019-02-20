@@ -27,13 +27,13 @@ def create_app(config=base_config):
     register_jinja_env(app)
     register_commands(app)
 
-    @app.route('/', methods=['GET'])
+    @app.route("/", methods=["GET"])
     def index():
-        return render_template('index.html.j2')
+        return render_template("index.html")
 
     @app.errorhandler(500)
     def error_500(error):
-        return render_template('errors/500.html.j2'), error.code
+        return render_template("errors/500.html"), error.code
 
     return app
 
@@ -50,9 +50,7 @@ def register_blueprints(app):
 
 
 def register_jinja_env(app):
-    app.jinja_env.globals.update({
-        'site_name': app.config["SITE_NAME"],
-    })
+    app.jinja_env.globals.update({"site_name": app.config["SITE_NAME"]})
 
 
 def register_commands(app):
@@ -62,13 +60,11 @@ def register_commands(app):
 
 def register_errorhandlers(app):
     def render_error(error):
-        return render_template(
-            'errors/%s.html.j2' % error.code
-        ), error.code
+        return render_template("errors/%s.html" % error.code), error.code
 
     for error in [
         requests.codes.INTERNAL_SERVER_ERROR,
         requests.codes.NOT_FOUND,
-        requests.codes.UNAUTHORIZED
+        requests.codes.UNAUTHORIZED,
     ]:
         app.errorhandler(error)(render_error)

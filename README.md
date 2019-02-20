@@ -53,7 +53,7 @@ TODO:
     [x] Get all Models up to date and the database tables integrated
     [x] Create faker classes to populate test data
     [x] Create repository pattern for models
-    [] Test repository methods
+    [x] Test repository methods
     Create an index page
     Create registration page
     Login ability
