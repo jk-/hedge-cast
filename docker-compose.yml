@@ -9,7 +9,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: 'pass'
         volumes:
-            - hedgecast_mysql:/var/lib/mysql
+            - mysql:/var/lib/mysql
 
 volumes:
-    hedgecast_mysql:
+    mysql:

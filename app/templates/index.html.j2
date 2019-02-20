@@ -3,27 +3,11 @@
 {% set bodyClass = 'landing' %}
 
 {% block body %}
-<!-- <div class="landing-bg b-lazy" data-src="/static/images/bg.jpg" ></div> -->
-    <v-alert
-        :value="true"
-        type="success"
-        >
-        This is a success alert.
-    </v-alert>
-
-    <section>
-        <v-btn color="success">Success</v-btn>
-        yo dawg
-    </section>
+    Hello World.
 {% endblock body %}
 
 {% block footer %}
 <footer class="page-footer transparent center-align">
-    <div class="footer-copyright">
-        <div class="container lighten-4">
-            <small>© 2019 Jon Kirkpatrick / Image: <a href="https://www.deviantart.com/yakubnihat/art/Amazing-Mountain-Milky-Way-by-Yakub-Nihat-588262997">Yakub Nihat</a></small>
-        </div>
-    </div>
 </footer>
 {% endblock %}
 
@@ -32,9 +16,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var bLazy = new Blazy({
-            // Options
-            });
+            var bLazy = new Blazy({});
         });
     </script>
 {% endblock %}

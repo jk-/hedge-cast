@@ -4,7 +4,7 @@ from app.models.user import User
 from unittest.mock import patch
 
 
-class TestUserModel(object):
+class TestUserModel:
     @pytest.mark.smoke
     def test_model_init(self):
         assert isinstance(User(), User)

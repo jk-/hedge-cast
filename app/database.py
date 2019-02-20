@@ -4,7 +4,7 @@ from sqlalchemy import or_
 db = SQLAlchemy()
 
 
-class Repository(object):
+class Repository:
     """
     This does not track dirty values - will update
     entire object!

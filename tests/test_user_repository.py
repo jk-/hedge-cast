@@ -6,7 +6,7 @@ from app.repository.user_repository import UserRepository
 from unittest.mock import patch
 
 
-class TestUserRepository(object):
+class TestUserRepository:
     @pytest.mark.smoke
     def test_init(self):
         assert issubclass(UserRepository, User)
