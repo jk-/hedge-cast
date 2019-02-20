@@ -15,6 +15,7 @@ test:
 	pip install -qr requirements-test.txt
 	pytest --codestyle -p no:warnings -vv --ignore=migrations
 	rm -rf .pytest_cache
+	rm -rf __pycache__
 	find . -name '*.pyc' -delete
 
 migrate:

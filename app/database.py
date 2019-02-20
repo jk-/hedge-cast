@@ -21,11 +21,6 @@ class Repository(object):
             return cls.query.get(int(id))
         return None
 
-    @classmethod
-    def create(cls, **kwargs):
-        instance = cls(**kwargs)
-        return instance.save()
-
     def update(self, commit=True, **kwargs):
         for attr, value in kwargs.items():
             setattr(self, attr, value)

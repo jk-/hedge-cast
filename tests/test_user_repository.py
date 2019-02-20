@@ -1,17 +1,36 @@
+import pytest
+
 from app.models.user import User
 from app.database import Repository
 from app.repository.user_repository import UserRepository
-from app import create_app, config
+from unittest.mock import patch
 
 
 class TestUserRepository(object):
+    @pytest.mark.smoke
     def test_init(self):
         assert issubclass(UserRepository, User)
         assert issubclass(UserRepository, Repository)
 
-    def test_get_by_id(self):
-        app = create_app(config.base_config)
+    @pytest.mark.parametrize(
+        "invalid_type, expected", [({}, None), ([], None), ((), None)]
+    )
+    @patch("flask_sqlalchemy._QueryProperty.__get__")
+    def test_get_by_id(
+        self, mocked_query_get, app_test, invalid_type, expected
+    ):
+        dummy = User()
+        dummy.id = 1
+        dummy.username = "jon"
+        mocked_query_get.return_value.get.return_value = dummy
 
-        with app.app_context():
-            user = UserRepository.get_by_id(1)
-            assert user.username == "nealalan"
+        with app_test.app_context():
+            first_user = UserRepository.get_by_id(1)
+            assert isinstance(first_user, User)
+            assert first_user.id == 1
+            assert first_user.username == "jon"
+            assert not first_user.username == "josh"
+
+            invalid_user = UserRepository.get_by_id(invalid_type)
+            assert invalid_user is expected
+            assert not invalid_user
