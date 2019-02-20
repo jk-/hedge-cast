@@ -1,13 +1,11 @@
 import datetime
-import bcrypt
 
 from flask_login import UserMixin
 from app.database import db
-from app.database import CRUDMixin
 from app.extensions import bcrypt
 
 
-class User(CRUDMixin, db.Model):
+class User(UserMixin, db.Model):
     '''
         a user
 
@@ -20,7 +18,7 @@ class User(CRUDMixin, db.Model):
     username_canonical = db.Column(db.String(20), nullable=False, unique=True)
     email = db.Column(db.String(180), nullable=False, unique=True)
     email_canonical = db.Column(db.String(180), nullable=False, unique=True)
-    email_reserved = db.Column(db.String(180), nullable=False, unique=True)
+    email_reverse = db.Column(db.String(180), nullable=False, unique=True)
     enabled = db.Column(db.Boolean(), default=1)
     salt = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
@@ -45,10 +43,6 @@ class User(CRUDMixin, db.Model):
     stripe_customer_id = db.Column(db.String(255))
     can_email_notify = db.Column(db.Boolean(), default=1)
     can_email_general = db.Column(db.Boolean(), default=1)
-
-    def __init__(self, password, **kwargs):
-        super(User, self).__init__(**kwargs)
-        self.set_password(password)
 
     def __repr__(self):
         return '<User #%s:%r>' % (self.id, self.username)

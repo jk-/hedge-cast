@@ -7,9 +7,11 @@ from app.config import base_config, test_config
 from app.assets import assets
 from app.database import db
 from app.commands import create_db
+from app.commands import populate_db
 from app.extensions import migrate
 from app.extensions import bcrypt
 from app.blueprints.portfolio import portfolio
+from app.repository.user_repository import UserRepository
 
 
 def create_app(config=base_config):
@@ -54,7 +56,7 @@ def register_jinja_env(app):
 
 
 def register_commands(app):
-    for command in [create_db]:
+    for command in [create_db, populate_db]:
         app.cli.command()(command)
 
 

@@ -1,8 +1,17 @@
+from app.database import db
 
 
-class PlaylistCategory(object):
+class PlaylistCategory(db.Model):
     '''
         Relational for playlist -> category
     '''
-    playlist_id = None
-    category_id = None
+    playlist_id = db.Column(
+        db.Integer,
+        db.ForeignKey('playlist.id'),
+        primary_key=True
+    )
+    category_id = db.Column(
+        db.Integer,
+        db.ForeignKey('category.id'),
+        primary_key=True
+    )

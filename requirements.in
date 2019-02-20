@@ -10,5 +10,5 @@ faker
 flask-login
 bcrypt
 flask_bcrypt
-psycopg2
 flask-migrate
+pymysql

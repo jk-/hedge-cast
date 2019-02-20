@@ -13,6 +13,10 @@ assets:
 test:
 	pip install -qr requirements.txt
 	pip install -qr requirements-test.txt
-	pytest --codestyle -p no:warnings -vv
+	pytest --codestyle -p no:warnings -vv --ignore=migrations
 	rm -rf .pytest_cache
 	find . -name '*.pyc' -delete
+
+migrate:
+	flask db migrate
+	flask db upgrade

@@ -45,3 +45,21 @@ playlist:
     playlists for videos
 video_playlist:
     many-to-many representation of of videos -> playlist
+
+
+
+TODO:
+
+    [x] Get all Models up to date and the database tables integrated
+    [x] Create faker classes to populate test data
+    [x] Create repository pattern for models
+    [] Test repository methods
+    Create an index page
+    Create registration page
+    Login ability
+    Logout ability
+
+
+
+flask db migrate -> creates migration
+flask db upgrade -> upgrades to latest migrate

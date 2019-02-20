@@ -4,19 +4,20 @@ from sqlalchemy import or_
 db = SQLAlchemy()
 
 
-class CRUDMixin(object):
-    '''
+class Repository(object):
+    """
     This does not track dirty values - will update
     entire object!
-    '''
-    __table_args__ = {'extend_existing': True}
-
-    id = db.Column(db.Integer, primary_key=True)
+    """
 
     @classmethod
     def get_by_id(cls, id):
-        if any((isinstance(id, str) and id.isdigit(),
-                isinstance(id, (int, float))),):
+        if any(
+            (
+                isinstance(id, str) and id.isdigit(),
+                isinstance(id, (int, float)),
+            )
+        ):
             return cls.query.get(int(id))
         return None
 
