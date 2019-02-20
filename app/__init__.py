@@ -10,7 +10,7 @@ from app.commands import create_db
 from app.commands import populate_db
 from app.extensions import migrate
 from app.extensions import bcrypt
-from app.blueprints.portfolio import portfolio
+from app.blueprints.login import login
 from app.repository.user_repository import UserRepository
 
 
@@ -29,11 +29,11 @@ def create_app(config=base_config):
 
     @app.route("/", methods=["GET"])
     def index():
-        return render_template("index.html")
+        return render_template("index.html.j2")
 
     @app.errorhandler(500)
     def error_500(error):
-        return render_template("errors/500.html"), error.code
+        return render_template("errors/500.html.j2"), error.code
 
     return app
 
@@ -46,7 +46,7 @@ def register_extensions(app):
 
 
 def register_blueprints(app):
-    app.register_blueprint(portfolio, url_prefix="/portfolio")
+    app.register_blueprint(login, url_prefix="/login")
 
 
 def register_jinja_env(app):
@@ -60,7 +60,7 @@ def register_commands(app):
 
 def register_errorhandlers(app):
     def render_error(error):
-        return render_template("errors/%s.html" % error.code), error.code
+        return render_template("errors/%s.html.j2" % error.code), error.code
 
     for error in [
         requests.codes.INTERNAL_SERVER_ERROR,

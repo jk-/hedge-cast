@@ -54,10 +54,12 @@ TODO:
     [x] Create faker classes to populate test data
     [x] Create repository pattern for models
     [x] Test repository methods
-    Create an index page
-    Create registration page
-    Login ability
-    Logout ability
+    [x] Create an index page
+    [x] Login Page
+    [] Login ability
+    [] Logout ability
+    [] Create registration page
+    [] Register ability
 
 
 

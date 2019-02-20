@@ -1,14 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base.html.j2' %}
 
 {% set bodyClass = 'landing' %}
 
 {% block body %}
-    {% include 'components/toolbar.html' %}
-    {% include 'components/index/jumbotron.html' %}
+    {% include 'components/toolbar.html.j2' %}
+    {% include 'components/index/jumbotron.html.j2' %}
 {% endblock body %}
 
 {% block footer %}
-    {% include 'components/footer.html' %}
+    {% include 'components/footer.html.j2' %}
 {% endblock %}
 
 {% block js_footer %}

@@ -1,0 +1,48 @@
+<v-layout>
+    <v-flex xs12 sm6 offset-sm3>
+      <v-card>
+
+        <v-toolbar color="transparent z-depth-0">
+          <v-toolbar-title>Login</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+          <v-form v-model="valid">
+            <v-container>
+              <v-layout>
+                <v-flex md12 lg12>
+                  <v-text-field
+                    v-model="username"
+                    label="Username"
+                    required
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+
+                <v-layout>
+                    <v-flex md12 lg12>
+                        <v-text-field
+                          :append-icon="show2 ? 'visibility_off' : 'visibility'"
+                          v-model="password"
+                          :type="show2 ? 'text' : 'password'"
+                          label="passwword"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                  </v-layout>
+
+                    <v-checkbox
+                      v-model="checkbox"
+                      label="Remember me"
+                    ></v-checkbox>
+
+                <v-card-actions>
+                    <v-btn>Login</v-btn>
+
+                    <v-btn flat>forgot password?</v-btn>
+                </v-card-actions>
+            </v-container>
+          </v-form>
+
+      </v-card>
+    </v-flex>
+</v-layout>
