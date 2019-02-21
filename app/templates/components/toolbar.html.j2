@@ -4,7 +4,7 @@
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
         {% if current_user.is_authenticated %}
-            <v-btn flat><a href="{{ url_for('user.logout')}}">{{ current_user.username }}</a></v-btn>
+            <v-btn flat><a href="{{ url_for('user.logout')}}" class="black-text">{{ current_user.username }}</a></v-btn>
         {% else %}
             <v-btn flat><a href="{{ url_for('user.login_form')}}" class="black-text">Login</a></v-btn>
         {% endif %}

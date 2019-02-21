@@ -1,6 +1,8 @@
 import requests
 import logging
 import sys
+import jinja2
+import os
 
 from flask import Flask, render_template
 from app.config import base_config, test_config
@@ -53,6 +55,19 @@ def register_blueprints(app):
 
 
 def register_jinja_env(app):
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+    my_loader = jinja2.ChoiceLoader(
+        [
+            jinja2.FileSystemLoader(
+                [
+                    os.path.join(PROJECT_ROOT, "static"),
+                    os.path.join(PROJECT_ROOT, "templates"),
+                ]
+            ),
+            app.jinja_loader,
+        ]
+    )
+    app.jinja_loader = my_loader
     app.jinja_env.globals.update({"site_name": app.config["SITE_NAME"]})
 
 

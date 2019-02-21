@@ -29,11 +29,5 @@
             </v-content>
             </v-app>
         </main>
-        {% block js_footer %}
-            <script src="/static/bundle.js"></script>
-            {% assets "js_all" -%}
-                <script src="{{ ASSET_URL }}"></script>
-            {%- endassets %}
-        {% endblock %}
     </body>
 </html>

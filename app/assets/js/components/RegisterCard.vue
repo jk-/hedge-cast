@@ -3,7 +3,7 @@
         <v-flex xs12 sm6 offset-sm3>
             <v-card color="transparent z-depth-0">
                 <v-toolbar color="z-depth-0">
-                    <v-toolbar-title>Login</v-toolbar-title>
+                    <v-toolbar-title>Register</v-toolbar-title>
                 </v-toolbar>
                 <v-form method="post" :action="url">
                     <v-container>
@@ -23,7 +23,7 @@
                                 :append-icon="pwShow ? 'visibility_off' : 'visibility'"
                                 :rules="[rules.required]"
                                 :type="pwShow ? 'text' : 'password'"
-                                label="passwword"
+                                label="Password"
                                 name="password"
                                 required
                                 @click:append="pwShow = !pwShow"
@@ -31,14 +31,22 @@
                             </v-flex>
                         </v-layout>
 
-                        <v-checkbox
-                        v-model="checkbox"
-                        label="Remember me"
-                        ></v-checkbox>
+                        <v-layout>
+                            <v-flex md12 lg12>
+                                <v-text-field
+                                :append-icon="pwConfirm ? 'visibility_off' : 'visibility'"
+                                :rules="[rules.required]"
+                                :type="pwConfirm ? 'text' : 'password'"
+                                label="Confirm Password"
+                                name="password"
+                                required
+                                @click:append="pwConfirm = !pwConfirm"
+                                ></v-text-field>
+                            </v-flex>
+                        </v-layout>
 
                         <v-card-actions>
-                            <v-btn type="submit" color="primary" @click="submit">Login</v-btn>
-                            <v-btn color="info" flat>forgot password?</v-btn>
+                            <v-btn type="submit" color="primary" @click="submit">Register</v-btn>
                         </v-card-actions>
                     </v-container>
                 </v-form>
@@ -64,6 +72,7 @@ export default {
             valid: true,
             checkbox: false,
             pwShow: false,
+            pwConfirm: false,
             rules: {
                 required: value => !!value || 'Required.'
             }
