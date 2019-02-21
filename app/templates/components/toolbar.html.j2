@@ -1,13 +1,13 @@
 <v-toolbar class="transparent z-depth-0">
     <v-toolbar-side-icon></v-toolbar-side-icon>
-    <v-toolbar-title>Hedge Cast</v-toolbar-title>
+    <v-toolbar-title><a href="{{ url_for('index') }}" class="black-text">Hedge Cast</a></v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
         {% if current_user.is_authenticated %}
-            <v-btn flat><a href="{{ url_for('user.logout')}}" class="black-text">{{ current_user.username }}</a></v-btn>
+            <v-btn flat><a href="{{ url_for('user.logout')}}">{{ current_user.username }}</a></v-btn>
         {% else %}
-            <v-btn flat><a href="{{ url_for('user.index')}}" class="black-text">Login</a></v-btn>
+            <v-btn flat><a href="{{ url_for('user.login_form')}}" class="black-text">Login</a></v-btn>
         {% endif %}
-        <v-btn flat>Sign-up</v-btn>
+        <v-btn flat><a href="{{ url_for('user.register') }}" class="black-text">Sign-up</a></v-btn>
     </v-toolbar-items>
 </v-toolbar>

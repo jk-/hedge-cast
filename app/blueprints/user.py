@@ -22,8 +22,20 @@ def load_user(user_id):
 
 
 @user_blueprint.route("/login")
-def index():
+def login_form():
     return render_template("user/login.html.j2")
+
+
+@user_blueprint.route("/register")
+def register():
+    return render_template("user/register.html.j2")
+
+
+@user_blueprint.route("/r", methods=["POST"])
+def _register():
+    user = User()
+    # left off here
+    return render_template("user/register.html.j2")
 
 
 @user_blueprint.route("/l", methods=["GET", "POST"])
