@@ -26,16 +26,20 @@ def login_form():
     return render_template("user/login.html.j2")
 
 
-@user_blueprint.route("/register")
+@user_blueprint.route("/register", methods=["GET"])
 def register():
     return render_template("user/register.html.j2")
 
 
-@user_blueprint.route("/r", methods=["POST"])
-def _register():
+@user_blueprint.route("/register", methods=["POST"])
+def register_post():
     user = User()
-    # left off here
-    return render_template("user/register.html.j2")
+    user.set_username(request.form.get("username"))
+    user.set_password(request.form.get("password"))
+    user.set_email(request.form.get("email"))
+    user = UserRepository.save(user)
+    login_user(user)
+    return redirect(url_for("index"))
 
 
 @user_blueprint.route("/l", methods=["GET", "POST"])

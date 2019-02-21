@@ -20,3 +20,5 @@
     - [] Theming and touch ups
     - [] Production ready environment
     - [] AWS integration
+    - [] Webpack CSS injection
+    - [] Fix salt and password in user entity

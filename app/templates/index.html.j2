@@ -10,13 +10,3 @@
 {% block footer %}
     {% include 'components/footer.html.j2' %}
 {% endblock %}
-
-{% block js_footer %}
-    {{ super() }}
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var bLazy = new Blazy({});
-        });
-    </script>
-{% endblock %}

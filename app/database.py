@@ -26,12 +26,14 @@ class Repository:
             setattr(self, attr, value)
         return commit and self.save() or self
 
-    def save(self, commit=True):
-        db.session.add(self)
+    @staticmethod
+    def save(entity, commit=True):
+        db.session.add(entity)
         if commit:
             db.session.commit()
-        return self
+        return entity
 
-    def delete(self, commit=True):
-        db.session.delete(self)
+    @staticmethod
+    def delete(entity, ommit=True):
+        db.session.delete(entity)
         return commit and db.session.commit()

@@ -20,6 +20,16 @@
                         <v-layout>
                             <v-flex md12 lg12>
                                 <v-text-field
+                                label="Email"
+                                name="email"
+                                required
+                                ></v-text-field>
+                            </v-flex>
+                        </v-layout>
+
+                        <v-layout>
+                            <v-flex md12 lg12>
+                                <v-text-field
                                 :append-icon="pwShow ? 'visibility_off' : 'visibility'"
                                 :rules="[rules.required]"
                                 :type="pwShow ? 'text' : 'password'"
