@@ -56,8 +56,9 @@ TODO:
     [x] Test repository methods
     [x] Create an index page
     [x] Login Page
-    [] Login ability
-    [] Logout ability
+    [x] Webpack with vue and vuetify
+    [x] Login ability
+    [x] Logout ability
     [] Create registration page
     [] Register ability
 
