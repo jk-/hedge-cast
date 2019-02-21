@@ -17,7 +17,7 @@ def create_db():
     db.create_all()
 
 
-@click.option('--num_users', default=5, help='Number of users.')
+@click.option("--num_users", default=5, help="Number of users.")
 def populate_db(num_users):
     """Populates the database with seed data."""
     fake = Faker()
@@ -33,11 +33,11 @@ def populate_db(num_users):
                 salt=fake.word(),
                 email_canonical=email,
                 email_reverse=email[:-1],
-                password=fake.word() + fake.word()
+                password=fake.word() + fake.word(),
             )
         )
-    username = 'jon'
-    email = 'jon@stonetorch.com'
+    username = "jon"
+    email = "jon@stonetorch.com"
     users.append(
         User(
             username=username,
@@ -46,12 +46,12 @@ def populate_db(num_users):
             email_canonical=email,
             email_reverse=email[:-1],
             salt=fake.word(),
-            password='pass',
+            password="pass",
             enabled=True,
-            roles="ROLE_ADMIN"
+            roles="ROLE_ADMIN",
         )
     )
     for user in users:
-        print('saving user'.format(user))
+        print("saving user".format(user))
         db.session.add(user)
     db.session.commit()

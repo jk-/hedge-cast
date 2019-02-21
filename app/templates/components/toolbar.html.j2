@@ -3,7 +3,11 @@
     <v-toolbar-title>Hedge Cast</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat><a href="{{ url_for('login.index')}}" class="black-text">Login</a></v-btn>
+        {% if current_user.is_authenticated %}
+            <v-btn flat><a href="{{ url_for('user.logout')}}" class="black-text">{{ current_user.username }}</a></v-btn>
+        {% else %}
+            <v-btn flat><a href="{{ url_for('user.index')}}" class="black-text">Login</a></v-btn>
+        {% endif %}
         <v-btn flat>Sign-up</v-btn>
     </v-toolbar-items>
 </v-toolbar>

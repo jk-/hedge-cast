@@ -10,7 +10,9 @@ from app.commands import create_db
 from app.commands import populate_db
 from app.extensions import migrate
 from app.extensions import bcrypt
-from app.blueprints.login import login
+from app.extensions import login_manager
+from app.blueprints.user import user_blueprint
+from app.models.user import User
 from app.repository.user_repository import UserRepository
 
 
@@ -42,11 +44,12 @@ def register_extensions(app):
     db.init_app(app)
     assets.init_app(app)
     bcrypt.init_app(app)
+    login_manager.init_app(app)
     migrate.init_app(app, db)
 
 
 def register_blueprints(app):
-    app.register_blueprint(login, url_prefix="/login")
+    app.register_blueprint(user_blueprint, url_prefix="/user")
 
 
 def register_jinja_env(app):

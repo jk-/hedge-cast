@@ -22,9 +22,8 @@ scss_materialize = Bundle(
 
 js = Bundle(
     "../assets/js/blazy.js",
-    "../assets/js/main.js",
     filters=(ConcatFilter, "jsmin"),
-    output="js/packed.js",
+    output="js/vendor.js",
 )
 
 assets = Environment()

@@ -21,6 +21,7 @@
         <main id="app" v-cloak>
             <v-app>
               <v-content>
+                {% include 'components/flash/flash.html.j2' %}
                 {% block body %}{% endblock body %}
                 {% block footer -%}
                     {% include 'components/footer.html.j2' %}
@@ -29,8 +30,7 @@
             </v-app>
         </main>
         {% block js_footer %}
-            <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+            <script src="/static/bundle.js"></script>
             {% assets "js_all" -%}
                 <script src="{{ ASSET_URL }}"></script>
             {%- endassets %}

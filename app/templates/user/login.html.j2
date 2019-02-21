@@ -1,7 +1,5 @@
 {% extends 'base.html.j2' %}
 
-{% set bodyClass = 'landing' %}
-
 {% block body %}
     {% include 'components/toolbar.html.j2' %}
     {% include 'components/login/login-card.html.j2' %}
@@ -9,14 +7,4 @@
 
 {% block footer %}
     {% include 'components/footer.html.j2' %}
-{% endblock %}
-
-{% block js_footer %}
-    {{ super() }}
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var bLazy = new Blazy({});
-        });
-    </script>
 {% endblock %}

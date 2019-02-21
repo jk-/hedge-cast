@@ -1,16 +1,36 @@
 {
-  "name": "cloud.ai",
+  "name": "hedgecast",
   "version": "1.0.0",
+  "private": true,
   "author": "bas <basilieus@gmail.com>",
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules"
+  },
   "dependencies": {
-    "vuetify": "^1.5.1"
+    "cross-env": "^5.2.0",
+    "css-loader": "^2.1.0",
+    "vue": "^2.6.6",
+    "vue-router": "^3.0.2",
+    "vuelidate": "^0.7.4",
+    "vuetify": "^1.5.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
   },
   "devDependencies": {
+    "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1",
+    "stylus-loader": "^3.0.2",
+    "to-string-loader": "^1.1.5",
     "vue-cli-plugin-vuetify": "^0.4.6",
-    "vuetify-loader": "^1.0.5"
+    "vue-loader": "^15.6.4",
+    "vue-template-compiler": "^2.6.6",
+    "vuetify-loader": "^1.2.1"
   },
-  "license": "MIT",
-  "main": "index.js"
+  "license": "MIT"
 }
