@@ -10,8 +10,9 @@
     - [x] Login ability
     - [x] Logout ability
     - [x] Create registration page
-    - [] Register ability
-    - [] Add admin section
+    - [x] Register ability
+    - [x] Roles
+    - [x] Add admin section
         - [] All related admin activities
     - [] Category Section
     - [] Video play page

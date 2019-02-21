@@ -30,9 +30,7 @@ class User(UserMixin, db.Model):
     locked = db.Column(db.Boolean(), default=0)
     confirmation_token = db.Column(db.String(255))
     password_requested_at = db.Column(db.DateTime(timezone=True))
-    # this wont work because if we have multiple roles
-    # then we can extend past the varchar 255
-    roles = db.Column(db.String(255))
+    roles = db.relationship("Role", secondary="user_roles")
     credentials_expire_at = db.Column(db.DateTime(timezone=True))
     created = db.Column(
         db.DateTime(timezone=True), default=datetime.datetime.utcnow
@@ -51,7 +49,7 @@ class User(UserMixin, db.Model):
     def set_email(self, email):
         self.email = email
         self.email_canonical = email
-        self.email_reverse = email[:-1]
+        self.email_reverse = email[::-1]
 
     def set_password(self, password):
         hash_ = bcrypt.generate_password_hash(password, 10).decode("utf-8")
@@ -60,3 +58,6 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
+
+    def has_roles(self, *args):
+        return set(args).issubset({role.name for role in self.roles})

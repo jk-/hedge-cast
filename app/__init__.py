@@ -10,10 +10,12 @@ from app.assets import assets
 from app.database import db
 from app.commands import create_db
 from app.commands import populate_db
+from app.commands import drop_db
 from app.extensions import migrate
 from app.extensions import bcrypt
 from app.extensions import login_manager
 from app.blueprints.user import user_blueprint
+from app.blueprints.admin import admin_blueprint
 from app.models.user import User
 from app.repository.user_repository import UserRepository
 
@@ -52,6 +54,7 @@ def register_extensions(app):
 
 def register_blueprints(app):
     app.register_blueprint(user_blueprint, url_prefix="/user")
+    app.register_blueprint(admin_blueprint, url_prefix="/admin")
 
 
 def register_jinja_env(app):
@@ -72,7 +75,7 @@ def register_jinja_env(app):
 
 
 def register_commands(app):
-    for command in [create_db, populate_db]:
+    for command in [create_db, populate_db, drop_db]:
         app.cli.command()(command)
 
 

@@ -7,7 +7,7 @@
             <v-btn flat><a href="{{ url_for('user.logout')}}" class="black-text">{{ current_user.username }}</a></v-btn>
         {% else %}
             <v-btn flat><a href="{{ url_for('user.login_form')}}" class="black-text">Login</a></v-btn>
+            <v-btn flat><a href="{{ url_for('user.register') }}" class="black-text">Sign-up</a></v-btn>
         {% endif %}
-        <v-btn flat><a href="{{ url_for('user.register') }}" class="black-text">Sign-up</a></v-btn>
     </v-toolbar-items>
 </v-toolbar>
