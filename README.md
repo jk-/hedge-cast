@@ -12,6 +12,7 @@
     - [x] Create registration page
     - [x] Register ability
     - [x] Roles
+    - [x] Vue SPA, Seperate Vue from Flask API app
     - [x] Add admin section
         - [] All related admin activities
     - [] Category Section

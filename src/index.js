@@ -4,8 +4,8 @@ import App from './App.vue'
 import router from './router'
 
 import 'vuetify/dist/vuetify.min.css'
-require('../sass/materialize/main.scss')
-require('../sass/index.scss')
+require('./sass/materialize/main.scss')
+require('./sass/index.scss')
 
 Vue.use(Vuetify)
 
