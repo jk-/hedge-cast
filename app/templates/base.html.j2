@@ -3,19 +3,14 @@
     <head>
         <title>{% block title %}{{ site_name }}{% endblock %}</title>
         <meta charset="utf-8" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        {% block css_header %}
-            {% assets "scss_materialize" -%}
-                <link rel="stylesheet" href="{{ ASSET_URL }}" media="screen,projection" />
-            {%- endassets %}
-              <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
-              <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
-        {% endblock %}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
     </head>
     <body class="{{ bodyClass }}">
-        <main id="app" v-cloak>
-            <v-app>
+        <main id="app">
+            <v-app v-cloak>
+              <div class="spinner text-xs-center">
+                <v-progress-circular indeterminate :value="60"></v-progress-circular>
+              </div>
               <v-content>
                 {% include 'components/flash/flash.html.j2' %}
                 {% block body %}{% endblock body %}

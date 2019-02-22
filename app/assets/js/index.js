@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 
 import 'vuetify/dist/vuetify.min.css'
+require('../sass/materialize/main.scss')
+require('../sass/index.scss')
 
 Vue.use(Vuetify)
 

@@ -1,0 +1,5 @@
+[v-cloak] {
+    display: none;
+}
+.spinner { display: none; }
+[v-cloak] .spinner { display: block !important; }
