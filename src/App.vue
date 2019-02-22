@@ -4,13 +4,19 @@
             <v-progress-circular indeterminate :value="60"></v-progress-circular>
         </div>
         <v-content>
+            <Toolbar />
             <router-view></router-view>
         </v-content>
     </v-app>
 </template>
 
 <script>
+    import Toolbar from './components/Toolbar.vue'
+
     export default {
-        name: 'App'
+        name: 'App',
+        components: {
+            Toolbar
+        }
     }
 </script>

@@ -61,3 +61,6 @@ class User(UserMixin, db.Model):
 
     def has_roles(self, *args):
         return set(args).issubset({role.name for role in self.roles})
+
+    def to_dict(self):
+        return dict(id=self.id, username=self.username)

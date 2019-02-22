@@ -32,11 +32,11 @@ module.exports = {
       },
     },
   },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    }
-  },
+  // resolve: {
+  //   alias: {
+  //     'vue$': 'vue/dist/vue.min.js'
+  //   }
+  // },
   module: {
     rules: [
       {

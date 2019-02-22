@@ -1,6 +1,5 @@
 <template>
     <div class="home">
-        <Toolbar />
         <v-responsive>
             <v-container fill-height>
             <v-layout align-center>
@@ -24,12 +23,7 @@
 </template>
 
 <script>
-    import Toolbar from '../components/Toolbar.vue'
-
     export default {
-        name: 'home',
-        components: {
-            Toolbar
-        }
+        name: 'home'
     }
 </script>

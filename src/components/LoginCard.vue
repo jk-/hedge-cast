@@ -5,43 +5,44 @@
                 <v-toolbar color="z-depth-0">
                     <v-toolbar-title>Login</v-toolbar-title>
                 </v-toolbar>
-                <v-form method="post" :action="url">
-                    <v-container>
-                        <v-layout>
-                            <v-flex md12 lg12>
-                                <v-text-field
-                                label="Username"
-                                name="username"
-                                required
-                                ></v-text-field>
-                            </v-flex>
-                        </v-layout>
+                <p class="subtitle error-msg">{{ errorMsg }}</p>
+                <v-container>
+                    <v-layout>
+                        <v-flex md12 lg12>
+                            <v-text-field
+                            v-model="username"
+                            label="Username"
+                            name="username"
+                            required
+                            ></v-text-field>
+                        </v-flex>
+                    </v-layout>
 
-                        <v-layout>
-                            <v-flex md12 lg12>
-                                <v-text-field
-                                :append-icon="pwShow ? 'visibility_off' : 'visibility'"
-                                :rules="[rules.required]"
-                                :type="pwShow ? 'text' : 'password'"
-                                label="passwword"
-                                name="password"
-                                required
-                                @click:append="pwShow = !pwShow"
-                                ></v-text-field>
-                            </v-flex>
-                        </v-layout>
+                    <v-layout>
+                        <v-flex md12 lg12>
+                            <v-text-field
+                            v-model="password"
+                            :append-icon="pwShow ? 'visibility_off' : 'visibility'"
+                            :rules="[rules.required]"
+                            :type="pwShow ? 'text' : 'password'"
+                            label="passwword"
+                            name="password"
+                            required
+                            @click:append="pwShow = !pwShow"
+                            ></v-text-field>
+                        </v-flex>
+                    </v-layout>
 
-                        <v-checkbox
-                        v-model="checkbox"
-                        label="Remember me"
-                        ></v-checkbox>
+                    <v-checkbox
+                    v-model="checkbox"
+                    label="Remember me"
+                    ></v-checkbox>
 
-                        <v-card-actions>
-                            <v-btn type="submit" color="primary" @click="submit">Login</v-btn>
-                            <v-btn color="info" flat>forgot password?</v-btn>
-                        </v-card-actions>
-                    </v-container>
-                </v-form>
+                    <v-card-actions>
+                        <v-btn color="primary" @click="authenticate">Login</v-btn>
+                        <v-btn color="info" flat>forgot password?</v-btn>
+                    </v-card-actions>
+                </v-container>
             </v-card>
         </v-flex>
     </v-layout>
@@ -51,19 +52,22 @@
 
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
+import { EventBus } from '../util/index.js'
 
 export default {
     name: 'LoginCard',
-    props: ['url'],
     mixins: [validationMixin],
     validations: {
-      uasername: { required },
+      username: { required },
       password: { required }
     },
     data () {
         return {
             valid: true,
             checkbox: false,
+            username: '',
+            password: '',
+            errorMsg: '',
             pwShow: false,
             rules: {
                 required: value => !!value || 'Required.'
@@ -71,9 +75,24 @@ export default {
         }
     },
     methods: {
-        submit () {
-            this.$v.$touch()
+        authenticate () {
+            this.$store.dispatch('login', { username: this.username, password: this.password })
         },
+        register () {
+            this.$store.dispatch('register', { username: this.username, password: this.password })
+        }
+    },
+    mounted () {
+        EventBus.$on('failedRegistering', (msg) => {
+            this.errorMsg = msg
+        })
+        EventBus.$on('failedAuthentication', (msg) => {
+            this.errorMsg = msg
+        })
+    },
+    beforeDestroy () {
+        EventBus.$off('failedRegistering')
+        EventBus.$off('failedAuthentication')
     }
 }
 </script>

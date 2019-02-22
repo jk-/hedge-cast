@@ -5,6 +5,7 @@ import jinja2
 import os
 
 from flask import Flask, render_template, send_file, current_app
+from flask_cors import CORS
 from app.config import base_config, test_config
 from app.database import db
 from app.commands import create_db
@@ -20,14 +21,14 @@ from app.repository.user_repository import UserRepository
 
 
 def create_app(config=base_config):
-    app = Flask(
-        __name__, static_folder="..%s".format(current_app.config["DIST_DIR"])
-    )
+    app = Flask(__name__, static_folder="../dist")
     app.config.from_object(config)
 
     stream_handler = logging.StreamHandler()
     stream_handler.setLevel(logging.INFO)
     app.logger.addHandler(stream_handler)
+
+    cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     register_blueprints(app)
     register_extensions(app)

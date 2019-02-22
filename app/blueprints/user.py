@@ -1,58 +1,44 @@
-from flask import (
-    Blueprint,
-    render_template,
-    abort,
-    redirect,
-    url_for,
-    request,
-    flash,
-)
-from jinja2 import TemplateNotFound
-from flask_login import login_required, login_user, logout_user
-from app.extensions import login_manager
+import jwt
+from datetime import datetime, timedelta
+
+from flask import Blueprint, request, current_app, jsonify
+from app.service.user_authenticator import UserAuthenticator
 from app.repository.user_repository import UserRepository
 from app.models.user import User
 
-user_blueprint = Blueprint("user", __name__, template_folder="templates")
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return UserRepository.get_by_id(user_id)
+user_blueprint = Blueprint("user", __name__)
 
 
 @user_blueprint.route("/register", methods=["POST"])
-def register_post():
+def register():
+    data = request.get_json()
     user = User()
-    user.set_username(request.form.get("username"))
-    user.set_password(request.form.get("password"))
-    user.set_email(request.form.get("email"))
+    user.set_username(data.username)
+    user.set_password(data.pasword)
+    user.set_email(data.email)
     user = UserRepository.save(user)
-    login_user(user)
-    return redirect(url_for("index"))
+    return jsonify(user.to_dict()), 201
 
 
-@user_blueprint.route("/l", methods=["POST"])
+@user_blueprint.route("/login", methods=("POST",))
 def login():
-
-    user = UserRepository.query.filter_by(
-        username=request.form.get("username")
-    ).first()
+    data = request.get_json()
+    user = UserAuthenticator.authenticate(**data)
 
     if not user:
-        flash("Invalid user", "error")
-        return render_template("user/login.html.j2")
+        return (
+            jsonify(
+                {"message": "Invalid credentials", "authenticated": False}
+            ),
+            401,
+        )
 
-    if not user.check_password(request.form.get("password")):
-        flash("Invalid password", "error")
-        return render_template("user/login.html.j2")
-
-    login_user(user)
-    return redirect(url_for("index"))
-
-
-@user_blueprint.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for("index"))
+    token = jwt.encode(
+        {
+            "sub": user.username,
+            "iat": datetime.utcnow(),
+            "exp": datetime.utcnow() + timedelta(minutes=30),
+        },
+        current_app.config["SECRET_KEY"],
+    )
+    return jsonify({"token": token.decode("UTF-8")})
