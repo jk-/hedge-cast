@@ -8,11 +8,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: "./app/assets/js/index.js",
+  entry: "./src/js/index.js",
   mode: process.env.NODE_ENV,
   output: {
-    publicPath: "/static/",
-    path: path.resolve(__dirname, "static"),
+    publicPath: "/dist/",
+    path: path.resolve(__dirname, "dist"),
     filename: "[name].[contenthash].js"
   },
   optimization: {
@@ -49,7 +49,7 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: '/static/'
+              publicPath: '/dist/'
             }
           },
           "css-loader"
@@ -81,7 +81,7 @@ module.exports = {
     new ManifestPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'app/templates/index.html'
+      template: './src/index.html'
     })
   ]
 }

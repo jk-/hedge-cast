@@ -20,7 +20,9 @@ from app.repository.user_repository import UserRepository
 
 
 def create_app(config=base_config):
-    app = Flask(__name__, static_folder="../static")
+    app = Flask(
+        __name__, static_folder="..%s".format(current_app.config["DIST_DIR"])
+    )
     app.config.from_object(config)
 
     stream_handler = logging.StreamHandler()

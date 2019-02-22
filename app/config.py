@@ -6,7 +6,7 @@ class base_config:
 
     APP_DIR = os.path.dirname(__file__)
     ROOT_DIR = os.path.dirname(APP_DIR)
-    DIST_DIR = os.path.join(ROOT_DIR, "static")
+    DIST_DIR = os.path.join(ROOT_DIR, "dist")
 
     SITE_NAME = os.environ.get(
         "APP_NAME", "Hedge Cast - Investment learning at your fingertips"
