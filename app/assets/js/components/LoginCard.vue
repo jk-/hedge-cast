@@ -53,6 +53,7 @@ import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 
 export default {
+    name: 'LoginCard',
     props: ['url'],
     mixins: [validationMixin],
     validations: {

@@ -12,7 +12,7 @@ module.exports = {
   mode: process.env.NODE_ENV,
   output: {
     publicPath: "/static/",
-    path: path.resolve(__dirname, "app/static"),
+    path: path.resolve(__dirname, "static"),
     filename: "[name].[contenthash].js"
   },
   optimization: {
@@ -80,8 +80,8 @@ module.exports = {
     }),
     new ManifestPlugin(),
     new HtmlWebpackPlugin({
-      filename: 'base_compiled.html.j2',
-      template: 'app/templates/base.html.j2'
+      filename: 'index.html',
+      template: 'app/templates/index.html'
     })
   ]
 }

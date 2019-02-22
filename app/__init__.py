@@ -4,9 +4,8 @@ import sys
 import jinja2
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, send_file, current_app
 from app.config import base_config, test_config
-from app.assets import assets
 from app.database import db
 from app.commands import create_db
 from app.commands import populate_db
@@ -21,7 +20,7 @@ from app.repository.user_repository import UserRepository
 
 
 def create_app(config=base_config):
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="../static")
     app.config.from_object(config)
 
     stream_handler = logging.StreamHandler()
@@ -33,20 +32,17 @@ def create_app(config=base_config):
     register_jinja_env(app)
     register_commands(app)
 
-    @app.route("/", methods=["GET"])
+    @app.route("/")
     def index():
-        return render_template("index.html.j2")
-
-    @app.errorhandler(500)
-    def error_500(error):
-        return render_template("errors/500.html.j2"), error.code
+        dist_dir = current_app.config["DIST_DIR"]
+        entry = os.path.join(dist_dir, "index.html")
+        return send_file(entry)
 
     return app
 
 
 def register_extensions(app):
     db.init_app(app)
-    assets.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     migrate.init_app(app, db)
@@ -77,15 +73,3 @@ def register_jinja_env(app):
 def register_commands(app):
     for command in [create_db, populate_db, drop_db]:
         app.cli.command()(command)
-
-
-def register_errorhandlers(app):
-    def render_error(error):
-        return render_template("errors/%s.html.j2" % error.code), error.code
-
-    for error in [
-        requests.codes.INTERNAL_SERVER_ERROR,
-        requests.codes.NOT_FOUND,
-        requests.codes.UNAUTHORIZED,
-    ]:
-        app.errorhandler(error)(render_error)

@@ -21,16 +21,6 @@ def load_user(user_id):
     return UserRepository.get_by_id(user_id)
 
 
-@user_blueprint.route("/login")
-def login_form():
-    return render_template("user/login.html.j2")
-
-
-@user_blueprint.route("/register", methods=["GET"])
-def register():
-    return render_template("user/register.html.j2")
-
-
 @user_blueprint.route("/register", methods=["POST"])
 def register_post():
     user = User()
@@ -42,7 +32,7 @@ def register_post():
     return redirect(url_for("index"))
 
 
-@user_blueprint.route("/l", methods=["GET", "POST"])
+@user_blueprint.route("/l", methods=["POST"])
 def login():
 
     user = UserRepository.query.filter_by(

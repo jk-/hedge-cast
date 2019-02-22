@@ -1,9 +1,6 @@
 flask
-cssmin
-jsmin
 gunicorn
 libsass
-flask-assets
 requests
 flask-sqlalchemy
 faker
