@@ -2,7 +2,7 @@ import jwt
 
 from functools import wraps
 from flask import request, current_app, jsonify
-from app.reposittory.user_repository import UserRepository
+from app.repository.user_repository import UserRepository
 
 
 def token_required(f):
@@ -14,6 +14,7 @@ def token_required(f):
             "message": "Invalid token. Registeration and / or authentication required",
             "authenticated": False,
         }
+
         expired_msg = {
             "message": "Expired token. Reauthentication required.",
             "authenticated": False,

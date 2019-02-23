@@ -32,11 +32,12 @@ module.exports = {
       },
     },
   },
-  // resolve: {
-  //   alias: {
-  //     'vue$': 'vue/dist/vue.min.js'
-  //   }
-  // },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.min.js',
+      '@': path.resolve(__dirname, 'src')
+    }
+  },
   module: {
     rules: [
       {

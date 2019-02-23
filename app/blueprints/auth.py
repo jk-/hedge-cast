@@ -6,10 +6,10 @@ from app.service.user_authenticator import UserAuthenticator
 from app.repository.user_repository import UserRepository
 from app.models.user import User
 
-user_blueprint = Blueprint("user", __name__)
+auth_blueprint = Blueprint("auth", __name__)
 
 
-@user_blueprint.route("/register", methods=["POST"])
+@auth_blueprint.route("/register", methods=("POST",))
 def register():
     data = request.get_json()
     user = User()
@@ -20,7 +20,7 @@ def register():
     return jsonify(user.to_dict()), 201
 
 
-@user_blueprint.route("/login", methods=("POST",))
+@auth_blueprint.route("/login", methods=("POST",))
 def login():
     data = request.get_json()
     user = UserAuthenticator.authenticate(**data)
@@ -32,7 +32,6 @@ def login():
             ),
             401,
         )
-
     token = jwt.encode(
         {
             "sub": user.username,

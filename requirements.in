@@ -3,7 +3,6 @@ gunicorn
 requests
 flask-sqlalchemy
 faker
-flask-login
 flask_bcrypt
 flask-migrate
 pymysql

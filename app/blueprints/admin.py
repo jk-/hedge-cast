@@ -7,7 +7,6 @@ from flask import (
     request,
     flash,
 )
-from flask_login import login_required
 from app.repository.user_repository import UserRepository
 from app.models.user import User
 from app.roles_required import roles_required

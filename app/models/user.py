@@ -1,11 +1,10 @@
 import datetime
 
-from flask_login import UserMixin
 from app.database import db
 from app.extensions import bcrypt
 
 
-class User(UserMixin, db.Model):
+class User(db.Model):
     """
         a user
 
@@ -63,4 +62,9 @@ class User(UserMixin, db.Model):
         return set(args).issubset({role.name for role in self.roles})
 
     def to_dict(self):
-        return dict(id=self.id, username=self.username)
+        return dict(
+            id=self.id,
+            username=self.username,
+            created=int(self.created.timestamp()),
+            enabled=int(self.enabled),
+        )

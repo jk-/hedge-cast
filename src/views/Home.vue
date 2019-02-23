@@ -12,18 +12,29 @@
 
                     <div class="title mb-3">Check out our newest features!</div>
 
-                    <v-btn class="mx-0" color="primary" large>
+                    <v-btn class="mx-0" color="primary" large :to="{ name: 'admin_home'}">
                         Learn More
                     </v-btn>
                 </v-flex>
             </v-layout>
             </v-container>
         </v-responsive>
-</div>
+    </div>
 </template>
 
 <script>
+
+    import { get_all_users } from '@/api/index.js'
+
     export default {
-        name: 'home'
+        name: 'home',
+        methods: {
+            getAllUsers () {
+                console.log("here")
+                get_all_users().then( response => {
+                    console.log(response.data)
+                })
+            }
+        }
     }
 </script>

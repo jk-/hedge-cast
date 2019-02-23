@@ -52,7 +52,7 @@
 
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
-import { EventBus } from '../util/index.js'
+import { EventBus } from '@/util/index.js'
 
 export default {
     name: 'LoginCard',
@@ -84,15 +84,19 @@ export default {
     },
     mounted () {
         EventBus.$on('failedRegistering', (msg) => {
-            this.errorMsg = msg
+            this.errorMsg = msg.response.data.message
         })
         EventBus.$on('failedAuthentication', (msg) => {
-            this.errorMsg = msg
+            this.errorMsg = msg.response.data.message
+        })
+        EventBus.$on('successAuthentication', () => {
+            this.$router.push('/')
         })
     },
     beforeDestroy () {
         EventBus.$off('failedRegistering')
         EventBus.$off('failedAuthentication')
+        EventBus.$off('successAuthentication')
     }
 }
 </script>

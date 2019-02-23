@@ -5,10 +5,10 @@
   "author": "bas <basilieus@gmail.com>",
   "scripts": {
     "dev": "npm run development",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules",
     "watch": "npm run development -- --watch",
     "watch-poll": "npm run watch -- --watch-poll",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --config=webpack.config.js --inline --hot",
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js -p --no-progress --hide-modules"
   },
@@ -22,22 +22,22 @@
     "vuetify": "^1.5.1",
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3",
-    "webpack-manifest-plugin": "^2.0.4"
-  },
-  "devDependencies": {
+    "vuex": "^3.1.0",
+    "vue-cli-plugin-vuetify": "^0.4.6",
+    "vue-loader": "^15.6.4",
+    "vue-template-compiler": "^2.6.6",
+    "vuetify-loader": "^1.2.1",
+    "webpack-manifest-plugin": "^2.0.4",
     "axios": "^0.18.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
-    "to-string-loader": "^1.1.5",
-    "vue-cli-plugin-vuetify": "^0.4.6",
-    "vue-loader": "^15.6.4",
-    "vue-template-compiler": "^2.6.6",
-    "vuetify-loader": "^1.2.1",
-    "vuex": "^3.1.0"
+    "stylus-loader": "^3.0.2"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.2.0"
   },
   "license": "MIT"
 }

@@ -5,7 +5,6 @@ import jinja2
 import os
 
 from flask import Flask, render_template, send_file, current_app
-from flask_cors import CORS
 from app.config import base_config, test_config
 from app.database import db
 from app.commands import create_db
@@ -13,9 +12,10 @@ from app.commands import populate_db
 from app.commands import drop_db
 from app.extensions import migrate
 from app.extensions import bcrypt
-from app.extensions import login_manager
-from app.blueprints.user import user_blueprint
+from app.extensions import cors
+from app.blueprints.auth import auth_blueprint
 from app.blueprints.admin import admin_blueprint
+from app.blueprints.users import users_blueprint
 from app.models.user import User
 from app.repository.user_repository import UserRepository
 
@@ -28,15 +28,14 @@ def create_app(config=base_config):
     stream_handler.setLevel(logging.INFO)
     app.logger.addHandler(stream_handler)
 
-    cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-
     register_blueprints(app)
     register_extensions(app)
     register_jinja_env(app)
     register_commands(app)
 
-    @app.route("/")
-    def index():
+    @app.route("/", defaults={"path": ""})
+    @app.route("/<path:path>")
+    def catch_all(path):
         dist_dir = current_app.config["DIST_DIR"]
         entry = os.path.join(dist_dir, "index.html")
         return send_file(entry)
@@ -47,13 +46,18 @@ def create_app(config=base_config):
 def register_extensions(app):
     db.init_app(app)
     bcrypt.init_app(app)
-    login_manager.init_app(app)
     migrate.init_app(app, db)
+    cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
 
 
 def register_blueprints(app):
-    app.register_blueprint(user_blueprint, url_prefix="/user")
-    app.register_blueprint(admin_blueprint, url_prefix="/admin")
+    API_PATH = "/api"
+    app.register_blueprint(auth_blueprint, url_prefix=API_PATH)
+    app.register_blueprint(users_blueprint, url_prefix=API_PATH)
+
+    # app.register_blueprint(
+    #     admin_blueprint, url_prefix="/%s/admin".format(API_PATH)
+    # )
 
 
 def register_jinja_env(app):

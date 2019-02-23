@@ -8,13 +8,13 @@
     - [x] Login Page
     - [x] Webpack with vue and vuetify
     - [x] Login ability
-    - [x] Logout ability
     - [x] Create registration page
     - [x] Register ability
     - [x] Roles
     - [x] Vue SPA, Seperate Vue from Flask API app
     - [x] Add admin section
         - [] All related admin activities
+    - [] Logout ability
     - [] Category Section
     - [] Video play page
     - [] Playlist Page
@@ -26,7 +26,8 @@
     - [] Fix salt and password in user entity
 
 
-Remember:
+### Remember:
+
     A router-link was being push and its parent container was being removed.
     In this case the Toolbar was rendered on each page from the specific
     page view. moved the toolbar to the App index and the touch error went away.
