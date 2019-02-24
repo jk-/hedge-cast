@@ -32,6 +32,7 @@ def login():
             ),
             401,
         )
+
     token = jwt.encode(
         {
             "sub": user.username,
@@ -39,5 +40,6 @@ def login():
             "exp": datetime.utcnow() + timedelta(minutes=30),
         },
         current_app.config["SECRET_KEY"],
+        algorithm="HS256",
     )
     return jsonify({"token": token.decode("UTF-8")})

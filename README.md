@@ -12,9 +12,9 @@
     - [x] Register ability
     - [x] Roles
     - [x] Vue SPA, Seperate Vue from Flask API app
+- [x] Logout ability
     - [x] Add admin section
         - [] All related admin activities
-    - [] Logout ability
     - [] Category Section
     - [] Video play page
     - [] Playlist Page
@@ -24,6 +24,7 @@
     - [] AWS integration
     - [] Webpack CSS injection
     - [] Fix salt and password in user entity
+    - [] The JWT needs to check on server for security
 
 
 ### Remember:

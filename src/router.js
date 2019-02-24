@@ -38,7 +38,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    console.log(store.getters.isAuthenticated)
     if (to.matched.some(record => record.meta.requiresLogin) && !store.getters.isAuthenticated) {
         next("login")
     } else {

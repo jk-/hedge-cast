@@ -84,5 +84,5 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html'
     })
-  ]
+  ],
 }

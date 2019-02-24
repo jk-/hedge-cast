@@ -24,14 +24,14 @@ const actions = {
                 EventBus.$emit('successAuthentication')
             })
             .catch(error => {
-                context.commit('setJwtToken', {})
-                context.commit('setUserData', {})
+                context.commit('setJwtToken')
+                context.commit('setUserData')
                 EventBus.$emit('failedAuthentication', error)
         })
     },
-    logout () {
-        context.commit('setJwtToken', {})
-        context.commit('setUserData', {})
+    logout (context) {
+        context.commit('setJwtToken')
+        context.commit('setUserData')
     },
     register (context, userData) {
         context.commit('setUserData', { userData })
