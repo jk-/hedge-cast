@@ -26,9 +26,3 @@
     - [] Fix salt and password in user entity
     - [] The JWT needs to check on server for security
 
-
-### Remember:
-
-    A router-link was being push and its parent container was being removed.
-    In this case the Toolbar was rendered on each page from the specific
-    page view. moved the toolbar to the App index and the touch error went away.
