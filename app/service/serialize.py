@@ -3,6 +3,9 @@ def serialize(entity):
     if type(entity).__name__ == "list" and len(entity):
         data = [x.to_dict() for x in entity]
     else:
-        data = entity.to_dict()
+        if entity:
+            data = entity.to_dict()
+        else:
+            data = {}
 
     return data

@@ -12,6 +12,7 @@ import AdminVideos from '@/views/admin/Videos.vue'
 import AdminUsers from '@/views/admin/Users.vue'
 import AdminUsersEdit from '@/views/admin/users/Edit.vue'
 import AdminCategoryEdit from '@/views/admin/category/Edit.vue'
+import AdminPlanEdit from '@/views/admin/plan/Edit.vue'
 
 import store from '@/store'
 
@@ -82,6 +83,11 @@ const router = new Router({
                 path: 'category/edit/:id',
                 name: 'admin_category_edit',
                 component: AdminCategoryEdit,
+            },
+            {
+                path: 'plan/edit/:id',
+                name: 'admin_plan_edit',
+                component: AdminPlanEdit,
             }
         ]
     },

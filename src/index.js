@@ -26,3 +26,7 @@ Vue.filter('format_date', function (value) {
 Vue.filter('from_boolean', function (value) {
     return value ? 'Yes' : 'No'
 })
+
+Vue.filter('to_currency', function (value) {
+    return parseFloat(value)
+})

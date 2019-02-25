@@ -7,6 +7,7 @@ from app.models.role import Role
 from app.models.user_roles import UserRoles
 from app.models.plan import Plan
 from app.models.category import Category
+from app.models.plan import Plan
 from app.models.playlist import Playlist
 from app.models.video import Video
 from app.models.playlist_category import PlaylistCategory
@@ -54,6 +55,28 @@ def populate_category():
     for cat in categories:
         print("saving category %s".format(cat))
         db.session.add(cat)
+    db.session.commit()
+
+
+def populate_plans():
+    """Populates the database with seed data."""
+    fake = Faker()
+    plans = []
+    for _ in range(5):
+        _plan = Plan()
+        _plan.name = fake.word()
+        _plan.enabled = fake.boolean()
+        _plan.code = fake.word()
+        _plan.interval_term = 1
+        _plan.interval_count = 1
+        _plan.price = 12.00
+        _plan.trial_days = 0
+        _plan.statement_desc = fake.word()
+        _plan.plan_group = fake.word()
+        plans.append(_plan)
+    for plan in plans:
+        print("saving plan %s".format(plan))
+        db.session.add(plan)
     db.session.commit()
 
 

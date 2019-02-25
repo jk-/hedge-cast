@@ -45,3 +45,14 @@ export function get_all_categories() {
 export function get_category(id) {
   return axios.get(`${API_URL}/category/${id}`)
 }
+
+/*
+ Plan
+*/
+export function get_all_plans() {
+  return axios.get(`${API_URL}/plans`)
+}
+
+export function get_plan(id) {
+  return axios.get(`${API_URL}/plan/${id}`)
+}
