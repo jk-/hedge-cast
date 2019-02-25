@@ -17,6 +17,12 @@ class Plan(db.Model):
     statement_desc = db.Column(db.String(255), nullable=False)
     plan_group = db.Column(db.String(255), nullable=False)
 
+    def update(self, **kwargs):
+        for attr, value in kwargs.items():
+            if attr not in ("id",):
+                setattr(self, attr, value)
+        return self
+
     def to_dict(self):
         return dict(
             id=self.id,

@@ -31,6 +31,7 @@
 
 <script>
     import { get_plan } from '@/api/index.js'
+    import { save_plan } from '@/api/index.js'
 
     export default {
         name: 'admin-plan-edit',
@@ -53,7 +54,7 @@
             },
             saveItem () {
                 save_plan(this.item).then(response => {
-
+                    this.item = response.data
                 })
             }
         },

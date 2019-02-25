@@ -61,6 +61,10 @@ export function get_plan(id) {
   return axios.get(`${API_URL}/plan/${id}`)
 }
 
+export function save_plan(plan) {
+  return axios.post(`${API_URL}/plan`, plan)
+}
+
 /*
  Playlist
 */
