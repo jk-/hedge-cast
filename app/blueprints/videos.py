@@ -6,6 +6,7 @@ from app.repository.video_repository import VideoRepository
 from app.models.video import Video
 from app.service.serialize import serialize
 from app.token_required import token_required
+from app.service.dotdict import dotdict
 
 videos_blueprint = Blueprint("videos", __name__)
 
@@ -22,3 +23,13 @@ def get_videos(*args, **kwargs):
 def get_video(video_id, *args, **kwargs):
     video = VideoRepository.query.get(video_id)
     return jsonify(serialize(video)), 200
+
+
+@videos_blueprint.route("/video", methods=("POST",))
+@token_required
+def save_video(*args, **kwargs):
+    data = dotdict(request.get_json())
+    video = VideoRepository.get(data.id)
+    video.update(**data)
+    VideoRepository.save(video)
+    return jsonify(serialize(video)), 201

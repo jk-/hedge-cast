@@ -104,3 +104,7 @@ export function get_all_videos() {
 export function get_video(id) {
   return axios.get(`${API_URL}/video/${id}`)
 }
+
+export function save_video(video) {
+  return axios.post(`${API_URL}/video`, video)
+}

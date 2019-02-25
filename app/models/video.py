@@ -18,6 +18,12 @@ class Video(db.Model):
     source = db.Column(db.String(255), nullable=False)
     thumbnail = db.Column(db.String(255))
 
+    def update(self, **kwargs):
+        for attr, value in kwargs.items():
+            if attr not in ("id", "created"):
+                setattr(self, attr, value)
+        return self
+
     def to_dict(self):
         return dict(
             id=self.id,

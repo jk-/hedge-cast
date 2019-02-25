@@ -31,6 +31,7 @@
 
 <script>
     import { get_video } from '@/api/index.js'
+    import { save_video } from '@/api/index.js'
 
     export default {
         name: 'admin-video-edit',
@@ -53,7 +54,7 @@
             },
             saveItem () {
                 save_video(this.item).then(response => {
-
+                    this.item = response.data
                 })
             }
         },
