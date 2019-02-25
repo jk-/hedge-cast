@@ -20,6 +20,7 @@ from app.blueprints.auth import auth_blueprint
 from app.blueprints.admin import admin_blueprint
 from app.blueprints.users import users_blueprint
 from app.blueprints.plan import plan_blueprint
+from app.blueprints.role import roles_blueprint
 from app.blueprints.playlist import playlist_blueprint
 from app.blueprints.categories import category_blueprint
 from app.models.user import User
@@ -63,6 +64,7 @@ def register_blueprints(app):
     app.register_blueprint(category_blueprint, url_prefix=API_PATH)
     app.register_blueprint(plan_blueprint, url_prefix=API_PATH)
     app.register_blueprint(playlist_blueprint, url_prefix=API_PATH)
+    app.register_blueprint(roles_blueprint, url_prefix=API_PATH)
 
     # app.register_blueprint(
     #     admin_blueprint, url_prefix="/%s/admin".format(API_PATH)

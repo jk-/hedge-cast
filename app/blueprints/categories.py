@@ -12,13 +12,13 @@ category_blueprint = Blueprint("category", __name__)
 
 @category_blueprint.route("/categories", methods=("GET",))
 @token_required
-def get_users(*args, **kwargs):
+def get_categories(*args, **kwargs):
     categories = CategoryRepository.query.all()
     return jsonify(serialize(categories)), 201
 
 
 @category_blueprint.route("/category/<int:category_id>", methods=("GET",))
 @token_required
-def get_user(category_id, *args, **kwargs):
+def get_category(category_id, *args, **kwargs):
     category_id = CategoryRepository.query.get(category_id)
     return jsonify(serialize(category_id)), 201

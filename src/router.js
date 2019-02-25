@@ -14,6 +14,7 @@ import AdminUsersEdit from '@/views/admin/users/Edit.vue'
 import AdminCategoryEdit from '@/views/admin/category/Edit.vue'
 import AdminPlanEdit from '@/views/admin/plan/Edit.vue'
 import AdminPlaylistEdit from '@/views/admin/playlist/Edit.vue'
+import AdminRoleEdit from '@/views/admin/role/Edit.vue'
 
 import store from '@/store'
 
@@ -94,6 +95,11 @@ const router = new Router({
                 path: 'playlist/edit/:id',
                 name: 'admin_playlist_edit',
                 component: AdminPlaylistEdit,
+            },
+            {
+                path: 'role/edit/:id',
+                name: 'admin_role_edit',
+                component: AdminRoleEdit,
             }
         ]
     },

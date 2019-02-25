@@ -67,3 +67,14 @@ export function get_all_playlists() {
 export function get_playlist(id) {
   return axios.get(`${API_URL}/playlist/${id}`)
 }
+
+/*
+ Roles
+*/
+export function get_all_roles() {
+  return axios.get(`${API_URL}/roles`)
+}
+
+export function get_role(id) {
+  return axios.get(`${API_URL}/role/${id}`)
+}

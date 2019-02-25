@@ -12,13 +12,13 @@ plan_blueprint = Blueprint("plans", __name__)
 
 @plan_blueprint.route("/plans", methods=("GET",))
 @token_required
-def get_users(*args, **kwargs):
+def get_plans(*args, **kwargs):
     plans = PlanRepository.query.all()
     return jsonify(serialize(plans)), 201
 
 
 @plan_blueprint.route("/plan/<int:plan_id>", methods=("GET",))
 @token_required
-def get_user(plan_id, *args, **kwargs):
+def get_plan(plan_id, *args, **kwargs):
     plan = PlanRepository.query.get(plan_id)
     return jsonify(serialize(plan)), 201
