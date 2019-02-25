@@ -31,6 +31,7 @@
 
 <script>
     import { get_role } from '@/api/index.js'
+    import { save_role } from '@/api/index.js'
 
     export default {
         name: 'admin-role-edit',
@@ -53,7 +54,7 @@
             },
             saveItem () {
                 save_role(this.item).then(response => {
-
+                    this.item = response.data
                 })
             }
         },

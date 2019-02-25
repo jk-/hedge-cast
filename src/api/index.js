@@ -91,6 +91,9 @@ export function get_role(id) {
   return axios.get(`${API_URL}/role/${id}`)
 }
 
+export function save_role(role) {
+  return axios.post(`${API_URL}/role`, role)
+}
 /*
  Videos
 */

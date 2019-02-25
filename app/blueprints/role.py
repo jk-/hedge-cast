@@ -6,6 +6,7 @@ from app.repository.role_repository import RoleRepository
 from app.models.role import Role
 from app.service.serialize import serialize
 from app.token_required import token_required
+from app.service.dotdict import dotdict
 
 roles_blueprint = Blueprint("roles", __name__)
 
@@ -22,3 +23,13 @@ def get_roles(*args, **kwargs):
 def get_role(role_id, *args, **kwargs):
     role = RoleRepository.query.get(role_id)
     return jsonify(serialize(role)), 200
+
+
+@roles_blueprint.route("/role", methods=("POST",))
+@token_required
+def save_role(*args, **kwargs):
+    data = dotdict(request.get_json())
+    role = RoleRepository.get(data.id)
+    role.update(**data)
+    RoleRepository.save(role)
+    return jsonify(serialize(role)), 201
