@@ -15,6 +15,7 @@ import AdminCategoryEdit from '@/views/admin/category/Edit.vue'
 import AdminPlanEdit from '@/views/admin/plan/Edit.vue'
 import AdminPlaylistEdit from '@/views/admin/playlist/Edit.vue'
 import AdminRoleEdit from '@/views/admin/role/Edit.vue'
+import AdminVideosEdit from '@/views/admin/videos/Edit.vue'
 
 import store from '@/store'
 
@@ -100,6 +101,11 @@ const router = new Router({
                 path: 'role/edit/:id',
                 name: 'admin_role_edit',
                 component: AdminRoleEdit,
+            },
+            {
+                path: 'video/edit/:id',
+                name: 'admin_video_edit',
+                component: AdminVideosEdit,
             }
         ]
     },

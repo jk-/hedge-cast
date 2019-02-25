@@ -96,6 +96,25 @@ def populate_playlist():
     db.session.commit()
 
 
+def populate_videos():
+    """Populates the database with seed data."""
+    fake = Faker()
+    videos = []
+    for _ in range(5):
+        _video = Video()
+        _video.title = fake.word()
+        _video.access_type = fake.word()
+        _video.enabled = fake.boolean()
+        _video.url = fake.url()
+        _video.source = fake.word()
+        _video.thumbnail = fake.word()
+        videos.append(_video)
+    for video in videos:
+        print("saving video %s".format(video))
+        db.session.add(video)
+    db.session.commit()
+
+
 def drop_db():
     """Drops the database."""
     if click.confirm("Are you sure?", abort=True):

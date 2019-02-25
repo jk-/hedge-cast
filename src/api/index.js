@@ -78,3 +78,14 @@ export function get_all_roles() {
 export function get_role(id) {
   return axios.get(`${API_URL}/role/${id}`)
 }
+
+/*
+ Videos
+*/
+export function get_all_videos() {
+  return axios.get(`${API_URL}/videos`)
+}
+
+export function get_video(id) {
+  return axios.get(`${API_URL}/video/${id}`)
+}
