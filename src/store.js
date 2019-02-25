@@ -56,7 +56,6 @@ const mutations = {
         if (payload) {
             localStorage.setItem('token', payload.jwt.token)
             state.jwt = payload.jwt.token
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.jwt;
         } else {
             localStorage.setItem('token', '')
             state.jwt = ''

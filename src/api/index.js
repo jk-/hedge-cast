@@ -1,14 +1,5 @@
 import axios from 'axios'
-import { isValidJwt } from '@/util/index.js'
-
-const token = localStorage.getItem('token')
-
-if (isValidJwt(token)) {
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-} else {
-    delete axios.defaults.headers.common['Authorization']
-    localStorage.removeItem('token')
-}
+import '@/api/interceptor'
 
 const API_URL = 'http://127.0.0.1:5000/api'
 

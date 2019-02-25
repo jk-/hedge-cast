@@ -16,9 +16,11 @@
     - [x] Webpack CSS injection
     - [x] Add admin section
         - [x] All related admin activities
-        - [] Ability to save entity
+        - [x] Ability to save entity
+        - [] Ability to create
         - [] Add AXIO interceptors for errors
         - [] The JWT needs to check on server for security
+    - [] Add global snackbar
     - [] Client Pages
         - [] Category Section
         - [] Video play page
