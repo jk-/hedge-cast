@@ -50,7 +50,7 @@ const actions = {
                 EventBus.$emit('failedRegistering: ', error)
         })
     },
-    setSnackMessage (context, payload) {
+    setSnackbar (context, payload) {
         context.commit('showSnackbar', payload)
     }
 }

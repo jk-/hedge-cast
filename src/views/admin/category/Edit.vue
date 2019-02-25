@@ -55,6 +55,12 @@
             saveCategory () {
                 save_category(this.category).then(response => {
                     this.category = response.data
+                    let payload = {
+                        color: 'success',
+                        text: "Sucessfully updated category"
+                    }
+                    this.$router.push({name: 'admin_category'})
+                    this.$store.dispatch('setSnackbar', payload)
                 })
             }
         },
