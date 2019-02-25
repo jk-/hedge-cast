@@ -11,7 +11,7 @@ class Repository:
     """
 
     @classmethod
-    def get_by_id(cls, id):
+    def get(cls, id):
         if any(
             (
                 isinstance(id, str) and id.isdigit(),
@@ -20,11 +20,6 @@ class Repository:
         ):
             return cls.query.get(int(id))
         return None
-
-    def update(self, commit=True, **kwargs):
-        for attr, value in kwargs.items():
-            setattr(self, attr, value)
-        return commit and self.save() or self
 
     @staticmethod
     def save(entity, commit=True):

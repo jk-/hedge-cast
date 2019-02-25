@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar dense class="transparent z-depth-0">
+    <v-toolbar class="white z-depth-0">
         <v-toolbar-side-icon></v-toolbar-side-icon>
         <v-toolbar-title><router-link :to="{ name: 'index'}" class="black-text">Hedge Cast</router-link></v-toolbar-title>
         <v-spacer></v-spacer>

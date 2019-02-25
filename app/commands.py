@@ -26,20 +26,34 @@ def populate_db(num_users):
     users = []
     admin_role = Role(name="ROLE_ADMIN")
     for _ in range(num_users):
-        _user = User()
-        _user.set_password(fake.word() + fake.word())
-        _user.set_email(fake.email())
-        _user.set_username(fake.user_name())
-        users.append(_user)
+        _cat = User()
+        _cat.set_password(fake.word() + fake.word())
+        _cat.set_email(fake.email())
+        _cat.set_catname(fake.user_name())
+        users.append(_cat)
     jonUser = User()
     jonUser.set_password("pass")
     jonUser.set_email("jon@stonetorch.com")
-    jonUser.set_username("jon")
+    jonUser.set_catname("jon")
     jonUser.roles = [admin_role]
     users.append(jonUser)
     for user in users:
         print("saving user %s".format(user))
         db.session.add(user)
+    db.session.commit()
+
+
+def populate_category():
+    """Populates the database with seed data."""
+    fake = Faker()
+    categories = []
+    for _ in range(5):
+        _cat = Category()
+        _cat.name = fake.word()
+        categories.append(_cat)
+    for cat in categories:
+        print("saving category %s".format(cat))
+        db.session.add(cat)
     db.session.commit()
 
 

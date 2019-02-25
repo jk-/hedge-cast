@@ -3,3 +3,12 @@
 }
 .spinner { display: none; }
 [v-cloak] .spinner { display: block !important; }
+
+.clean-table {
+    td, tr, .v-datatable__actions {
+        border: 0px !important;
+    }
+    thead tr th {
+        font-weight: 900;
+    }
+}

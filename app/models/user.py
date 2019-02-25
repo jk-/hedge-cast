@@ -41,6 +41,11 @@ class User(db.Model):
     def __repr__(self):
         return "<User #%s:%r>" % (self.id, self.username)
 
+    def update(self, **kwargs):
+        for attr, value in kwargs.items():
+            setattr(self, attr, value)
+        return self
+
     def set_username(self, username):
         self.username = username
         self.username_canonical = username
@@ -67,4 +72,8 @@ class User(db.Model):
             username=self.username,
             created=int(self.created.timestamp()),
             enabled=int(self.enabled),
+            email=self.email,
+            can_email_notify=self.can_email_notify,
+            can_email_general=self.can_email_general,
+            stripe_customer_id=self.stripe_customer_id,
         )

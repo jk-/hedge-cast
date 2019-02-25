@@ -1,11 +1,10 @@
 <template>
-    <v-container>
-        <v-navigation-drawer permanent>
-        <v-toolbar flat>
+    <v-navigation-drawer sm3 lg3 md3 permanent>
+        <v-toolbar class="transparent z-depth-0">
           <v-list>
             <v-list-tile>
               <v-list-tile-title class="title">
-                Application
+                  Admin
               </v-list-tile-title>
             </v-list-tile>
           </v-list>
@@ -18,30 +17,34 @@
             v-for="item in items"
             :key="item.title"
             @click=""
+            :to="{ name: item.path}"
           >
-            <v-list-tile-action>
-              <v-icon>dashboard</v-icon>
-            </v-list-tile-action>
-
             <v-list-tile-content>
-              <v-list-tile-title>Test</v-list-tile-title>
+              <v-list-tile-title>
+                 {{ item.title }}
+              </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
-        </v-navigation-drawer>
-    </v-container>
+    </v-navigation-drawer>
 </template>
 
 <script>
+    const admin_routes = [
+        { title: "Category", path: 'admin_category' },
+        { title: "Plans", path: 'admin_plans' },
+        { title: "Playlists", path: 'admin_playlists' },
+        { title: "Roles", path: 'admin_roles' },
+        { title: "User", path: 'admin_user' },
+        { title: "Videos", path: 'admin_videos' },
+    ]
 
-export default {
-    data () {
-        return {
-            items: [
-                { title: "test"}
-            ]
+    export default {
+        name: 'Navigation',
+        data () {
+            return {
+                items: admin_routes
+            }
         }
     }
-}
-
 </script>

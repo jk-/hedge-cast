@@ -37,7 +37,7 @@ def login():
         {
             "sub": user.username,
             "iat": datetime.utcnow(),
-            "exp": datetime.utcnow() + timedelta(minutes=30),
+            "exp": datetime.utcnow() + timedelta(minutes=60),
         },
         current_app.config["SECRET_KEY"],
         algorithm="HS256",

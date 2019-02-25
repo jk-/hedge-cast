@@ -9,6 +9,7 @@ from app.config import base_config, test_config
 from app.database import db
 from app.commands import create_db
 from app.commands import populate_db
+from app.commands import populate_category
 from app.commands import drop_db
 from app.extensions import migrate
 from app.extensions import bcrypt
@@ -16,6 +17,7 @@ from app.extensions import cors
 from app.blueprints.auth import auth_blueprint
 from app.blueprints.admin import admin_blueprint
 from app.blueprints.users import users_blueprint
+from app.blueprints.categories import category_blueprint
 from app.models.user import User
 from app.repository.user_repository import UserRepository
 
@@ -54,6 +56,7 @@ def register_blueprints(app):
     API_PATH = "/api"
     app.register_blueprint(auth_blueprint, url_prefix=API_PATH)
     app.register_blueprint(users_blueprint, url_prefix=API_PATH)
+    app.register_blueprint(category_blueprint, url_prefix=API_PATH)
 
     # app.register_blueprint(
     #     admin_blueprint, url_prefix="/%s/admin".format(API_PATH)
@@ -78,5 +81,5 @@ def register_jinja_env(app):
 
 
 def register_commands(app):
-    for command in [create_db, populate_db, drop_db]:
+    for command in [create_db, populate_db, drop_db, populate_category]:
         app.cli.command()(command)

@@ -25,4 +25,4 @@
     - [] Webpack CSS injection
     - [] Fix salt and password in user entity
     - [] The JWT needs to check on server for security
-
+    - [] Restyle tables

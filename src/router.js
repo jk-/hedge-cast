@@ -4,6 +4,13 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import AdminHome from '@/views/admin/Home.vue'
+import AdminCategory from '@/views/admin/Category.vue'
+import AdminPlans from '@/views/admin/Plans.vue'
+import AdminPlaylists from '@/views/admin/Playlists.vue'
+import AdminRoles from '@/views/admin/Roles.vue'
+import AdminVideos from '@/views/admin/Videos.vue'
+import AdminUsers from '@/views/admin/Users.vue'
+import AdminUsersEdit from '@/views/admin/users/Edit.vue'
 import store from '@/store'
 
 Vue.use(Router)
@@ -32,7 +39,44 @@ const router = new Router({
         component: AdminHome,
         meta: {
             requiresLogin: true
-        }
+        },
+        children: [
+            {
+                path: 'category',
+                name: 'admin_category',
+                component: AdminCategory,
+            },
+            {
+                path: 'plans',
+                name: 'admin_plans',
+                component: AdminPlans,
+            },
+            {
+                path: 'playlists',
+                name: 'admin_playlists',
+                component: AdminPlaylists,
+            },
+            {
+                path: 'roles',
+                name: 'admin_roles',
+                component: AdminRoles,
+            },
+            {
+                path: 'users',
+                name: 'admin_user',
+                component: AdminUsers,
+            },
+            {
+                path: 'videos',
+                name: 'admin_videos',
+                component: AdminVideos,
+            },
+            {
+                path: 'users/edit/:id',
+                name: 'admin_user_edit',
+                component: AdminUsersEdit,
+            }
+        ]
     },
   ]
 })

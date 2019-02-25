@@ -29,7 +29,7 @@ def token_required(f):
             user = UserRepository.query.filter_by(username=data["sub"]).first()
             if not user:
                 raise RuntimeError("User not found")
-            return f(user, *args, **kwargs)
+            return f(requesting_user=user, *args, **kwargs)
         except jwt.ExpiredSignatureError:
             return (jsonify(expired_msg), 401)
         except (jwt.InvalidTokenError, Exception) as e:
