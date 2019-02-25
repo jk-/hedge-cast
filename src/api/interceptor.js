@@ -23,6 +23,11 @@ axios.interceptors.response.use(
       return response
     },
     (error) => {
+        const payload = {
+            color: 'error',
+            text: error.response.data.message
+        }
+        store.dispatch('setSnackMessage', payload)
         if (error.response.status === 401) {
             store.dispatch('logout').then(() => {
                 router.push({ name: 'login' })

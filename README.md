@@ -18,9 +18,9 @@
         - [x] All related admin activities
         - [x] Ability to save entity
         - [] Ability to create
-        - [] Add AXIO interceptors for errors
+        - [x] Add AXIO interceptors for errors
         - [] The JWT needs to check on server for security
-    - [] Add global snackbar
+    - [X] Add global snackbar
     - [] Client Pages
         - [] Category Section
         - [] Video play page

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+Vue.config.devtools = true
+
 Vue.use(Vuex)
 
 import { authenticate, register } from '@/api/index.js'
@@ -13,7 +15,13 @@ const state = {
     userData: {
         username: getJwtUsername(token)
     },
-    jwt: token
+    jwt: token,
+    snackbar: {
+        visible: false,
+        color: '',
+        timeout: 2000,
+        text: ''
+    }
 }
 
 const actions = {
@@ -42,6 +50,9 @@ const actions = {
                 EventBus.$emit('failedRegistering: ', error)
         })
     },
+    setSnackMessage (context, payload) {
+        context.commit('showSnackbar', payload)
+    }
 }
 
 const mutations = {
@@ -61,7 +72,17 @@ const mutations = {
             state.jwt = ''
             delete axios.defaults.headers.common['Authorization']
         }
-    }
+    },
+    showSnackbar(state, payload) {
+        console.log(payload)
+        state.snackbar.text = payload.text
+        state.snackbar.visible = true
+        state.snackbar.color = payload.color
+    },
+    closeSnackbar(state) {
+        state.snackbar.visible = false
+        state.snackbar.text = null
+    },
 }
 
 const getters = {
@@ -79,3 +100,5 @@ export default new Vuex.Store({
     mutations,
     getters,
 })
+
+Vue.config.devtools = true
