@@ -31,6 +31,7 @@
 
 <script>
     import { get_playlist } from '@/api/index.js'
+    import { save_playlist } from '@/api/index.js'
 
     export default {
         name: 'admin-playlist-edit',
@@ -53,7 +54,7 @@
             },
             saveItem () {
                 save_playlist(this.item).then(response => {
-
+                    this.item = response.data
                 })
             }
         },

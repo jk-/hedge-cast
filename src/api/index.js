@@ -76,6 +76,10 @@ export function get_playlist(id) {
   return axios.get(`${API_URL}/playlist/${id}`)
 }
 
+export function save_playlist(playlist) {
+  return axios.post(`${API_URL}/playlist`, playlist)
+}
+
 /*
  Roles
 */
