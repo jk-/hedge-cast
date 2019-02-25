@@ -21,12 +21,12 @@ class Plan(db.Model):
         return dict(
             id=self.id,
             name=self.name,
-            enabled=self.enabled,
+            enabled=int(self.enabled),
             code=self.code,
-            interval_term=self.interval_term,
-            interval_count=self.interval_count,
+            interval_term=int(self.interval_term),
+            interval_count=int(self.interval_count),
             price=float(self.price),
-            trial_days=self.trial_days,
+            trial_days=int(self.trial_days),
             statement_desc=self.statement_desc,
             plan_group=self.plan_group,
         )

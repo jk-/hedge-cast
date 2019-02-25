@@ -43,13 +43,29 @@ class User(db.Model):
 
     def update(self, **kwargs):
         for attr, value in kwargs.items():
-            if attr not in ("id", "created"):
-                setattr(self, attr, value)
+            if attr not in (
+                "id",
+                "created",
+                "email_canonical",
+                "username_canonical",
+                "salt",
+                "last_login_at",
+            ):
+                set_method = f"set_{attr}"
+                if hasattr(self.__class__, set_method) and callable(
+                    getattr(self.__class__, set_method)
+                ):
+                    getattr(self, set_method)(value)
+                else:
+                    setattr(self, attr, value)
         return self
 
     def set_username(self, username):
-        self.username = username
-        self.username_canonical = username
+        setattr(self, "username", username)
+        setattr(self, "username_canonical", username)
+
+    def set_last_login_at(self, last_login_at):
+        setattr(self, "last_login_at", datetime.datetime.utcnow())
 
     def set_email(self, email):
         self.email = email
@@ -74,6 +90,7 @@ class User(db.Model):
             created=int(self.created.timestamp()),
             enabled=int(self.enabled),
             email=self.email,
+            last_login_at=self.last_login_at,
             can_email_notify=self.can_email_notify,
             can_email_general=self.can_email_general,
             stripe_customer_id=self.stripe_customer_id,

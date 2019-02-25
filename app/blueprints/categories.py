@@ -6,6 +6,7 @@ from app.repository.category_repository import CategoryRepository
 from app.models.category import Category
 from app.service.serialize import serialize
 from app.token_required import token_required
+from app.service.dotdict import dotdict
 
 category_blueprint = Blueprint("category", __name__)
 
@@ -22,3 +23,13 @@ def get_categories(*args, **kwargs):
 def get_category(category_id, *args, **kwargs):
     category_id = CategoryRepository.query.get(category_id)
     return jsonify(serialize(category_id)), 200
+
+
+@category_blueprint.route("/category", methods=("POST",))
+@token_required
+def save_category(*args, **kwargs):
+    data = dotdict(request.get_json())
+    category = CategoryRepository.get(data.id)
+    category.update(**data)
+    CategoryRepository.save(category)
+    return jsonify(serialize(category)), 201

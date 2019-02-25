@@ -31,6 +31,7 @@
 
 <script>
     import { get_category } from '@/api/index.js'
+    import { save_category } from '@/api/index.js'
 
     export default {
         name: 'admin-category-edit',
@@ -53,7 +54,7 @@
             },
             saveCategory () {
                 save_category(this.category).then(response => {
-
+                    this.category = response.data
                 })
             }
         },

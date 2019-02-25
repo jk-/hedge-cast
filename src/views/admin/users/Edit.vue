@@ -63,6 +63,7 @@
                                     <li v-for="role in user.roles">
                                         <label>{{ role }}</label>
                                     </li>
+                                    <li><label>Last Login:</label> {{ user.last_login_at }}</li>
                                 </ul>
                             </v-flex>
                         </v-form>

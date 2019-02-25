@@ -11,3 +11,9 @@ class Category(db.Model):
 
     def to_dict(self):
         return dict(id=self.id, name=self.name)
+
+    def update(self, **kwargs):
+        for attr, value in kwargs.items():
+            if attr not in ("id",):
+                setattr(self, attr, value)
+        return self

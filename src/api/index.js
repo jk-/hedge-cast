@@ -32,7 +32,7 @@ export function get_user(id) {
 }
 
 export function save_user(user) {
-  return axios.put(`${API_URL}/user`, user)
+  return axios.post(`${API_URL}/user`, user)
 }
 
 /*
@@ -44,6 +44,10 @@ export function get_all_categories() {
 
 export function get_category(id) {
   return axios.get(`${API_URL}/category/${id}`)
+}
+
+export function save_category(category) {
+  return axios.post(`${API_URL}/category`, category)
 }
 
 /*
