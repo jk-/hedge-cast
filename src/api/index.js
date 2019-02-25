@@ -56,3 +56,14 @@ export function get_all_plans() {
 export function get_plan(id) {
   return axios.get(`${API_URL}/plan/${id}`)
 }
+
+/*
+ Playlist
+*/
+export function get_all_playlists() {
+  return axios.get(`${API_URL}/playlists`)
+}
+
+export function get_playlist(id) {
+  return axios.get(`${API_URL}/playlist/${id}`)
+}

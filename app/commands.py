@@ -80,6 +80,22 @@ def populate_plans():
     db.session.commit()
 
 
+def populate_playlist():
+    """Populates the database with seed data."""
+    fake = Faker()
+    playlists = []
+    for _ in range(5):
+        _playlist = Playlist()
+        _playlist.name = fake.word()
+        _playlist.category_id = 1
+        _playlist.enabled = fake.boolean()
+        playlists.append(_playlist)
+    for playlist in playlists:
+        print("saving playlist %s".format(playlist))
+        db.session.add(playlist)
+    db.session.commit()
+
+
 def drop_db():
     """Drops the database."""
     if click.confirm("Are you sure?", abort=True):

@@ -11,6 +11,7 @@ from app.commands import create_db
 from app.commands import populate_db
 from app.commands import populate_category
 from app.commands import populate_plans
+from app.commands import populate_playlist
 from app.commands import drop_db
 from app.extensions import migrate
 from app.extensions import bcrypt
@@ -19,6 +20,7 @@ from app.blueprints.auth import auth_blueprint
 from app.blueprints.admin import admin_blueprint
 from app.blueprints.users import users_blueprint
 from app.blueprints.plan import plan_blueprint
+from app.blueprints.playlist import playlist_blueprint
 from app.blueprints.categories import category_blueprint
 from app.models.user import User
 from app.repository.user_repository import UserRepository
@@ -60,6 +62,7 @@ def register_blueprints(app):
     app.register_blueprint(users_blueprint, url_prefix=API_PATH)
     app.register_blueprint(category_blueprint, url_prefix=API_PATH)
     app.register_blueprint(plan_blueprint, url_prefix=API_PATH)
+    app.register_blueprint(playlist_blueprint, url_prefix=API_PATH)
 
     # app.register_blueprint(
     #     admin_blueprint, url_prefix="/%s/admin".format(API_PATH)
@@ -90,5 +93,6 @@ def register_commands(app):
         drop_db,
         populate_category,
         populate_plans,
+        populate_playlist,
     ]:
         app.cli.command()(command)
