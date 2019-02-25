@@ -14,11 +14,11 @@ videos_blueprint = Blueprint("videos", __name__)
 @token_required
 def get_videos(*args, **kwargs):
     videos = VideoRepository.query.all()
-    return jsonify(serialize(videos)), 201
+    return jsonify(serialize(videos)), 200
 
 
 @videos_blueprint.route("/video/<int:video_id>", methods=("GET",))
 @token_required
 def get_video(video_id, *args, **kwargs):
     video = VideoRepository.query.get(video_id)
-    return jsonify(serialize(video)), 201
+    return jsonify(serialize(video)), 200

@@ -32,7 +32,7 @@ export function get_user(id) {
 }
 
 export function save_user(user) {
-  return axios.post(`${API_URL}/user`, user)
+  return axios.put(`${API_URL}/user`, user)
 }
 
 /*

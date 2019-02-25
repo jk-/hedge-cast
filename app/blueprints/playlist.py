@@ -14,11 +14,11 @@ playlist_blueprint = Blueprint("playlists", __name__)
 @token_required
 def get_playlists(*args, **kwargs):
     playlists = PlaylistRepository.query.all()
-    return jsonify(serialize(playlists)), 201
+    return jsonify(serialize(playlists)), 200
 
 
 @playlist_blueprint.route("/playlist/<int:playlist_id>", methods=("GET",))
 @token_required
 def get_playlist(playlist_id, *args, **kwargs):
     playlist = PlaylistRepository.query.get(playlist_id)
-    return jsonify(serialize(playlist)), 201
+    return jsonify(serialize(playlist)), 200

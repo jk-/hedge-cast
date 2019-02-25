@@ -14,11 +14,11 @@ roles_blueprint = Blueprint("roles", __name__)
 @token_required
 def get_roles(*args, **kwargs):
     roles = RoleRepository.query.all()
-    return jsonify(serialize(roles)), 201
+    return jsonify(serialize(roles)), 200
 
 
 @roles_blueprint.route("/role/<int:role_id>", methods=("GET",))
 @token_required
 def get_role(role_id, *args, **kwargs):
     role = RoleRepository.query.get(role_id)
-    return jsonify(serialize(role)), 201
+    return jsonify(serialize(role)), 200

@@ -18,7 +18,6 @@ from app.extensions import migrate
 from app.extensions import bcrypt
 from app.extensions import cors
 from app.blueprints.auth import auth_blueprint
-from app.blueprints.admin import admin_blueprint
 from app.blueprints.users import users_blueprint
 from app.blueprints.plan import plan_blueprint
 from app.blueprints.role import roles_blueprint

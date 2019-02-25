@@ -43,7 +43,8 @@ class User(db.Model):
 
     def update(self, **kwargs):
         for attr, value in kwargs.items():
-            setattr(self, attr, value)
+            if attr not in ("id", "created"):
+                setattr(self, attr, value)
         return self
 
     def set_username(self, username):

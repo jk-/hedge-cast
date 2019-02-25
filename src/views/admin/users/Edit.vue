@@ -98,7 +98,7 @@
             },
             saveUser () {
                 save_user(this.user).then(response => {
-
+                    this.user = response.data
                 })
             }
         },
