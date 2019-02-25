@@ -11,6 +11,8 @@ import AdminRoles from '@/views/admin/Roles.vue'
 import AdminVideos from '@/views/admin/Videos.vue'
 import AdminUsers from '@/views/admin/Users.vue'
 import AdminUsersEdit from '@/views/admin/users/Edit.vue'
+import AdminCategoryEdit from '@/views/admin/category/Edit.vue'
+
 import store from '@/store'
 
 Vue.use(Router)
@@ -75,6 +77,11 @@ const router = new Router({
                 path: 'users/edit/:id',
                 name: 'admin_user_edit',
                 component: AdminUsersEdit,
+            },
+            {
+                path: 'category/edit/:id',
+                name: 'admin_category_edit',
+                component: AdminCategoryEdit,
             }
         ]
     },
