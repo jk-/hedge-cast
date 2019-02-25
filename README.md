@@ -12,17 +12,21 @@
     - [x] Register ability
     - [x] Roles
     - [x] Vue SPA, Seperate Vue from Flask API app
-- [x] Logout ability
+    - [x] Logout ability
+    - [x] Webpack CSS injection
     - [x] Add admin section
-        - [] All related admin activities
-    - [] Category Section
-    - [] Video play page
-    - [] Playlist Page
-    - [] User settings page
+        - [x] All related admin activities
+        - [] Ability to save entity
+        - [] Add AXIO interceptors for errors
+        - [] The JWT needs to check on server for security
+    - [] Client Pages
+        - [] Category Section
+        - [] Video play page
+        - [] Playlist Page
+        - [] User settings page
+        - [] Cart process
     - [] Theming and touch ups
+        - [] Restyle tables
     - [] Production ready environment
     - [] AWS integration
-    - [] Webpack CSS injection
     - [] Fix salt and password in user entity
-    - [] The JWT needs to check on server for security
-    - [] Restyle tables
