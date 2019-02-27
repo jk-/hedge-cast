@@ -18,6 +18,7 @@
         - [x] All related admin activities
         - [x] Ability to save entity
         - [x] Add AXIO interceptors for errors
+        - [x] Ability to delete
         - [] Ability to create
         - [] Relationship editing (user -> plan, etc)
         - [] The JWT needs to check on server for security
@@ -31,6 +32,6 @@
     - [] Theming and touch ups
         - [] Restyle tables
     - [] Production ready environment
-    - [] AWS integration
-    - [] Fix salt and password in user entity
-    - [] token required role check
+        - [] AWS integration
+        - [] Fix salt and password in user entity
+        - [] token required role check

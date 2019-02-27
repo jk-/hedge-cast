@@ -11,7 +11,7 @@
             </v-layout>
             <v-layout row>
                 <v-flex>
-                    <v-btn :to="{name: 'admin_category_create'}">Create Category</v-btn>
+                    <v-btn :ripple="false" :to="{name: 'admin_category_create'}">Create Category</v-btn>
                 </v-flex>
             </v-layout>
         </v-flex>

@@ -9,19 +9,7 @@
             <v-container>
                 <v-layout row>
                     <v-flex md12>
-                        <v-form>
-                            <v-flex md4>
-                                <v-text-field
-                                    label="Name"
-                                    :value="category.name"
-                                    @input="update('name', $event)"
-                                >
-                                </v-text-field>
-                            </v-flex>
-                            <v-flex md4>
-                                <v-btn color="primary" @click="save">Save</v-btn>
-                            </v-flex>
-                        </v-form>
+                        <AdminCategoryForm :is-edit="false"/>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -30,33 +18,12 @@
 </template>
 
 <script>
-    import { save_category } from '@/api/index.js'
+    import AdminCategoryForm from '@/components/admin/category/CategoryForm.vue'
 
     export default {
         name: 'admin-category-create',
-        data () {
-            return {
-                category: {}
-            }
-        },
-        methods: {
-            update (param, value) {
-                if (!value) {
-                    value = false
-                }
-                this.$set(this.category, param, value)
-            },
-            save () {
-                save_category(this.category).then(response => {
-                    this.category = response.data
-                    let payload = {
-                        color: 'success',
-                        text: "Sucessfully created category"
-                    }
-                    this.$router.push({name: 'admin_category'})
-                    this.$store.dispatch('setSnackbar', payload)
-                })
-            }
-        },
+        components: {
+            AdminCategoryForm
+        }
     }
 </script>
