@@ -19,18 +19,7 @@
 </template>
 
 <script>
-
-    import { get_all_users } from '@/api/index.js'
-
     export default {
         name: 'home',
-        methods: {
-            getAllUsers () {
-                console.log("here")
-                get_all_users().then( response => {
-                    console.log(response.data)
-                })
-            }
-        }
     }
 </script>
