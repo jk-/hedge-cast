@@ -36,29 +36,21 @@
                 })
             },
             update (param, value) {
+                if (value === null) {
+                    value = 0
+                }
                 this.$set(this.item, param, value)
             },
             save () {
                 save_role(this.item).then(response => {
                     this.item = response.data
-                    let payload = {
-                        color: 'success',
-                        text: "Sucessfully updated role"
-                    }
-                    this.$router.push({name: 'admin_role'})
-                    this.$store.dispatch('setSnackbar', payload)
+                    this.$router.push({ name: 'admin_role' })
                 })
             },
             remove () {
                 delete_role(this.item.id).then(response => {
-                    this.item = response.data
-                    let payload = {
-                        color: response.data.type,
-                        text: response.data.message
-                    }
-                    this.$router.push({name: 'admin_role'})
-                    this.$store.dispatch('setSnackbar', payload)
-
+                    this.item = {}
+                    this.$router.push({ name: 'admin_role' })
                 })
             }
         },

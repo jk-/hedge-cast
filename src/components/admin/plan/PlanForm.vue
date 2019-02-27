@@ -89,29 +89,21 @@
                 })
             },
             update (param, value) {
+                if (value === null) {
+                    value = 0
+                }
                 this.$set(this.item, param, value)
             },
             save () {
                 save_plan(this.item).then(response => {
                     this.item = response.data
-                    let payload = {
-                        color: 'success',
-                        text: "Sucessfully updated plan"
-                    }
-                    this.$router.push({name: 'admin_plan'})
-                    this.$store.dispatch('setSnackbar', payload)
+                    this.$router.push({ name: 'admin_plan' })
                 })
             },
             remove () {
                 delete_plan(this.item.id).then(response => {
-                    this.item = response.data
-                    let payload = {
-                        color: response.data.type,
-                        text: response.data.message
-                    }
-                    this.$router.push({name: 'admin_plan'})
-                    this.$store.dispatch('setSnackbar', payload)
-
+                    this.item = {}
+                    this.$router.push({ name: 'admin_plan' })
                 })
             }
         },

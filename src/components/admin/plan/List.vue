@@ -4,6 +4,7 @@
         :items="items"
         class="clean-table"
         :pagination.sync="pagination"
+        v-if="!loading"
       >
         <template slot="items" slot-scope="props">
         <tr @click="edit(props.item.id)">
@@ -34,13 +35,15 @@
                 items: [],
                 pagination: {
                     rowsPerPage: 25
-                }
+                },
+                loading: true
             }
         },
         methods: {
             getAllItems () {
                 get_all_plans().then(response => {
                     this.items = response.data
+                    this.loading = false
                 })
             },
             edit(id) {

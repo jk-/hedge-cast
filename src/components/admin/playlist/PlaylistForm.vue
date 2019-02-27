@@ -43,29 +43,21 @@
                 })
             },
             update (param, value) {
+                if (value === null) {
+                    value = 0
+                }
                 this.$set(this.item, param, value)
             },
             save () {
                 save_playlist(this.item).then(response => {
                     this.item = response.data
-                    let payload = {
-                        color: 'success',
-                        text: "Sucessfully updated playlist"
-                    }
-                    this.$router.push({name: 'admin_playlist'})
-                    this.$store.dispatch('setSnackbar', payload)
+                    this.$router.push({ name: 'admin_playlist' })
                 })
             },
             remove () {
                 delete_playlist(this.item.id).then(response => {
-                    this.item = response.data
-                    let payload = {
-                        color: response.data.type,
-                        text: response.data.message
-                    }
-                    this.$router.push({name: 'admin_playlist'})
-                    this.$store.dispatch('setSnackbar', payload)
-
+                    this.item = {}
+                    this.$router.push({ name: 'admin_playlist' })
                 })
             }
         },

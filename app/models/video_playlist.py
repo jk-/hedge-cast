@@ -6,7 +6,7 @@ class VideoPlaylist(db.Model):
         Relational video -> playlist
     """
 
-    video_is = db.Column(
+    video_id = db.Column(
         db.Integer,
         db.ForeignKey("video.id", ondelete="CASCADE"),
         primary_key=True,
@@ -16,3 +16,4 @@ class VideoPlaylist(db.Model):
         db.ForeignKey("playlist.id", ondelete="CASCADE"),
         primary_key=True,
     )
+    order_by = db.Column(db.Integer, default=0)

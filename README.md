@@ -19,10 +19,10 @@
         - [x] Ability to save entity
         - [x] Add AXIO interceptors for errors
         - [x] Ability to delete
-        - [] Ability to create
+        - [x] Ability to create
         - [] For create and edit pages need to have list box for:
             - [] user_roles, playlist_category, etc
-        - [] Relationship editing (user -> plan, etc)
+            - [] Relationship editing (user -> plan, etc)
         - [] The JWT needs to check on server for security
     - [X] Add global snackbar
     - [] Client Pages

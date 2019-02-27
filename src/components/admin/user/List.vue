@@ -4,6 +4,7 @@
         :items="users"
         class="clean-table"
         :pagination.sync="pagination"
+        v-if="!loading"
       >
         <template slot="items" slot-scope="props">
         <tr @click="editUser(props.item.id)">
@@ -36,13 +37,15 @@
                 users: [],
                 pagination: {
                     rowsPerPage: 25
-                }
+                },
+                loading: true
             }
         },
         methods: {
             getAllUsers () {
                 get_all_users().then(response => {
                     this.users = response.data
+                    this.loading = false
                 })
             },
             editUser(id) {

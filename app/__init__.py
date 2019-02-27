@@ -17,6 +17,7 @@ from app.commands import drop_db
 from app.extensions import migrate
 from app.extensions import bcrypt
 from app.extensions import cors
+from app.blueprints.error import error_blueprint
 from app.blueprints.auth import auth_blueprint
 from app.blueprints.users import users_blueprint
 from app.blueprints.plan import plan_blueprint
@@ -60,6 +61,7 @@ def register_extensions(app):
 
 def register_blueprints(app):
     API_PATH = "/api"
+    app.register_blueprint(error_blueprint)
     app.register_blueprint(auth_blueprint, url_prefix=API_PATH)
     app.register_blueprint(users_blueprint, url_prefix=API_PATH)
     app.register_blueprint(category_blueprint, url_prefix=API_PATH)

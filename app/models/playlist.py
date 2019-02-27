@@ -9,7 +9,7 @@ class Playlist(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    enabled = db.Column(db.Boolean(), default=1)
+    enabled = db.Column(db.Boolean(), default=0)
     category = db.relationship(
         "Category", secondary="playlist_category", lazy="joined"
     )

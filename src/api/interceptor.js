@@ -20,10 +20,17 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
     (response) => {
-      return response
+        if (response.data.message !== 'undefined' && response.data.message) {
+            let payload = {
+                color: response.data.type,
+                text: response.data.message
+            }
+            store.dispatch('setSnackbar', payload)
+        }
+        return response
     },
     (error) => {
-        if (!error.response) {
+        if (error.response === "undefined") {
            let payload = {
                color: 'error',
                text: 'Network Error.'
@@ -31,18 +38,14 @@ axios.interceptors.response.use(
            store.dispatch('setSnackbar', payload)
            router.push({ name: 'index' })
            return Promise.reject(error)
-        }
-        if (error.response.status === 401) {
+       } else if (error.response.code === 401) {
+           router.push({ name: 'login' })
+       } else {
             let payload = {
                 color: 'error',
-                text: error.response.data.message
+                text: error.response.data.error.message
             }
             store.dispatch('setSnackbar', payload)
-            store.dispatch('logout').then(() => {
-                router.push({ name: 'login' })
-            }).catch(() => {
-                router.push({ name: 'login' })
-            })
         }
         return Promise.reject(error)
     }

@@ -38,27 +38,20 @@
                 })
             },
             update (param, value) {
+                if (value === null) {
+                    value = 0
+                }
                 this.$set(this.item, param, value)
             },
             save () {
                 save_category(this.item).then(response => {
                     this.item = response.data
-                    let payload = {
-                        color: 'success',
-                        text: "Sucessfully updated item"
-                    }
-                    this.$store.dispatch('setSnackbar', payload)
                     this.$router.push({name: 'admin_category'})
                 })
             },
             remove () {
                 delete_category(this.item.id).then(response => {
                     this.item = {}
-                    let payload = {
-                        color: response.data.type,
-                        text: response.data.message
-                    }
-                    this.$store.dispatch('setSnackbar', payload)
                     this.$router.push({name: 'admin_category'})
                 })
             }

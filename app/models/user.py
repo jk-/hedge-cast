@@ -20,7 +20,7 @@ class User(db.Model):
     email = db.Column(db.String(180), nullable=False, unique=True)
     email_canonical = db.Column(db.String(180), nullable=False, unique=True)
     email_reverse = db.Column(db.String(180), nullable=False, unique=True)
-    enabled = db.Column(db.Boolean(), default=1)
+    enabled = db.Column(db.Boolean(), default=1, nullable=False)
     salt = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     last_login_at = db.Column(
