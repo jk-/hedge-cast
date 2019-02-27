@@ -3,9 +3,9 @@ import jwt
 from functools import wraps
 from flask import request, current_app, jsonify
 from app.repository.user_repository import UserRepository
-from app.models.exception import InvalidToken
-from app.models.exception import AuthRequired
-from app.models.exception import InvalidAuthUser
+from app.exception import InvalidToken
+from app.exception import AuthRequired
+from app.exception import InvalidAuthUser
 
 
 def token_required(f):

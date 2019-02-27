@@ -5,6 +5,7 @@ from flask import Blueprint, request, current_app, jsonify
 from app.service.user_authenticator import UserAuthenticator
 from app.repository.user_repository import UserRepository
 from app.models.user import User
+from app.exception import InvalidAuthUser
 
 auth_blueprint = Blueprint("auth", __name__)
 
@@ -26,12 +27,7 @@ def login():
     user = UserAuthenticator.authenticate(**data)
 
     if not user:
-        return (
-            jsonify(
-                {"message": "Invalid credentials", "authenticated": False}
-            ),
-            401,
-        )
+        raise InvalidAuthUser("Invalid Auth User")
 
     token = jwt.encode(
         {

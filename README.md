@@ -20,10 +20,11 @@
         - [x] Add AXIO interceptors for errors
         - [x] Ability to delete
         - [x] Ability to create
+        - [x] consolidate routes
         - [] For create and edit pages need to have list box for:
             - [] user_roles, playlist_category, etc
             - [] Relationship editing (user -> plan, etc)
-        - [] The JWT needs to check on server for security for role access
+        - [] The JWT needs to check on server for security on role access
     - [X] Add global snackbar
     - [] Client Pages
         - [] Category Section

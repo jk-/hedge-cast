@@ -14,8 +14,9 @@ import AdminVideoRoutes from '@/router/admin/video'
 
 import store from '@/store'
 
-Vue.use(Router)
+const ROLE_ADMIN = "ROLE_ADMIN"
 
+Vue.use(Router)
 
 let admin_routes = []
 admin_routes = admin_routes.concat(
@@ -47,7 +48,7 @@ const router = new Router({
         component: AdminHome,
         meta: {
             requiresLogin: true,
-            requiresRole: "ROLE_ADMIN"
+            requiresRole: ROLE_ADMIN
         },
         children: admin_routes
     },
