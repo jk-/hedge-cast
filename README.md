@@ -23,7 +23,7 @@
         - [] For create and edit pages need to have list box for:
             - [] user_roles, playlist_category, etc
             - [] Relationship editing (user -> plan, etc)
-        - [] The JWT needs to check on server for security
+        - [] The JWT needs to check on server for security for role access
     - [X] Add global snackbar
     - [] Client Pages
         - [] Category Section
@@ -33,6 +33,8 @@
         - [] Cart process
     - [] Theming and touch ups
         - [] Restyle tables
+    - [] Vue: Create/Edit/list looks like it can be consolidated
+    - [] Vie: Add search feature to home of each category
     - [] Production ready environment
         - [] AWS integration
         - [] Fix salt and password in user entity

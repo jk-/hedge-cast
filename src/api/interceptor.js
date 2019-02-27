@@ -38,7 +38,7 @@ axios.interceptors.response.use(
            store.dispatch('setSnackbar', payload)
            router.push({ name: 'index' })
            return Promise.reject(error)
-       } else if (error.response.code === 401) {
+       } else if (error.response.status === 401) {
            router.push({ name: 'login' })
        } else {
             let payload = {

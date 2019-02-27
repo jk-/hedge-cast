@@ -56,7 +56,8 @@ const router = new Router({
         name: 'admin_home',
         component: AdminHome,
         meta: {
-            requiresLogin: true
+            requiresLogin: true,
+            requiresRole: "ROLE_ADMIN"
         },
         children: [
             {
@@ -81,9 +82,14 @@ const router = new Router({
                 component: AdminPlan,
             },
             {
-                path: 'plan/edit/:id',
+                path: 'plan/edit',
                 name: 'admin_plan_edit',
                 component: AdminPlanEdit,
+            },
+            {
+                path: 'plan/create',
+                name: 'admin_plan_create',
+                component: AdminPlanCreate,
             },
 
             {
@@ -92,12 +98,12 @@ const router = new Router({
                 component: AdminUser,
             },
             {
-                path: 'users/edit/:id',
+                path: 'user/edit/:id',
                 name: 'admin_user_edit',
                 component: AdminUserEdit,
             },
             {
-                path: 'users/create',
+                path: 'user/create',
                 name: 'admin_user_create',
                 component: AdminUserCreate,
             },
