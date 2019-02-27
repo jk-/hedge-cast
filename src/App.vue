@@ -9,8 +9,8 @@
 </template>
 
 <script>
-    import Toolbar from './components/Toolbar.vue'
-    import Snackbar from './components/Snackbar.vue'
+    import Toolbar from '@/components/Toolbar.vue'
+    import Snackbar from '@/components/Snackbar.vue'
 
     export default {
         name: 'App',

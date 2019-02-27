@@ -1,17 +1,17 @@
 <template>
     <div class="login">
-        <RegisterCard />
+        <LoginCard />
     </div>
 </template>
 
 <script>
 
-    import RegisterCard from '@/components/RegisterCard.vue'
+    import LoginCard from '@/components/login/LoginCard.vue'
 
     export default {
-        name: 'Register',
+        name: 'Login',
         components: {
-            RegisterCard
+            LoginCard
         }
     }
 </script>

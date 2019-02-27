@@ -29,6 +29,6 @@ class Repository:
         return entity
 
     @staticmethod
-    def delete(entity, ommit=True):
+    def delete(entity, commit=True):
         db.session.delete(entity)
         return commit and db.session.commit()

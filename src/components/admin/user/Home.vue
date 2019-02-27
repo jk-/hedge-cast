@@ -16,7 +16,7 @@
 <script>
 
     import AdminSubToolbar from '@/components/admin/SubToolbar.vue'
-    import AdminUserList from '@/components/admin/users/List.vue'
+    import AdminUserList from '@/components/admin/user/List.vue'
 
     export default {
         name: 'admin-users',

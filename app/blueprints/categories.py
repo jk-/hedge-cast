@@ -27,9 +27,21 @@ def get_category(category_id, *args, **kwargs):
 
 @category_blueprint.route("/category", methods=("POST",))
 @token_required
-def save_category(*args, **kwargs):
+def update_category(*args, **kwargs):
     data = dotdict(request.get_json())
-    category = CategoryRepository.get(data.id)
+    if not data.id:
+        category = Category()
+    else:
+        category = CategoryRepository.get(data.id)
     category.update(**data)
     CategoryRepository.save(category)
     return jsonify(serialize(category)), 201
+
+
+@category_blueprint.route("/category/<int:category_id>", methods=("DELETE",))
+@token_required
+def delete_category(category_id, *args, **kwargs):
+    category = CategoryRepository.query.get(category_id)
+    if category:
+        CategoryRepository.delete(category)
+    return jsonify({"message": "Category deleted.", "type": "success"}), 200

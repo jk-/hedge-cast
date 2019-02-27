@@ -3,7 +3,7 @@
         <v-flex>
             <v-layout row>
                 <v-toolbar color="transparent z-depth-0">
-                    <v-toolbar-title>Editing Plan: {{ item.name }}</v-toolbar-title>
+                    <v-toolbar-title>Editing Role: {{ item.name }}</v-toolbar-title>
                 </v-toolbar>
             </v-layout>
             <v-container>
@@ -19,7 +19,8 @@
                                 </v-text-field>
                             </v-flex>
                             <v-flex md4>
-                                <v-btn color="primary" @click="saveItem">Save</v-btn>
+                                <v-btn color="primary" @click="save">Save</v-btn>
+                                <v-btn color="erorr" @click="remove">Remove</v-btn>
                             </v-flex>
                         </v-form>
                     </v-flex>
@@ -30,11 +31,11 @@
 </template>
 
 <script>
-    import { get_plan } from '@/api/index.js'
-    import { save_plan } from '@/api/index.js'
+    import { get_role } from '@/api/index.js'
+    import { save_role } from '@/api/index.js'
 
     export default {
-        name: 'admin-plan-edit',
+        name: 'admin-role-edit',
         data () {
             return {
                 item: {}
@@ -42,7 +43,7 @@
         },
         methods: {
             getItem () {
-                get_plan(this.$route.params.id).then(response => {
+                get_role(this.$route.params.id).then(response => {
                     this.item = response.data
                 })
             },
@@ -52,9 +53,27 @@
                 }
                 this.$set(this.item, param, value)
             },
-            saveItem () {
-                save_plan(this.item).then(response => {
+            save () {
+                save_role(this.item).then(response => {
                     this.item = response.data
+                    let payload = {
+                        color: 'success',
+                        text: "Sucessfully updated role"
+                    }
+                    this.$router.push({name: 'admin_role'})
+                    this.$store.dispatch('setSnackbar', payload)
+                })
+            },
+            remove () {
+                remove_role(this.item.id).then(response => {
+                    this.item = response.data
+                    let payload = {
+                        color: response.data.type,
+                        text: response.data.message
+                    }
+                    this.$router.push({name: 'admin_role'})
+                    this.$store.dispatch('setSnackbar', payload)
+
                 })
             }
         },

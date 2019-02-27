@@ -17,8 +17,9 @@
     - [x] Add admin section
         - [x] All related admin activities
         - [x] Ability to save entity
-        - [] Ability to create
         - [x] Add AXIO interceptors for errors
+        - [] Ability to create
+        - [] Relationship editing (user -> plan, etc)
         - [] The JWT needs to check on server for security
     - [X] Add global snackbar
     - [] Client Pages
@@ -32,3 +33,4 @@
     - [] Production ready environment
     - [] AWS integration
     - [] Fix salt and password in user entity
+    - [] token required role check

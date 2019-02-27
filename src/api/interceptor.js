@@ -23,12 +23,21 @@ axios.interceptors.response.use(
       return response
     },
     (error) => {
-        let payload = {
-            color: 'error',
-            text: error.response.data.message
+        if (!error.response) {
+           let payload = {
+               color: 'error',
+               text: 'Network Error.'
+           }
+           store.dispatch('setSnackbar', payload)
+           router.push({ name: 'index' })
+           return Promise.reject(error)
         }
-        store.dispatch('setSnackbar', payload)
         if (error.response.status === 401) {
+            let payload = {
+                color: 'error',
+                text: error.response.data.message
+            }
+            store.dispatch('setSnackbar', payload)
             store.dispatch('logout').then(() => {
                 router.push({ name: 'login' })
             }).catch(() => {

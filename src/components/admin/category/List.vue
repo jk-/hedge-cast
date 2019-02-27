@@ -1,9 +1,10 @@
 <template>
     <v-data-table
         :headers="headers"
-        :items="categories"
+        :items="items"
         class="clean-table"
         :pagination.sync="pagination"
+        v-if="!loading"
       >
         <template slot="items" slot-scope="props">
         <tr @click="editCategory(props.item.id)">
@@ -20,23 +21,22 @@
 
     export default {
         name: 'admin-users-list',
-
         data () {
             return {
                 headers: [
                     { text: 'ID', value: 'id', sortable: false, width: 3},
                     { text: 'Name', value: 'name', sortable: false}
                 ],
-                categories: [],
+                items: [],
                 pagination: {
                     rowsPerPage: 25
                 }
             }
         },
         methods: {
-            getAllCategories () {
+            getAllItems () {
                 get_all_categories().then(response => {
-                    this.categories = response.data
+                    this.items = response.data
                 })
             },
             editCategory(id) {
@@ -44,7 +44,7 @@
             }
         },
         mounted () {
-            this.getAllCategories()
+            this.getAllItems()
         }
     }
 </script>

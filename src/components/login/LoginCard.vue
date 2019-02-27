@@ -32,6 +32,7 @@
                                 :rules="[rules.required]"
                                 :type="pwShow ? 'text' : 'password'"
                                 @click:append="pwShow = !pwShow"
+                                v-on:keypress.enter="authenticate"
                                 label="passwword"
                                 name="password"
                                 autocomplete="current-password"

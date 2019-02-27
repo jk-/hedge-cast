@@ -2,11 +2,16 @@
     <v-layout white>
         <v-flex>
             <v-layout row>
-                <AdminSubToolbar title="Videos" />
+                <AdminSubToolbar title="Category" />
             </v-layout>
             <v-layout row>
                 <v-flex md12>
-                    <AdminVideosList />
+                    <AdminCategoryList />
+                </v-flex>
+            </v-layout>
+            <v-layout row>
+                <v-flex>
+                    <v-btn :to="{name: 'admin_category_create'}">Create Category</v-btn>
                 </v-flex>
             </v-layout>
         </v-flex>
@@ -16,12 +21,12 @@
 <script>
 
     import AdminSubToolbar from '@/components/admin/SubToolbar.vue'
-    import AdminVideosList from '@/components/admin/videos/List.vue'
+    import AdminCategoryList from '@/components/admin/category/List.vue'
 
     export default {
-        name: 'admin-videos',
+        name: 'admin-category',
         components: {
-            AdminVideosList,
+            AdminCategoryList,
             AdminSubToolbar
         },
     }

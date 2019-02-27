@@ -29,7 +29,19 @@ def get_role(role_id, *args, **kwargs):
 @token_required
 def save_role(*args, **kwargs):
     data = dotdict(request.get_json())
-    role = RoleRepository.get(data.id)
+    if not data.id:
+        role = Role()
+    else:
+        role = RoleRepository.get(data.id)
     role.update(**data)
     RoleRepository.save(role)
     return jsonify(serialize(role)), 201
+
+
+@roles_blueprint.route("/role/<int:role_id>", methods=("DELETE",))
+@token_required
+def delete_role(role_id, *args, **kwargs):
+    role = RoleRepository.query.get(role_id)
+    if role:
+        RoleRepository.delete(role)
+    return jsonify({"message": "Role deleted."}), 200

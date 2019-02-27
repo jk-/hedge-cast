@@ -29,7 +29,19 @@ def get_video(video_id, *args, **kwargs):
 @token_required
 def save_video(*args, **kwargs):
     data = dotdict(request.get_json())
-    video = VideoRepository.get(data.id)
+    if not data.id:
+        video = Video()
+    else:
+        video = VideoRepository.get(data.id)
     video.update(**data)
     VideoRepository.save(video)
     return jsonify(serialize(video)), 201
+
+
+@videos_blueprint.route("/video/<int:video_id>", methods=("DELETE",))
+@token_required
+def delete_video(video_id, *args, **kwargs):
+    video = VideoRepository.query.get(video_id)
+    if video:
+        VideoRepository.delete(video)
+    return jsonify({"message": "Video deleted."}), 200

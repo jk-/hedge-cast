@@ -1,21 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/Home.vue'
-import Login from '@/views/Login.vue'
-import Register from '@/views/Register.vue'
-import AdminHome from '@/views/admin/Home.vue'
-import AdminCategory from '@/views/admin/Category.vue'
-import AdminPlans from '@/views/admin/Plans.vue'
-import AdminPlaylists from '@/views/admin/Playlists.vue'
-import AdminRoles from '@/views/admin/Roles.vue'
-import AdminVideos from '@/views/admin/Videos.vue'
-import AdminUsers from '@/views/admin/Users.vue'
-import AdminUsersEdit from '@/views/admin/users/Edit.vue'
-import AdminCategoryEdit from '@/views/admin/category/Edit.vue'
-import AdminPlanEdit from '@/views/admin/plan/Edit.vue'
-import AdminPlaylistEdit from '@/views/admin/playlist/Edit.vue'
-import AdminRoleEdit from '@/views/admin/role/Edit.vue'
-import AdminVideosEdit from '@/views/admin/videos/Edit.vue'
+import Home from '@/components/Home.vue'
+import Login from '@/components/login/Home.vue'
+import Register from '@/components/register/Home.vue'
+import AdminHome from '@/components/admin/Home.vue'
+import AdminCategory from '@/components/admin/category/Home.vue'
+import AdminPlans from '@/components/admin/plan/Home.vue'
+import AdminPlaylists from '@/components/admin/playlist/Home.vue'
+import AdminRoles from '@/components/admin/role/Home.vue'
+import AdminVideos from '@/components/admin/video/Home.vue'
+import AdminUsers from '@/components/admin/user/Home.vue'
+import AdminUsersEdit from '@/components/admin/user/Edit.vue'
+import AdminCategoryEdit from '@/components/admin/category/Edit.vue'
+import AdminPlanEdit from '@/components/admin/plan/Edit.vue'
+import AdminPlaylistEdit from '@/components/admin/playlist/Edit.vue'
+import AdminRoleEdit from '@/components/admin/role/Edit.vue'
+import AdminVideosEdit from '@/components/admin/video/Edit.vue'
+import AdminCategoryCreate from '@/components/admin/category/Create.vue'
 
 import store from '@/store'
 
@@ -50,7 +51,7 @@ const router = new Router({
             {
                 path: 'category',
                 name: 'admin_category',
-                component: AdminCategory,
+                component: AdminCategory
             },
             {
                 path: 'plans',
@@ -106,6 +107,11 @@ const router = new Router({
                 path: 'video/edit/:id',
                 name: 'admin_video_edit',
                 component: AdminVideosEdit,
+            },
+            {
+                path: 'category/create',
+                name: 'admin_category_create',
+                component: AdminCategoryCreate,
             }
         ]
     },

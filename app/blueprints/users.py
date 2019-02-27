@@ -30,7 +30,19 @@ def get_user(user_id, *args, **kwargs):
 @token_required
 def save_user(*args, **kwargs):
     data = dotdict(request.get_json())
-    user = UserRepository.get(data.id)
+    if not data.id:
+        user = User()
+    else:
+        user = UserRepository.get(data.id)
     user.update(**data)
     UserRepository.save(user)
     return jsonify(serialize(user)), 201
+
+
+@users_blueprint.route("/user/<int:user_id>", methods=("DELETE",))
+@token_required
+def delete_user(user_id, *args, **kwargs):
+    user = UserRepository.query.get(user_id)
+    if user:
+        UserRepository.delete(user)
+    return jsonify({"message": "User deleted."}), 200

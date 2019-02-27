@@ -3,7 +3,7 @@
         <v-flex>
             <v-layout row>
                 <v-toolbar color="transparent z-depth-0">
-                    <v-toolbar-title>Editing Role: {{ item.name }}</v-toolbar-title>
+                    <v-toolbar-title>New Plan</v-toolbar-title>
                 </v-toolbar>
             </v-layout>
             <v-container>
@@ -30,11 +30,11 @@
 </template>
 
 <script>
-    import { get_role } from '@/api/index.js'
-    import { save_role } from '@/api/index.js'
+    import { get_plan } from '@/api/index.js'
+    import { save_plan } from '@/api/index.js'
 
     export default {
-        name: 'admin-role-edit',
+        name: 'admin-plan-edit',
         data () {
             return {
                 item: {}
@@ -42,7 +42,7 @@
         },
         methods: {
             getItem () {
-                get_role(this.$route.params.id).then(response => {
+                get_plan(this.$route.params.id).then(response => {
                     this.item = response.data
                 })
             },
@@ -53,7 +53,7 @@
                 this.$set(this.item, param, value)
             },
             saveItem () {
-                save_role(this.item).then(response => {
+                save_plan(this.item).then(response => {
                     this.item = response.data
                 })
             }

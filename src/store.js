@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import router from '@/router'
 
 Vue.config.devtools = true
 
@@ -41,6 +42,7 @@ const actions = {
     logout (context) {
         context.commit('setJwtToken')
         context.commit('setUserData')
+        router.push({ name: 'index' })
     },
     register (context, userData) {
         context.commit('setUserData', { userData })

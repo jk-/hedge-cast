@@ -27,3 +27,7 @@ Vue.filter('from_boolean', function (value) {
 Vue.filter('to_currency', function (value) {
     return parseFloat(value)
 })
+
+Vue.filter('or_empty', function (value) {
+    return value ? value : '=empty='
+})

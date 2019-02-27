@@ -30,7 +30,19 @@ def get_plan(plan_id, *args, **kwargs):
 @token_required
 def save_plan(*args, **kwargs):
     data = dotdict(request.get_json())
-    plan = PlanRepository.get(data.id)
+    if not data.id:
+        plan = Plan()
+    else:
+        plan = PlanRepository.get(data.id)
     plan.update(**data)
     PlanRepository.save(plan)
     return jsonify(serialize(plan)), 201
+
+
+@plan_blueprint.route("/plan/<int:plan_id>", methods=("DELETE",))
+@token_required
+def delete_plan(plan_id, *args, **kwargs):
+    plan = PlanRepository.query.get(plan_id)
+    if plan:
+        PlanRepository.delete(plan)
+    return jsonify({"message": "Plan deleted."}), 200

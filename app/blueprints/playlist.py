@@ -29,7 +29,19 @@ def get_playlist(playlist_id, *args, **kwargs):
 @token_required
 def save_playlist(*args, **kwargs):
     data = dotdict(request.get_json())
-    playlist = PlaylistRepository.get(data.id)
+    if not data.id:
+        playlist = Playlist()
+    else:
+        playlist = PlaylistRepository.get(data.id)
     playlist.update(**data)
     PlaylistRepository.save(playlist)
     return jsonify(serialize(playlist)), 201
+
+
+@playlist_blueprint.route("/playlist/<int:playlist_id>", methods=("DELETE",))
+@token_required
+def delete_playlist(playlist_id, *args, **kwargs):
+    playlist = PlaylistRepository.query.get(playlist_id)
+    if playlist:
+        PlaylistRepository.delete(playlist)
+    return jsonify({"message": "Playlist deleted."}), 200
