@@ -44,4 +44,4 @@ def delete_video(video_id, *args, **kwargs):
     video = VideoRepository.query.get(video_id)
     if video:
         VideoRepository.delete(video)
-    return jsonify({"message": "Video deleted."}), 200
+    return jsonify({"message": "Video deleted.", "type": "success"}), 200

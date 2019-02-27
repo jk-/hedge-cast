@@ -3,6 +3,7 @@
         <v-flex>
             <v-layout row>
                 <AdminSubToolbar title="Videos" />
+                <v-btn :ripple="false" :to="{name: 'admin_video_create'}">New</v-btn>
             </v-layout>
             <v-layout row>
                 <v-flex md12>
@@ -19,7 +20,7 @@
     import AdminVideosList from '@/components/admin/video/List.vue'
 
     export default {
-        name: 'admin-videos',
+        name: 'admin-video',
         components: {
             AdminVideosList,
             AdminSubToolbar

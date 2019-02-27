@@ -87,7 +87,6 @@ def populate_playlist():
     for _ in range(5):
         _playlist = Playlist()
         _playlist.name = fake.word()
-        _playlist.category_id = 1
         _playlist.enabled = fake.boolean()
         playlists.append(_playlist)
     for playlist in playlists:

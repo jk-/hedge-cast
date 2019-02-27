@@ -44,4 +44,4 @@ def delete_role(role_id, *args, **kwargs):
     role = RoleRepository.query.get(role_id)
     if role:
         RoleRepository.delete(role)
-    return jsonify({"message": "Role deleted."}), 200
+    return jsonify({"message": "Role deleted.", "type": "success"}), 200

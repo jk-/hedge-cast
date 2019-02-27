@@ -7,6 +7,13 @@
                 @input="update('name', $event)"
             >
             </v-text-field>
+            <v-checkbox
+                label="Enabled"
+                :value="item.enabled"
+                @change="update('enabled', $event)"
+            >
+            </v-checkbox>
+            <span v-for="cat in item.category">{{ cat.name }}</span>
         </v-flex>
         <v-flex md4>
             <v-btn color="primary" @click="save">Save</v-btn>
@@ -16,15 +23,13 @@
 </template>
 
 <script>
-    import { get_category } from '@/api/index.js'
-    import { save_category } from '@/api/index.js'
-    import { delete_category } from '@/api/index.js'
+    import { get_playlist } from '@/api/index.js'
+    import { save_playlist } from '@/api/index.js'
+    import { delete_playlist } from '@/api/index.js'
 
     export default {
-        name: 'admin-category-form',
-        props: {
-            isEdit: Boolean
-        },
+        name: 'admin-playlist-form',
+        props: ['isEdit'],
         data () {
             return {
                 item: {},
@@ -32,8 +37,8 @@
             }
         },
         methods: {
-            getCategory () {
-                get_category(this.$route.params.id).then(response => {
+            getItem () {
+                get_playlist(this.$route.params.id).then(response => {
                     this.item = response.data
                 })
             },
@@ -41,32 +46,32 @@
                 this.$set(this.item, param, value)
             },
             save () {
-                save_category(this.item).then(response => {
+                save_playlist(this.item).then(response => {
                     this.item = response.data
                     let payload = {
                         color: 'success',
-                        text: "Sucessfully updated item"
+                        text: "Sucessfully updated playlist"
                     }
+                    this.$router.push({name: 'admin_playlist'})
                     this.$store.dispatch('setSnackbar', payload)
-                    this.$router.push({name: 'admin_category'})
                 })
             },
             remove () {
-                delete_category(this.item.id).then(response => {
-                    this.item = {}
+                delete_playlist(this.item.id).then(response => {
+                    this.item = response.data
                     let payload = {
                         color: response.data.type,
                         text: response.data.message
                     }
+                    this.$router.push({name: 'admin_playlist'})
                     this.$store.dispatch('setSnackbar', payload)
-                    this.$router.push({name: 'admin_category'})
+
                 })
             }
         },
         created () {
             if (this.editing)
-                this.getCategory()
+                this.getItem()
         }
     }
-
 </script>

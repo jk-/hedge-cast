@@ -45,4 +45,4 @@ def delete_plan(plan_id, *args, **kwargs):
     plan = PlanRepository.query.get(plan_id)
     if plan:
         PlanRepository.delete(plan)
-    return jsonify({"message": "Plan deleted."}), 200
+    return jsonify({"message": "Plan deleted.", "type": "success"}), 200

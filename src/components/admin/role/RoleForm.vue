@@ -1,6 +1,6 @@
 <template>
     <v-form>
-        <v-flex md9>
+        <v-flex md4>
             <v-text-field
                 label="Name"
                 :value="item.name"
@@ -10,21 +10,19 @@
         </v-flex>
         <v-flex md4>
             <v-btn color="primary" @click="save">Save</v-btn>
-            <v-btn v-if="editing" color="error" @click="remove">Delete</v-btn>
+            <v-btn v-if="editing" color="erorr" @click="remove">Remove</v-btn>
         </v-flex>
     </v-form>
 </template>
 
 <script>
-    import { get_category } from '@/api/index.js'
-    import { save_category } from '@/api/index.js'
-    import { delete_category } from '@/api/index.js'
+    import { get_role } from '@/api/index.js'
+    import { save_role } from '@/api/index.js'
+    import { delete_role } from '@/api/index.js'
 
     export default {
-        name: 'admin-category-form',
-        props: {
-            isEdit: Boolean
-        },
+        name: 'admin-role-edit',
+        props: ['isEdit'],
         data () {
             return {
                 item: {},
@@ -32,8 +30,8 @@
             }
         },
         methods: {
-            getCategory () {
-                get_category(this.$route.params.id).then(response => {
+            getItem () {
+                get_role(this.$route.params.id).then(response => {
                     this.item = response.data
                 })
             },
@@ -41,32 +39,32 @@
                 this.$set(this.item, param, value)
             },
             save () {
-                save_category(this.item).then(response => {
+                save_role(this.item).then(response => {
                     this.item = response.data
                     let payload = {
                         color: 'success',
-                        text: "Sucessfully updated item"
+                        text: "Sucessfully updated role"
                     }
+                    this.$router.push({name: 'admin_role'})
                     this.$store.dispatch('setSnackbar', payload)
-                    this.$router.push({name: 'admin_category'})
                 })
             },
             remove () {
-                delete_category(this.item.id).then(response => {
-                    this.item = {}
+                delete_role(this.item.id).then(response => {
+                    this.item = response.data
                     let payload = {
                         color: response.data.type,
                         text: response.data.message
                     }
+                    this.$router.push({name: 'admin_role'})
                     this.$store.dispatch('setSnackbar', payload)
-                    this.$router.push({name: 'admin_category'})
+
                 })
             }
         },
         created () {
             if (this.editing)
-                this.getCategory()
+                this.getItem()
         }
     }
-
 </script>

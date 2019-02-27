@@ -2,6 +2,7 @@ import datetime
 
 from app.database import db
 from app.extensions import bcrypt
+from app.service.serialize import serialize
 
 
 class User(db.Model):
@@ -29,7 +30,8 @@ class User(db.Model):
     locked = db.Column(db.Boolean(), default=0)
     confirmation_token = db.Column(db.String(255))
     password_requested_at = db.Column(db.DateTime(timezone=True))
-    roles = db.relationship("Role", secondary="user_roles")
+    roles = db.relationship("Role", secondary="user_roles", lazy="joined")
+    plans = db.relationship("Plan", secondary="user_plan", lazy="joined")
     credentials_expire_at = db.Column(db.DateTime(timezone=True))
     created = db.Column(
         db.DateTime(timezone=True), default=datetime.datetime.utcnow
@@ -94,4 +96,6 @@ class User(db.Model):
             can_email_notify=self.can_email_notify,
             can_email_general=self.can_email_general,
             stripe_customer_id=self.stripe_customer_id,
+            roles=[serialize(x) for x in self.roles],
+            plans=[serialize(x) for x in self.plans],
         )

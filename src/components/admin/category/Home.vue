@@ -3,15 +3,11 @@
         <v-flex>
             <v-layout row>
                 <AdminSubToolbar title="Category" />
+                <v-btn :ripple="false" :to="{name: 'admin_category_create'}">New</v-btn>
             </v-layout>
             <v-layout row>
                 <v-flex md12>
                     <AdminCategoryList />
-                </v-flex>
-            </v-layout>
-            <v-layout row>
-                <v-flex>
-                    <v-btn :ripple="false" :to="{name: 'admin_category_create'}">Create Category</v-btn>
                 </v-flex>
             </v-layout>
         </v-flex>

@@ -30,13 +30,15 @@
                 items: [],
                 pagination: {
                     rowsPerPage: 25
-                }
+                },
+                loading: true
             }
         },
         methods: {
             getAllItems () {
                 get_all_categories().then(response => {
                     this.items = response.data
+                    this.loading = false
                 })
             },
             editCategory(id) {

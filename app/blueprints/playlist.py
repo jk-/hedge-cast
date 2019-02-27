@@ -44,4 +44,4 @@ def delete_playlist(playlist_id, *args, **kwargs):
     playlist = PlaylistRepository.query.get(playlist_id)
     if playlist:
         PlaylistRepository.delete(playlist)
-    return jsonify({"message": "Playlist deleted."}), 200
+    return jsonify({"message": "Playlist deleted.", "type": "success"}), 200

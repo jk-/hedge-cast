@@ -1,4 +1,5 @@
 from app.database import db
+from app.service.serialize import serialize
 
 
 class Playlist(db.Model):
@@ -8,10 +9,10 @@ class Playlist(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    category_id = db.Column(
-        db.Integer, db.ForeignKey("category.id"), nullable=False
-    )
     enabled = db.Column(db.Boolean(), default=1)
+    category = db.relationship(
+        "Category", secondary="playlist_category", lazy="joined"
+    )
 
     def update(self, **kwargs):
         for attr, value in kwargs.items():
@@ -23,6 +24,6 @@ class Playlist(db.Model):
         return dict(
             id=self.id,
             name=self.name,
-            category_id=self.category_id,
             enabled=self.enabled,
+            category=[serialize(x) for x in self.category],
         )

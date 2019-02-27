@@ -9,7 +9,7 @@
         <tr @click="edit(props.item.id)">
             <td>{{ props.item.id }}</td>
             <td>{{ props.item.name }}</td>
-            <td>{{ props.item.category_id }}</td>
+            <td>{{ props.item.category.name }}</td>
             <td>{{ props.item.enabled | trom_boolean }}</td>
         </tr>
         </template>
@@ -28,7 +28,7 @@
                 headers: [
                     { text: 'ID', value: 'id', sortable: false, width: 3},
                     { text: 'Name', value: 'name', sortable: false},
-                    { text: 'Category', value: 'category_id', sortable: false},
+                    { text: 'Category', value: 'category', sortable: false},
                     { text: 'Enabled', value: 'enabled', sortable: false}
                 ],
                 items: [],

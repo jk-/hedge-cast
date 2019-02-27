@@ -3,6 +3,7 @@
         <v-flex>
             <v-layout row>
                 <AdminSubToolbar title="Plans" />
+                <v-btn :ripple="false" :to="{name: 'admin_plans_create'}">New</v-btn>
             </v-layout>
             <v-layout row>
                 <v-flex md12>

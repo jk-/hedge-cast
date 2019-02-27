@@ -9,19 +9,7 @@
             <v-container>
                 <v-layout row>
                     <v-flex md12>
-                        <v-form>
-                            <v-flex md4>
-                                <v-text-field
-                                    label="Name"
-                                    :value="item.name"
-                                    @input="update('name', $event)"
-                                >
-                                </v-text-field>
-                            </v-flex>
-                            <v-flex md4>
-                                <v-btn color="primary" @click="saveItem">Save</v-btn>
-                            </v-flex>
-                        </v-form>
+                        <AdminPlanForm :is-edit="false" />
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -30,36 +18,12 @@
 </template>
 
 <script>
-    import { get_plan } from '@/api/index.js'
-    import { save_plan } from '@/api/index.js'
+    import AdminPlanForm from '@/components/admin/plan/PlanForm.vue'
 
     export default {
-        name: 'admin-plan-edit',
-        data () {
-            return {
-                item: {}
-            }
-        },
-        methods: {
-            getItem () {
-                get_plan(this.$route.params.id).then(response => {
-                    this.item = response.data
-                })
-            },
-            update (param, value) {
-                if (!value) {
-                    value = false
-                }
-                this.$set(this.item, param, value)
-            },
-            saveItem () {
-                save_plan(this.item).then(response => {
-                    this.item = response.data
-                })
-            }
-        },
-        created () {
-            this.getItem()
+        name: 'admin-plan-create',
+        components: {
+            AdminPlanForm
         }
     }
 </script>

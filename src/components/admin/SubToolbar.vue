@@ -2,7 +2,7 @@
     <v-toolbar color="transparent z-depth-0">
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-flex md3>
+        <v-flex md2>
             <v-text-field
                 append-icon="search"
             ></v-text-field>

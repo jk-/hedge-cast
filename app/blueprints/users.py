@@ -45,4 +45,4 @@ def delete_user(user_id, *args, **kwargs):
     user = UserRepository.query.get(user_id)
     if user:
         UserRepository.delete(user)
-    return jsonify({"message": "User deleted."}), 200
+    return jsonify({"message": "User deleted.", "type": "success"}), 200

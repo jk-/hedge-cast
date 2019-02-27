@@ -3,13 +3,13 @@
         <v-flex>
             <v-layout row>
                 <v-toolbar color="transparent z-depth-0">
-                    <v-toolbar-title>Editing Playlist</v-toolbar-title>
+                    <v-toolbar-title>New Role</v-toolbar-title>
                 </v-toolbar>
             </v-layout>
             <v-container>
                 <v-layout row>
                     <v-flex md12>
-                        <AdminPlaylistForm :is-edit="true" />
+                        <AdminRoleForm :is-edit="false" />
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -18,12 +18,12 @@
 </template>
 
 <script>
-    import AdminPlaylistForm from '@/components/admin/playlist/PlaylistForm.vue'
+    import AdminRoleForm from '@/components/admin/role/RoleForm.vue'
 
     export default {
-        name: 'admin-playlist-edit',
+        name: 'admin-role-create',
         components: {
-            AdminPlaylistForm
+            AdminRoleForm
         }
     }
 </script>
