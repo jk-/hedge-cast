@@ -4,9 +4,9 @@ import json
 from flask import Blueprint, request, jsonify
 from app.repository.video_repository import VideoRepository
 from app.models.video import Video
-from app.service.serialize import serialize
-from app.token_required import token_required
-from app.service.dotdict import dotdict
+from app.util.serialize import serialize
+from app.util.token_required import token_required
+from app.util.dotdict import dotdict
 
 videos_blueprint = Blueprint("videos", __name__)
 

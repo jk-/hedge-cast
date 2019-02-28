@@ -4,9 +4,9 @@ import json
 from flask import Blueprint, request, jsonify
 from app.repository.playlist_repository import PlaylistRepository
 from app.models.playlist import Playlist
-from app.service.serialize import serialize
-from app.token_required import token_required
-from app.service.dotdict import dotdict
+from app.util.serialize import serialize
+from app.util.token_required import token_required
+from app.util.dotdict import dotdict
 
 playlist_blueprint = Blueprint("playlists", __name__)
 

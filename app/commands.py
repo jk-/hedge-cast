@@ -21,25 +21,25 @@ def create_db():
 
 
 @click.option("--num_users", default=5, help="Number of users.")
-def populate_db(num_users):
+def populate_users(num_users):
     """Populates the database with seed data."""
     fake = Faker()
     users = []
     admin_role = Role(name="ROLE_ADMIN")
     for _ in range(num_users):
-        _cat = User()
-        _cat.set_password(fake.word() + fake.word())
-        _cat.set_email(fake.email())
-        _cat.set_catname(fake.user_name())
-        users.append(_cat)
+        user = User()
+        user.username = fake.word()
+        user.password = fake.word()
+        user.email = fake.email()
+        users.append(user)
     jonUser = User()
-    jonUser.set_password("pass")
-    jonUser.set_email("jon@stonetorch.com")
-    jonUser.set_catname("jon")
+    jonUser.username = "jon"
+    jonUser.password = "pass"
+    jonUser.email = "jon@stonetorch.com"
     jonUser.roles = [admin_role]
     users.append(jonUser)
     for user in users:
-        print("saving user %s".format(user))
+        print("saving user {}".format(user))
         db.session.add(user)
     db.session.commit()
 
@@ -53,7 +53,7 @@ def populate_category():
         _cat.name = fake.word()
         categories.append(_cat)
     for cat in categories:
-        print("saving category %s".format(cat))
+        print("saving category {}".format(cat))
         db.session.add(cat)
     db.session.commit()
 
@@ -75,7 +75,7 @@ def populate_plans():
         _plan.plan_group = fake.word()
         plans.append(_plan)
     for plan in plans:
-        print("saving plan %s".format(plan))
+        print("saving plan {}".format(plan))
         db.session.add(plan)
     db.session.commit()
 
@@ -90,7 +90,7 @@ def populate_playlist():
         _playlist.enabled = fake.boolean()
         playlists.append(_playlist)
     for playlist in playlists:
-        print("saving playlist %s".format(playlist))
+        print("saving playlist {}".format(playlist))
         db.session.add(playlist)
     db.session.commit()
 
@@ -109,7 +109,7 @@ def populate_videos():
         _video.thumbnail = fake.word()
         videos.append(_video)
     for video in videos:
-        print("saving video %s".format(video))
+        print("saving video {}".format(video))
         db.session.add(video)
     db.session.commit()
 

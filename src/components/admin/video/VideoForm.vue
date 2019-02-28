@@ -1,15 +1,20 @@
 <template>
-    <v-form>
+    <v-form
+        ref="form"
+        :model="valid"
+        lazy-validation>
         <v-flex md9>
             <v-text-field
                 label="Title"
                 :value="item.title"
+                :rules="[rules.required]"
                 @input="update('title', $event)"
             >
             </v-text-field>
             <v-text-field
                 label="Access Type"
                 :value="item.access_type"
+                :rules="[rules.required]"
                 @input="update('access_type', $event)"
             >
             </v-text-field>
@@ -54,6 +59,8 @@
 </template>
 
 <script>
+    import Video from '@/models/video'
+
     import { get_video } from '@/api/index.js'
     import { save_video } from '@/api/index.js'
     import { delete_video } from '@/api/index.js'
@@ -63,8 +70,12 @@
         props: ['isEdit'],
         data () {
             return {
-                item: {},
-                editing: this.isEdit
+                item: Video,
+                editing: this.isEdit,
+                valid: true,
+                rules: {
+                    required: value => !!value || 'Required.'
+                }
             }
         },
         methods: {
@@ -80,10 +91,15 @@
                 this.$set(this.item, param, value)
             },
             save () {
-                save_video(this.item).then(response => {
-                    this.item = response.data
-                    this.$router.push({ name: 'admin_video' })
-                })
+                if (!this.$refs.form.validate()) {
+                    this.valid = false
+                } else {
+                    this.valid = true
+                    save_video(this.item).then(response => {
+                        this.item = response.data
+                        this.$router.push({ name: 'admin_video' })
+                    })
+                }
             },
             remove () {
                 delete_video(this.item.id).then(response => {

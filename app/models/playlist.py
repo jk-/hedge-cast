@@ -1,5 +1,5 @@
 from app.database import db
-from app.service.serialize import serialize
+from app.util.serialize import serialize
 
 
 class Playlist(db.Model):

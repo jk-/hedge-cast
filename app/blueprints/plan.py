@@ -4,9 +4,9 @@ import json
 from flask import Blueprint, request, jsonify
 from app.repository.plan_repository import PlanRepository
 from app.models.plan import Plan
-from app.service.serialize import serialize
-from app.token_required import token_required
-from app.service.dotdict import dotdict
+from app.util.serialize import serialize
+from app.util.token_required import token_required
+from app.util.dotdict import dotdict
 
 
 plan_blueprint = Blueprint("plans", __name__)

@@ -42,7 +42,7 @@ const actions = {
     logout (context) {
         context.commit('setJwtToken')
         context.commit('setUserData')
-        router.push({ name: 'index' })
+        router.push({ name: 'login' })
     },
     register (context, userData) {
         context.commit('setUserData', { userData })

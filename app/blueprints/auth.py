@@ -2,7 +2,7 @@ import jwt
 from datetime import datetime, timedelta
 
 from flask import Blueprint, request, current_app, jsonify
-from app.service.user_authenticator import UserAuthenticator
+from app.util.user_authenticator import UserAuthenticator
 from app.repository.user_repository import UserRepository
 from app.models.user import User
 from app.exception import InvalidAuthUser
@@ -14,9 +14,9 @@ auth_blueprint = Blueprint("auth", __name__)
 def register():
     data = request.get_json()
     user = User()
-    user.set_username(data.username)
-    user.set_password(data.pasword)
-    user.set_email(data.email)
+    user.username = data.username
+    user.password = data.pasword
+    user.email = data.email
     user = UserRepository.save(user)
     return jsonify(user.to_dict()), 201
 

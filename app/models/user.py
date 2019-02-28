@@ -2,7 +2,9 @@ import datetime
 
 from app.database import db
 from app.extensions import bcrypt
-from app.service.serialize import serialize
+from app.util.serialize import serialize
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import validates
 
 
 class User(db.Model):
@@ -15,14 +17,22 @@ class User(db.Model):
     """
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), nullable=False, unique=True)
-    username_canonical = db.Column(db.String(20), nullable=False, unique=True)
-    email = db.Column(db.String(180), nullable=False, unique=True)
-    email_canonical = db.Column(db.String(180), nullable=False, unique=True)
-    email_reverse = db.Column(db.String(180), nullable=False, unique=True)
+    _username = db.Column(
+        "username", db.String(20), nullable=False, unique=True
+    )
+    _username_canonical = db.Column(
+        "username_cononical", db.String(20), nullable=False, unique=True
+    )
+    _email = db.Column("email", db.String(180), nullable=False, unique=True)
+    _email_canonical = db.Column(
+        "email_canonical", db.String(180), nullable=False, unique=True
+    )
+    _email_reverse = db.Column(
+        "email_reverse", db.String(180), nullable=False, unique=True
+    )
     enabled = db.Column(db.Boolean(), default=1, nullable=False)
-    salt = db.Column(db.String(255), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    _salt = db.Column("salt", db.String(255), nullable=False)
+    _password = db.Column("password", db.String(255), nullable=False)
     last_login_at = db.Column(
         db.DateTime(timezone=True), default=datetime.datetime.utcnow
     )
@@ -33,8 +43,8 @@ class User(db.Model):
     roles = db.relationship("Role", secondary="user_roles", lazy="joined")
     plans = db.relationship("Plan", secondary="user_plan", lazy="joined")
     credentials_expire_at = db.Column(db.DateTime(timezone=True))
-    created = db.Column(
-        db.DateTime(timezone=True), default=datetime.datetime.utcnow
+    _created = db.Column(
+        "created", db.DateTime(timezone=True), default=datetime.datetime.utcnow
     )
     stripe_customer_id = db.Column(db.String(255))
     can_email_notify = db.Column(db.Boolean(), default=1)
@@ -48,36 +58,48 @@ class User(db.Model):
             if attr not in (
                 "id",
                 "created",
-                "email_canonical",
-                "username_canonical",
-                "salt",
                 "last_login_at",
+                "roles",
+                "plans",
             ):
-                set_method = f"set_{attr}"
-                if hasattr(self.__class__, set_method) and callable(
-                    getattr(self.__class__, set_method)
-                ):
-                    getattr(self, set_method)(value)
-                else:
-                    setattr(self, attr, value)
+                setattr(self, attr, value)
         return self
 
-    def set_username(self, username):
-        setattr(self, "username", username)
-        setattr(self, "username_canonical", username)
+    @hybrid_property
+    def username(self):
+        return self._username
 
-    def set_last_login_at(self, last_login_at):
-        setattr(self, "last_login_at", datetime.datetime.utcnow())
+    @username.setter
+    def username(self, username):
+        self._username = username
+        self._username_canonical = username
 
-    def set_email(self, email):
-        self.email = email
-        self.email_canonical = email
-        self.email_reverse = email[::-1]
+    @hybrid_property
+    def email(self):
+        return self._email
+
+    @email.setter
+    def email(self, email):
+        self._email = email
+        self._email_canonical = email
+        self._email_reverse = email[::-1]
+
+    @hybrid_property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, password):
+        self.set_password(password)
+
+    @hybrid_property
+    def created(self):
+        return self._created
 
     def set_password(self, password):
         hash_ = bcrypt.generate_password_hash(password, 10).decode("utf-8")
-        self.password = hash_
-        self.salt = "asdf"
+        self._password = hash_
+        self._salt = "asdf"
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)

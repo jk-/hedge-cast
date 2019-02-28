@@ -31,11 +31,11 @@
 
 <script>
     const admin_routes = [
+        { title: "Users", path: 'admin_user' },
         { title: "Category", path: 'admin_category' },
         { title: "Plans", path: 'admin_plan' },
         { title: "Playlists", path: 'admin_playlist' },
         { title: "Roles", path: 'admin_role' },
-        { title: "User", path: 'admin_user' },
         { title: "Videos", path: 'admin_video' },
     ]
 

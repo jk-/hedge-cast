@@ -4,9 +4,10 @@ import json
 from flask import Blueprint, request, jsonify
 from app.repository.category_repository import CategoryRepository
 from app.models.category import Category
-from app.service.serialize import serialize
-from app.token_required import token_required
-from app.service.dotdict import dotdict
+from app.util.serialize import serialize
+from app.util.dotdict import dotdict
+from app.util.token_required import token_required
+from app.validator.category import CategoryValidator
 
 category_blueprint = Blueprint("category", __name__)
 
@@ -28,6 +29,12 @@ def get_category(category_id, *args, **kwargs):
 @category_blueprint.route("/category", methods=("POST",))
 @token_required
 def update_category(*args, **kwargs):
+    data = request.get_json()
+    validator = CategoryValidator(**data, csrf_enabled=False)
+
+    if not validator.validate():
+        raise Exception(validator.errors)
+
     data = dotdict(request.get_json())
     if not data.id:
         category = Category()

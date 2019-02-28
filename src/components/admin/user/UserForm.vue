@@ -1,32 +1,50 @@
 <template>
-    <v-form>
+    <v-form
+        ref="form"
+        :model="valid"
+        lazy-validation>
         <v-flex md9>
             <v-text-field
                 label="Username"
                 :value="item.username"
+                :rules="[rules.required]"
                 @input="update('username', $event)"
+                required
             >
             </v-text-field>
             <v-text-field
                 label="Email"
                 :value="item.email"
+                :rules="[rules.required]"
                 @input="update('email', $event)"
+                required
             >
             </v-text-field>
+            <v-text-field
+                :append-icon="pwShow ? 'visibility_off' : 'visibility'"
+                :type="pwShow ? 'text' : 'password'"
+                :rules="[rules.required]"
+                @click:append="pwShow = !pwShow"
+                @input="update('password', $event)"
+                label="Password"
+                name="password"
+                v-if="!editing"
+                required
+            ></v-text-field>
             <v-checkbox
-                :value="item.enabled"
+                :input-value="item.enabled"
                 @change="update('enabled', $event)"
                 label="Enabled"
             >
             </v-checkbox>
             <v-checkbox
-                :value="item.can_email_notify"
+                :input-value="item.can_email_notify"
                 @change="update('can_email_notify', $event)"
                 label="Allowed to email for notifications"
             >
             </v-checkbox>
             <v-checkbox
-                :value="item.can_email_general"
+                :input-value="item.can_email_general"
                 @change="update('can_email_general', $event)"
                 label="Allowed to email for general purposes"
             >
@@ -57,6 +75,8 @@
 </template>
 
 <script>
+    import User from '@/models/user'
+
     import { get_user } from '@/api/index.js'
     import { save_user } from '@/api/index.js'
     import { delete_user } from '@/api/index.js'
@@ -66,8 +86,13 @@
         props: ['isEdit'],
         data () {
             return {
-                item: {},
-                editing: this.isEdit
+                item: User,
+                editing: this.isEdit,
+                pwShow: false,
+                valid: true,
+                rules: {
+                    required: value => !!value || 'Required.'
+                }
             }
         },
         methods: {
@@ -83,10 +108,15 @@
                 this.$set(this.item, param, value)
             },
             save () {
-                save_user(this.item).then(response => {
-                    this.item = response.data
-                    this.$router.push({ name: 'admin_user' })
-                })
+                if (!this.$refs.form.validate()) {
+                    this.valid = false
+                } else {
+                    this.valid = true
+                    save_user(this.item).then(response => {
+                        this.item = response.data
+                        this.$router.push({ name: 'admin_user' })
+                    })
+                }
             },
             remove () {
                 delete_user(this.item.id).then(response => {

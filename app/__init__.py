@@ -8,7 +8,7 @@ from flask import Flask, render_template, send_file, current_app
 from app.config import base_config, test_config
 from app.database import db
 from app.commands import create_db
-from app.commands import populate_db
+from app.commands import populate_users
 from app.commands import populate_category
 from app.commands import populate_plans
 from app.commands import populate_playlist
@@ -91,8 +91,8 @@ def register_jinja_env(app):
 def register_commands(app):
     for command in [
         create_db,
-        populate_db,
         drop_db,
+        populate_users,
         populate_category,
         populate_plans,
         populate_playlist,

@@ -14,12 +14,12 @@
                         <v-layout>
                             <v-flex md12 lg12>
                                 <v-text-field
-                                v-model="username"
-                                :rules="[rules.required]"
-                                label="Username"
-                                name="username"
-                                autocomplete="username"
-                                required
+                                    v-model="username"
+                                    :rules="[rules.required]"
+                                    label="Username"
+                                    name="username"
+                                    autocomplete="username"
+                                    required
                                 ></v-text-field>
                             </v-flex>
                         </v-layout>
@@ -27,16 +27,16 @@
                         <v-layout>
                             <v-flex md12 lg12>
                                 <v-text-field
-                                v-model="password"
-                                :append-icon="pwShow ? 'visibility_off' : 'visibility'"
-                                :rules="[rules.required]"
-                                :type="pwShow ? 'text' : 'password'"
-                                @click:append="pwShow = !pwShow"
-                                v-on:keypress.enter="authenticate"
-                                label="passwword"
-                                name="password"
-                                autocomplete="current-password"
-                                required
+                                    v-model="password"
+                                    :append-icon="pwShow ? 'visibility_off' : 'visibility'"
+                                    :rules="[rules.required]"
+                                    :type="pwShow ? 'text' : 'password'"
+                                    @click:append="pwShow = !pwShow"
+                                    v-on:keypress.enter="authenticate"
+                                    label="password"
+                                    name="password"
+                                    autocomplete="current-password"
+                                    required
                                 ></v-text-field>
                             </v-flex>
                         </v-layout>

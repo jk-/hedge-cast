@@ -1,9 +1,13 @@
 <template>
-    <v-form>
+    <v-form
+        ref="form"
+        :model="valid"
+        lazy-validation>
         <v-flex md9>
             <v-text-field
                 label="Name"
                 :value="item.name"
+                :rules="[rules.required]"
                 @input="update('name', $event)"
             >
             </v-text-field>
@@ -23,6 +27,7 @@
 </template>
 
 <script>
+    import Playlist from '@/models/playlist'
     import { get_playlist } from '@/api/index.js'
     import { save_playlist } from '@/api/index.js'
     import { delete_playlist } from '@/api/index.js'
@@ -32,8 +37,12 @@
         props: ['isEdit'],
         data () {
             return {
-                item: {},
-                editing: this.isEdit
+                item: Playlist,
+                editing: this.isEdit,
+                valid: true,
+                rules: {
+                    required: value => !!value || 'Required.'
+                }
             }
         },
         methods: {
@@ -49,10 +58,15 @@
                 this.$set(this.item, param, value)
             },
             save () {
-                save_playlist(this.item).then(response => {
-                    this.item = response.data
-                    this.$router.push({ name: 'admin_playlist' })
-                })
+                if (!this.$refs.form.validate()) {
+                    this.valid = false
+                } else {
+                    this.valid = true
+                    save_playlist(this.item).then(response => {
+                        this.item = response.data
+                        this.$router.push({ name: 'admin_playlist' })
+                    })
+                }
             },
             remove () {
                 delete_playlist(this.item.id).then(response => {

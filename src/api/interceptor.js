@@ -44,7 +44,9 @@ axios.interceptors.response.use(
                 text: error.response.data.error.message[0]
             }
             store.dispatch('setSnackbar', payload)
-            router.push({ name: 'login' })
+            if (error.response.data.error.type === 'AuthRequired') {
+                store.dispatch('logout', payload)
+            }
        } else {
             let payload = {
                 color: 'error',

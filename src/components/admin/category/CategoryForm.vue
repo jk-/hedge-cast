@@ -1,9 +1,13 @@
 <template>
-    <v-form>
+    <v-form
+        ref="form"
+        :model="valid"
+        lazy-validation>
         <v-flex md9>
             <v-text-field
                 label="Name"
                 :value="item.name"
+                :rules="[rules.required]"
                 @input="update('name', $event)"
             >
             </v-text-field>
@@ -16,6 +20,8 @@
 </template>
 
 <script>
+    import Category from '@/models/category'
+
     import { get_category } from '@/api/index.js'
     import { save_category } from '@/api/index.js'
     import { delete_category } from '@/api/index.js'
@@ -27,8 +33,12 @@
         },
         data () {
             return {
-                item: {},
-                editing: this.isEdit
+                item: Category,
+                editing: this.isEdit,
+                valid: true,
+                rules: {
+                    required: value => !!value || 'Required.'
+                }
             }
         },
         methods: {
@@ -44,10 +54,15 @@
                 this.$set(this.item, param, value)
             },
             save () {
-                save_category(this.item).then(response => {
-                    this.item = response.data
-                    this.$router.push({name: 'admin_category'})
-                })
+                if (!this.$refs.form.validate()) {
+                    this.valid = false
+                } else {
+                    this.valid = true
+                    save_category(this.item).then(response => {
+                        this.item = response.data
+                        this.$router.push({name: 'admin_category'})
+                    })
+                }
             },
             remove () {
                 delete_category(this.item.id).then(response => {

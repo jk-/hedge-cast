@@ -1,15 +1,20 @@
 <template>
-    <v-form>
+    <v-form
+        ref="form"
+        :model="valid"
+        lazy-validation>
         <v-flex md9>
             <v-text-field
                 label="Name"
                 :value="item.name"
+                :rules="[rules.required]"
                 @input="update('name', $event)"
             >
             </v-text-field>
             <v-text-field
                 label="Code"
                 :value="item.code"
+                :rules="[rules.required]"
                 @input="update('code', $event)"
             >
             </v-text-field>
@@ -17,6 +22,7 @@
             <v-text-field
                 label="Interval Term"
                 :value="item.interval_term"
+                :rules="[rules.required]"
                 @input="update('interval_term', $event)"
             >
             </v-text-field>
@@ -42,19 +48,21 @@
             <v-text-field
                 label="Statement Desc"
                 :value="item.statement_desc"
+                :rules="[rules.required]"
                 @input="update('statement_desc', $event)"
             >
             </v-text-field>
             <v-text-field
                 label="Plan Group"
                 :value="item.plan_group"
+                :rules="[rules.required]"
                 @input="update('plan_group', $event)"
             >
             </v-text-field>
 
             <v-checkbox
                 label="Enabled"
-                :value="item.enabled"
+                :input-value="item.enabled"
                 @change="update('enabled', $event)"
             >
             </v-checkbox>
@@ -67,6 +75,7 @@
 </template>
 
 <script>
+    import Plan from '@/models/plan'
     import { get_plan } from '@/api/index.js'
     import { save_plan } from '@/api/index.js'
     import { delete_plan } from '@/api/index.js'
@@ -78,8 +87,12 @@
         },
         data () {
             return {
-                item: {},
-                editing: this.isEdit
+                item: Plan,
+                editing: this.isEdit,
+                valid: true,
+                rules: {
+                    required: value => !!value || 'Required.'
+                }
             }
         },
         methods: {
@@ -95,10 +108,15 @@
                 this.$set(this.item, param, value)
             },
             save () {
-                save_plan(this.item).then(response => {
-                    this.item = response.data
-                    this.$router.push({ name: 'admin_plan' })
-                })
+                if (!this.$refs.form.validate()) {
+                    this.valid = false
+                } else {
+                    this.valid = true
+                    save_plan(this.item).then(response => {
+                        this.item = response.data
+                        this.$router.push({ name: 'admin_plan' })
+                    })
+                }
             },
             remove () {
                 delete_plan(this.item.id).then(response => {

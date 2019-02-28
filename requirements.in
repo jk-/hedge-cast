@@ -8,3 +8,4 @@ flask-migrate
 pymysql
 pyjwt
 flask_cors
+flask-wtf

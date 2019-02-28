@@ -2,12 +2,13 @@ import jwt
 import json
 
 from flask import Blueprint, request, jsonify
-from app.service.user_authenticator import UserAuthenticator
 from app.repository.user_repository import UserRepository
 from app.models.user import User
-from app.service.serialize import serialize
-from app.token_required import token_required
-from app.service.dotdict import dotdict
+from app.util.serialize import serialize
+from app.util.token_required import token_required
+from app.util.dotdict import dotdict
+from app.util.user_authenticator import UserAuthenticator
+from app.validator.user import UserValidator
 
 users_blueprint = Blueprint("users", __name__)
 
@@ -29,12 +30,19 @@ def get_user(user_id, *args, **kwargs):
 @users_blueprint.route("/user", methods=("POST",))
 @token_required
 def save_user(*args, **kwargs):
+    data = request.get_json()
+    user_validator = UserValidator(**data, csrf_enabled=False)
+
+    if not user_validator.validate():
+        raise Exception(user_validator.errors)
+
     data = dotdict(request.get_json())
     if not data.id:
         user = User()
     else:
         user = UserRepository.get(data.id)
     user.update(**data)
+
     UserRepository.save(user)
     return jsonify(serialize(user)), 201
 

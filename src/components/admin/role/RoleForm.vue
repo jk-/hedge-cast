@@ -1,9 +1,13 @@
 <template>
-    <v-form>
+    <v-form
+        ref="form"
+        :model="valid"
+        lazy-validation>
         <v-flex md4>
             <v-text-field
                 label="Name"
                 :value="item.name"
+                :rules="[rules.required]"
                 @input="update('name', $event)"
             >
             </v-text-field>
@@ -16,6 +20,8 @@
 </template>
 
 <script>
+    import Role from '@/models/role'
+
     import { get_role } from '@/api/index.js'
     import { save_role } from '@/api/index.js'
     import { delete_role } from '@/api/index.js'
@@ -25,8 +31,12 @@
         props: ['isEdit'],
         data () {
             return {
-                item: {},
-                editing: this.isEdit
+                item: Role,
+                editing: this.isEdit,
+                valid: true,
+                rules: {
+                    required: value => !!value || 'Required.'
+                }
             }
         },
         methods: {
@@ -42,10 +52,15 @@
                 this.$set(this.item, param, value)
             },
             save () {
-                save_role(this.item).then(response => {
-                    this.item = response.data
-                    this.$router.push({ name: 'admin_role' })
-                })
+                if (!this.$refs.form.validate()) {
+                    this.valid = false
+                } else {
+                    this.valid = true
+                    save_role(this.item).then(response => {
+                        this.item = response.data
+                        this.$router.push({ name: 'admin_role' })
+                    })
+                }
             },
             remove () {
                 delete_role(this.item.id).then(response => {

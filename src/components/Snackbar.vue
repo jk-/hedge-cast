@@ -4,6 +4,7 @@
       <v-btn
         dark
         flat
+        :multiline="true"
         @click="closeSnackbar"
       >
         Close
