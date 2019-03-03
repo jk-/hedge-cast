@@ -35,7 +35,7 @@ def update_category(*args, **kwargs):
     if not validator.validate():
         raise Exception(validator.errors)
 
-    data = dotdict(request.get_json())
+    data = dotdict(data)
     if not data.id:
         category = Category()
     else:

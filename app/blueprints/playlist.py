@@ -7,6 +7,7 @@ from app.models.playlist import Playlist
 from app.util.serialize import serialize
 from app.util.token_required import token_required
 from app.util.dotdict import dotdict
+from app.validator.playlist import PlaylistValidator
 
 playlist_blueprint = Blueprint("playlists", __name__)
 
@@ -28,7 +29,13 @@ def get_playlist(playlist_id, *args, **kwargs):
 @playlist_blueprint.route("/playlist", methods=("POST",))
 @token_required
 def save_playlist(*args, **kwargs):
-    data = dotdict(request.get_json())
+    data = request.get_json()
+    validator = PlaylistValidator(**data, csrf_enabled=False)
+
+    if not validator.validate():
+        raise Exception(validator.errors)
+
+    data = dotdict(data)
     if not data.id:
         playlist = Playlist()
     else:

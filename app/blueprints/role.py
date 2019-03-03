@@ -7,6 +7,7 @@ from app.models.role import Role
 from app.util.serialize import serialize
 from app.util.token_required import token_required
 from app.util.dotdict import dotdict
+from app.validator.role import RoleValidator
 
 roles_blueprint = Blueprint("roles", __name__)
 
@@ -28,7 +29,13 @@ def get_role(role_id, *args, **kwargs):
 @roles_blueprint.route("/role", methods=("POST",))
 @token_required
 def save_role(*args, **kwargs):
-    data = dotdict(request.get_json())
+    data = request.get_json()
+    validator = RolelistValidator(**data, csrf_enabled=False)
+
+    if not validator.validate():
+        raise Exception(validator.errors)
+
+    data = dotdict(data)
     if not data.id:
         role = Role()
     else:

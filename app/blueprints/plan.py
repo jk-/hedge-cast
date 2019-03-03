@@ -7,6 +7,7 @@ from app.models.plan import Plan
 from app.util.serialize import serialize
 from app.util.token_required import token_required
 from app.util.dotdict import dotdict
+from app.validator.plan import PlanValidator
 
 
 plan_blueprint = Blueprint("plans", __name__)
@@ -29,7 +30,13 @@ def get_plan(plan_id, *args, **kwargs):
 @plan_blueprint.route("/plan", methods=("POST",))
 @token_required
 def save_plan(*args, **kwargs):
-    data = dotdict(request.get_json())
+    data = request.get_json()
+    validator = PlanValidator(**data, csrf_enabled=False)
+
+    if not validator.validate():
+        raise Exception(validator.errors)
+
+    data = dotdict(data)
     if not data.id:
         plan = Plan()
     else:

@@ -7,6 +7,7 @@ from app.models.video import Video
 from app.util.serialize import serialize
 from app.util.token_required import token_required
 from app.util.dotdict import dotdict
+from app.validator.video import VideoValidator
 
 videos_blueprint = Blueprint("videos", __name__)
 
@@ -28,7 +29,13 @@ def get_video(video_id, *args, **kwargs):
 @videos_blueprint.route("/video", methods=("POST",))
 @token_required
 def save_video(*args, **kwargs):
-    data = dotdict(request.get_json())
+    data = request.get_json()
+    validator = VideoValidator(**data, csrf_enabled=False)
+
+    if not validator.validate():
+        raise Exception(validator.errors)
+
+    data = dotdict(data)
     if not data.id:
         video = Video()
     else:

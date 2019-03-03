@@ -36,7 +36,7 @@ def save_user(*args, **kwargs):
     if not user_validator.validate():
         raise Exception(user_validator.errors)
 
-    data = dotdict(request.get_json())
+    data = dotdict(data)
     if not data.id:
         user = User()
     else:
