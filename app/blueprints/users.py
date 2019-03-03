@@ -1,6 +1,3 @@
-import jwt
-import json
-
 from flask import Blueprint, request, jsonify
 from app.repository.user_repository import UserRepository
 from app.repository.role_repository import RoleRepository
@@ -52,8 +49,7 @@ def save_user(*args, **kwargs):
         user = UserRepository.get(data.id)
     user.update(**data)
 
-    if data.roles:
-        user.roles = []
+    user.roles = []
 
     for role in data.roles:
         _role = RoleRepository.get_by_name(role)

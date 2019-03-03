@@ -1,6 +1,3 @@
-import jwt
-import json
-
 from flask import Blueprint, request, jsonify
 from app.repository.video_repository import VideoRepository
 from app.models.video import Video

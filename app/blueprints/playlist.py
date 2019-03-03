@@ -1,6 +1,3 @@
-import jwt
-import json
-
 from flask import Blueprint, request, jsonify
 from app.repository.playlist_repository import PlaylistRepository
 from app.models.playlist import Playlist

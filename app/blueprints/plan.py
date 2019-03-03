@@ -1,6 +1,3 @@
-import jwt
-import json
-
 from flask import Blueprint, request, jsonify
 from app.repository.plan_repository import PlanRepository
 from app.models.plan import Plan

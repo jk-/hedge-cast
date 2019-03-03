@@ -1,6 +1,3 @@
-import jwt
-import json
-
 from flask import Blueprint, request, jsonify
 from app.repository.category_repository import CategoryRepository
 from app.models.category import Category
