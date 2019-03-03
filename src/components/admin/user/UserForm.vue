@@ -37,6 +37,7 @@
                 item-value="name"
                 item-text="id"
                 label="Roles"
+                :menu-props="{closeOnContentClick:true}"
                 attach
                 chips
                 multiple
@@ -67,13 +68,13 @@
             <v-flex md8>
                 <ul>
                     <li><strong>Created:</strong> {{ item.created | format_date }}</li>
-                    <li><strong>Stripe ID:</strong> {{ item.stripe_customer_id | or_empty }}</li>
+                    <li><strong>Last Login:</strong> {{ item.last_login_at }}</li>
+                    <li><strong>Stripe ID:</strong> {{ item.stripe_customer_id }}</li>
                     <li>
                         <strong>Plans:</strong>
                         <span v-for="plan in item.plans">{{ plan.name }} </span>
                     </li>
-                    <li><strong>Last Login:</strong> {{ item.last_login_at }}</li>
-                    <li><strong>Referrer:</strong> {{ item.referrer | or_empty }}</li>
+                    <li><strong>Referrer:</strong> {{ item.referrer }}</li>
                 </ul>
             </v-flex>
         </v-layout>
