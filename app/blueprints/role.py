@@ -12,8 +12,7 @@ admin_role_blueprint = Blueprint("admin_role", __name__)
 @admin_role_blueprint.route("/roles", methods=("GET",))
 def get_roles(*args, **kwargs):
     roles = RoleRepository.query.all()
-    role_data = [x.name for x in roles]
-    return jsonify(role_data), 200
+    return jsonify(serialize(roles)), 200
 
 
 @admin_role_blueprint.route("/role/<int:role_id>", methods=("GET",))

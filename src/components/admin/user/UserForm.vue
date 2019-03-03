@@ -34,8 +34,8 @@
             <v-select
                 v-model="item.roles"
                 :items="roles"
-                item-value="name"
-                item-text="id"
+                item-value="id"
+                item-text="name"
                 label="Roles"
                 :menu-props="{closeOnContentClick:true}"
                 attach
@@ -113,7 +113,7 @@
             },
             getRoles () {
                 get_all_roles().then(response => {
-                    this.roles = response.data
+                    this.roles = response.data.map(x => x.name)
                 })
             },
             update (param, value) {
