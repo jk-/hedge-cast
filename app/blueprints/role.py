@@ -30,7 +30,7 @@ def get_role(role_id, *args, **kwargs):
 @token_required
 def save_role(*args, **kwargs):
     data = request.get_json()
-    validator = RolelistValidator(**data, csrf_enabled=False)
+    validator = RoleValidator(**data, csrf_enabled=False)
 
     if not validator.validate():
         raise Exception(validator.errors)

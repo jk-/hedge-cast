@@ -24,7 +24,7 @@
         - [x] Validation logic in API
         - [x] Validation logic in Vue
         - [x] Construct Models in VUE (the object on create page is empty)
-        - [] For create and edit pages need to have list box for:
+        - [] For create and edit pages need to have select box for:
             - [] user_roles, playlist_category, etc
             - [] Relationship editing (user -> plan, etc)
         - [] The JWT needs to check on server for security on role access
