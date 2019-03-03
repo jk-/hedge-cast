@@ -39,7 +39,6 @@
             getAllItems () {
                 get_all_roles().then(response => {
                     this.items = response.data
-                    console.log(this.items)
                     this.loading = false
                 })
             },

@@ -15,6 +15,7 @@ import AdminVideoRoutes from '@/router/admin/video'
 import store from '@/store'
 
 const ROLE_ADMIN = "ROLE_ADMIN"
+const APP_TITLE = "Hedge Cast"
 
 Vue.use(Router)
 
@@ -30,12 +31,18 @@ const router = new Router({
     {
         path: '/',
         name: 'index',
-        component: Home
+        component: Home,
+        meta: {
+            title: APP_TITLE
+        }
     },
     {
         path: '/login',
         name: 'login',
-        component: Login
+        component: Login,
+        meta: {
+            title: APP_TITLE + ' Login'
+        }
     },
     {
         path: '/register',
@@ -61,6 +68,9 @@ router.beforeEach((to, from, next) => {
     } else {
         next()
     }
+    const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
+    if(nearestWithTitle) document.title = nearestWithTitle.meta.title;
+
 })
 
 export default router
