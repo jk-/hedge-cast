@@ -3,4 +3,8 @@ from app.database import Repository
 
 
 class CategoryRepository(Category, Repository):
-    pass
+    @staticmethod
+    def get_by_name(name):
+        if isinstance(name, str):
+            return Category.query.filter_by(name=name).first()
+        return None

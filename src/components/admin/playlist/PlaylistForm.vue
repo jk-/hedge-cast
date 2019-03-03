@@ -11,13 +11,30 @@
                 @input="update('name', $event)"
             >
             </v-text-field>
+            <v-select
+                v-model="item.categories"
+                :items="categories"
+                item-value="id"
+                item-text="name"
+                label="Categories"
+                :menu-props="{closeOnContentClick:true}"
+                attach
+                chips
+                multiple
+            ></v-select>
             <v-checkbox
                 label="Enabled"
-                :value="item.enabled"
+                :input-value="item.enabled"
                 @change="update('enabled', $event)"
             >
             </v-checkbox>
-            <span v-for="cat in item.category">{{ cat.name }}</span>
+        </v-flex>
+        <v-spacer></v-spacer>
+        <v-flex md9>
+            <v-text-field
+                append-icon="search"
+                label="Add video"
+            ></v-text-field>
         </v-flex>
         <v-flex md4>
             <v-btn color="primary" @click="save">Save</v-btn>
@@ -31,6 +48,8 @@
     import { get_playlist } from '@/api/index.js'
     import { save_playlist } from '@/api/index.js'
     import { delete_playlist } from '@/api/index.js'
+    import { get_all_categories } from '@/api/index.js'
+    import { search_video } from '@/api/index.js'
 
     export default {
         name: 'admin-playlist-form',
@@ -39,6 +58,7 @@
             return {
                 item: Playlist,
                 editing: this.isEdit,
+                categories: [],
                 valid: true,
                 rules: {
                     required: value => !!value || 'Required.'
@@ -49,6 +69,13 @@
             getItem () {
                 get_playlist(this.$route.params.id).then(response => {
                     this.item = response.data
+                    if (response.data.categories !== 'undefined')
+                        this.item.categories = response.data.categories.map(x => x.name)
+                })
+            },
+            getCategories () {
+                get_all_categories().then(response => {
+                    this.categories = response.data.map(x => x.name)
                 })
             },
             update (param, value) {
@@ -78,6 +105,7 @@
         created () {
             if (this.editing)
                 this.getItem()
+            this.getCategories()
         }
     }
 </script>

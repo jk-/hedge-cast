@@ -1,4 +1,5 @@
 export default {
     name: '',
-    enabled: true
+    enabled: true,
+    categories: []
 }

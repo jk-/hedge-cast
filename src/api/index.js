@@ -124,3 +124,7 @@ export function save_video(video) {
 export function delete_video(id) {
   return axios.delete(`${API_URL}/video/${id}`, id)
 }
+
+export function search_video(name) {
+  return axios.get(`${API_URL}/video/${name}`)
+}
