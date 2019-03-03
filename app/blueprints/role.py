@@ -9,22 +9,19 @@ from app.util.token_required import token_required
 from app.util.dotdict import dotdict
 from app.validator.role import RoleValidator
 
-role_blueprint = Blueprint("roles", __name__)
+admin_role_blueprint = Blueprint("admin_role", __name__)
 
 
-@role_blueprint.route("/roles", methods=("GET",))
+@admin_role_blueprint.route("/roles", methods=("GET",))
 def get_roles(*args, **kwargs):
     roles = RoleRepository.query.all()
     return jsonify(serialize(roles)), 200
 
 
-@role_blueprint.route("/role/<int:role_id>", methods=("GET",))
+@admin_role_blueprint.route("/role/<int:role_id>", methods=("GET",))
 def get_role(role_id, *args, **kwargs):
     role = RoleRepository.query.get(role_id)
     return jsonify(serialize(role)), 200
-
-
-admin_role_blueprint = Blueprint("admin_role", __name__)
 
 
 @admin_role_blueprint.before_request

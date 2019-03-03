@@ -9,23 +9,19 @@ from app.util.token_required import token_required
 from app.util.dotdict import dotdict
 from app.validator.plan import PlanValidator
 
+admin_plan_blueprint = Blueprint("admin_plans", __name__)
 
-plan_blueprint = Blueprint("plans", __name__)
 
-
-@plan_blueprint.route("/plans", methods=("GET",))
+@admin_plan_blueprint.route("/plans", methods=("GET",))
 def get_plans(*args, **kwargs):
     plans = PlanRepository.query.all()
     return jsonify(serialize(plans)), 200
 
 
-@plan_blueprint.route("/plan/<int:plan_id>", methods=("GET",))
+@admin_plan_blueprint.route("/plan/<int:plan_id>", methods=("GET",))
 def get_plan(plan_id, *args, **kwargs):
     plan = PlanRepository.query.get(plan_id)
     return jsonify(serialize(plan)), 200
-
-
-admin_plan_blueprint = Blueprint("admin_plans", __name__)
 
 
 @admin_plan_blueprint.before_request

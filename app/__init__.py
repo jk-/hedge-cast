@@ -20,8 +20,8 @@ from app.extensions import cors
 from app.blueprints.error import error_blueprint
 from app.blueprints.auth import auth_blueprint
 from app.blueprints.users import users_blueprint, admin_users_blueprint
-from app.blueprints.plan import plan_blueprint, admin_plan_blueprint
-from app.blueprints.role import role_blueprint, admin_role_blueprint
+from app.blueprints.plan import admin_plan_blueprint
+from app.blueprints.role import admin_role_blueprint
 from app.blueprints.playlist import (
     playlist_blueprint,
     admin_playlist_blueprint,
@@ -71,9 +71,7 @@ def register_blueprints(app):
     app.register_blueprint(auth_blueprint, url_prefix=API_PATH)
     app.register_blueprint(users_blueprint, url_prefix=API_PATH)
     app.register_blueprint(category_blueprint, url_prefix=API_PATH)
-    app.register_blueprint(plan_blueprint, url_prefix=API_PATH)
     app.register_blueprint(playlist_blueprint, url_prefix=API_PATH)
-    app.register_blueprint(role_blueprint, url_prefix=API_PATH)
     app.register_blueprint(videos_blueprint, url_prefix=API_PATH)
 
     # admin protected routes

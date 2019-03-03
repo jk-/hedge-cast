@@ -25,12 +25,12 @@ def token_required(roles=None):
                 user = UserRepository.query.filter_by(
                     username=data["sub"]
                 ).first()
-                user_roles = [x.name for x in user.roles]
-                role_check = [role for role in roles if role not in user_roles]
                 if not user:
                     raise InvalidAuthUser(
                         "You are unathorized to access this resource."
                     )
+                user_roles = [x.name for x in user.roles]
+                role_check = [role for role in roles if role not in user_roles]
                 if len(role_check):
                     raise InvalidAuthUser(
                         "You are unathorized to access this resource."

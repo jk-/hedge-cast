@@ -43,4 +43,4 @@
     - [] Production ready environment
         - [] AWS integration
         - [] Fix salt and password in user entity
-        - [] token required role check
+        - [x] token required role check
