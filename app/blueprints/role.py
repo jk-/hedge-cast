@@ -9,25 +9,32 @@ from app.util.token_required import token_required
 from app.util.dotdict import dotdict
 from app.validator.role import RoleValidator
 
-roles_blueprint = Blueprint("roles", __name__)
+role_blueprint = Blueprint("roles", __name__)
 
 
-@roles_blueprint.route("/roles", methods=("GET",))
-@token_required
+@role_blueprint.route("/roles", methods=("GET",))
 def get_roles(*args, **kwargs):
     roles = RoleRepository.query.all()
     return jsonify(serialize(roles)), 200
 
 
-@roles_blueprint.route("/role/<int:role_id>", methods=("GET",))
-@token_required
+@role_blueprint.route("/role/<int:role_id>", methods=("GET",))
 def get_role(role_id, *args, **kwargs):
     role = RoleRepository.query.get(role_id)
     return jsonify(serialize(role)), 200
 
 
-@roles_blueprint.route("/role", methods=("POST",))
-@token_required
+admin_role_blueprint = Blueprint("admin_role", __name__)
+
+
+@admin_role_blueprint.before_request
+@token_required(roles=["ROLE_ADMIN"])
+def before_request(*args, **kwargs):
+    """ Protect all of the admin endpoints. """
+    pass
+
+
+@admin_role_blueprint.route("/role", methods=("POST",))
 def save_role(*args, **kwargs):
     data = request.get_json()
     validator = RoleValidator(**data, csrf_enabled=False)
@@ -45,8 +52,7 @@ def save_role(*args, **kwargs):
     return jsonify(serialize(role)), 201
 
 
-@roles_blueprint.route("/role/<int:role_id>", methods=("DELETE",))
-@token_required
+@admin_role_blueprint.route("/role/<int:role_id>", methods=("DELETE",))
 def delete_role(role_id, *args, **kwargs):
     role = RoleRepository.query.get(role_id)
     if role:

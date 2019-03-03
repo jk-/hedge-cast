@@ -19,12 +19,18 @@ from app.extensions import bcrypt
 from app.extensions import cors
 from app.blueprints.error import error_blueprint
 from app.blueprints.auth import auth_blueprint
-from app.blueprints.users import users_blueprint
-from app.blueprints.plan import plan_blueprint
-from app.blueprints.role import roles_blueprint
-from app.blueprints.playlist import playlist_blueprint
-from app.blueprints.videos import videos_blueprint
-from app.blueprints.categories import category_blueprint
+from app.blueprints.users import users_blueprint, admin_users_blueprint
+from app.blueprints.plan import plan_blueprint, admin_plan_blueprint
+from app.blueprints.role import role_blueprint, admin_role_blueprint
+from app.blueprints.playlist import (
+    playlist_blueprint,
+    admin_playlist_blueprint,
+)
+from app.blueprints.videos import videos_blueprint, admin_videos_blueprint
+from app.blueprints.categories import (
+    category_blueprint,
+    admin_category_blueprint,
+)
 from app.models.user import User
 from app.repository.user_repository import UserRepository
 
@@ -67,8 +73,16 @@ def register_blueprints(app):
     app.register_blueprint(category_blueprint, url_prefix=API_PATH)
     app.register_blueprint(plan_blueprint, url_prefix=API_PATH)
     app.register_blueprint(playlist_blueprint, url_prefix=API_PATH)
-    app.register_blueprint(roles_blueprint, url_prefix=API_PATH)
+    app.register_blueprint(role_blueprint, url_prefix=API_PATH)
     app.register_blueprint(videos_blueprint, url_prefix=API_PATH)
+
+    # admin protected routes
+    app.register_blueprint(admin_users_blueprint, url_prefix=API_PATH)
+    app.register_blueprint(admin_category_blueprint, url_prefix=API_PATH)
+    app.register_blueprint(admin_plan_blueprint, url_prefix=API_PATH)
+    app.register_blueprint(admin_playlist_blueprint, url_prefix=API_PATH)
+    app.register_blueprint(admin_role_blueprint, url_prefix=API_PATH)
+    app.register_blueprint(admin_videos_blueprint, url_prefix=API_PATH)
 
 
 def register_jinja_env(app):

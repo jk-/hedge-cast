@@ -13,21 +13,28 @@ videos_blueprint = Blueprint("videos", __name__)
 
 
 @videos_blueprint.route("/videos", methods=("GET",))
-@token_required
 def get_videos(*args, **kwargs):
     videos = VideoRepository.query.all()
     return jsonify(serialize(videos)), 200
 
 
 @videos_blueprint.route("/video/<int:video_id>", methods=("GET",))
-@token_required
 def get_video(video_id, *args, **kwargs):
     video = VideoRepository.query.get(video_id)
     return jsonify(serialize(video)), 200
 
 
-@videos_blueprint.route("/video", methods=("POST",))
-@token_required
+admin_videos_blueprint = Blueprint("admin_videos", __name__)
+
+
+@admin_videos_blueprint.before_request
+@token_required(roles=["ROLE_ADMIN"])
+def before_request(*args, **kwargs):
+    """ Protect all of the admin endpoints. """
+    pass
+
+
+@admin_videos_blueprint.route("/video", methods=("POST",))
 def save_video(*args, **kwargs):
     data = request.get_json()
     validator = VideoValidator(**data, csrf_enabled=False)
@@ -45,8 +52,7 @@ def save_video(*args, **kwargs):
     return jsonify(serialize(video)), 201
 
 
-@videos_blueprint.route("/video/<int:video_id>", methods=("DELETE",))
-@token_required
+@admin_videos_blueprint.route("/video/<int:video_id>", methods=("DELETE",))
 def delete_video(video_id, *args, **kwargs):
     video = VideoRepository.query.get(video_id)
     if video:

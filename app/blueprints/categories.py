@@ -13,21 +13,28 @@ category_blueprint = Blueprint("category", __name__)
 
 
 @category_blueprint.route("/categories", methods=("GET",))
-@token_required
 def get_categories(*args, **kwargs):
     categories = CategoryRepository.query.all()
     return jsonify(serialize(categories)), 200
 
 
 @category_blueprint.route("/category/<int:category_id>", methods=("GET",))
-@token_required
 def get_category(category_id, *args, **kwargs):
     category_id = CategoryRepository.query.get(category_id)
     return jsonify(serialize(category_id)), 200
 
 
-@category_blueprint.route("/category", methods=("POST",))
-@token_required
+admin_category_blueprint = Blueprint("admin_category", __name__)
+
+
+@admin_category_blueprint.before_request
+@token_required(roles=["ROLE_ADMIN"])
+def before_request(*args, **kwargs):
+    """ Protect all of the admin endpoints. """
+    pass
+
+
+@admin_category_blueprint.route("/category", methods=("POST",))
 def update_category(*args, **kwargs):
     data = request.get_json()
     validator = CategoryValidator(**data, csrf_enabled=False)
@@ -45,8 +52,9 @@ def update_category(*args, **kwargs):
     return jsonify(serialize(category)), 201
 
 
-@category_blueprint.route("/category/<int:category_id>", methods=("DELETE",))
-@token_required
+@admin_category_blueprint.route(
+    "/category/<int:category_id>", methods=("DELETE",)
+)
 def delete_category(category_id, *args, **kwargs):
     category = CategoryRepository.query.get(category_id)
     if category:

@@ -14,21 +14,28 @@ users_blueprint = Blueprint("users", __name__)
 
 
 @users_blueprint.route("/users", methods=("GET",))
-@token_required
 def get_users(*args, **kwargs):
     users = UserRepository.query.all()
     return jsonify(serialize(users)), 200
 
 
 @users_blueprint.route("/user/<int:user_id>", methods=("GET",))
-@token_required
 def get_user(user_id, *args, **kwargs):
     user = UserRepository.query.get(user_id)
     return jsonify(serialize(user)), 200
 
 
-@users_blueprint.route("/user", methods=("POST",))
-@token_required
+admin_users_blueprint = Blueprint("admin_users", __name__)
+
+
+@admin_users_blueprint.before_request
+@token_required(roles=["ROLE_ADMIN"])
+def before_request(*args, **kwargs):
+    """ Protect all of the admin endpoints. """
+    pass
+
+
+@admin_users_blueprint.route("/user", methods=("POST",))
 def save_user(*args, **kwargs):
     data = request.get_json()
     user_validator = UserValidator(**data, csrf_enabled=False)
@@ -47,8 +54,7 @@ def save_user(*args, **kwargs):
     return jsonify(serialize(user)), 201
 
 
-@users_blueprint.route("/user/<int:user_id>", methods=("DELETE",))
-@token_required
+@admin_users_blueprint.route("/user/<int:user_id>", methods=("DELETE",))
 def delete_user(user_id, *args, **kwargs):
     user = UserRepository.query.get(user_id)
     if user:

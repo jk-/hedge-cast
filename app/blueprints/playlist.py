@@ -13,21 +13,28 @@ playlist_blueprint = Blueprint("playlists", __name__)
 
 
 @playlist_blueprint.route("/playlists", methods=("GET",))
-@token_required
 def get_playlists(*args, **kwargs):
     playlists = PlaylistRepository.query.all()
     return jsonify(serialize(playlists)), 200
 
 
 @playlist_blueprint.route("/playlist/<int:playlist_id>", methods=("GET",))
-@token_required
 def get_playlist(playlist_id, *args, **kwargs):
     playlist = PlaylistRepository.query.get(playlist_id)
     return jsonify(serialize(playlist)), 200
 
 
-@playlist_blueprint.route("/playlist", methods=("POST",))
-@token_required
+admin_playlist_blueprint = Blueprint("admin_playlist", __name__)
+
+
+@admin_playlist_blueprint.before_request
+@token_required(roles=["ROLE_ADMIN"])
+def before_request(*args, **kwargs):
+    """ Protect all of the admin endpoints. """
+    pass
+
+
+@admin_playlist_blueprint.route("/playlist", methods=("POST",))
 def save_playlist(*args, **kwargs):
     data = request.get_json()
     validator = PlaylistValidator(**data, csrf_enabled=False)
@@ -45,8 +52,9 @@ def save_playlist(*args, **kwargs):
     return jsonify(serialize(playlist)), 201
 
 
-@playlist_blueprint.route("/playlist/<int:playlist_id>", methods=("DELETE",))
-@token_required
+@admin_playlist_blueprint.route(
+    "/playlist/<int:playlist_id>", methods=("DELETE",)
+)
 def delete_playlist(playlist_id, *args, **kwargs):
     playlist = PlaylistRepository.query.get(playlist_id)
     if playlist:

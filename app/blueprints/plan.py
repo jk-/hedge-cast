@@ -14,21 +14,28 @@ plan_blueprint = Blueprint("plans", __name__)
 
 
 @plan_blueprint.route("/plans", methods=("GET",))
-@token_required
 def get_plans(*args, **kwargs):
     plans = PlanRepository.query.all()
     return jsonify(serialize(plans)), 200
 
 
 @plan_blueprint.route("/plan/<int:plan_id>", methods=("GET",))
-@token_required
 def get_plan(plan_id, *args, **kwargs):
     plan = PlanRepository.query.get(plan_id)
     return jsonify(serialize(plan)), 200
 
 
-@plan_blueprint.route("/plan", methods=("POST",))
-@token_required
+admin_plan_blueprint = Blueprint("admin_plans", __name__)
+
+
+@admin_plan_blueprint.before_request
+@token_required(roles=["ROLE_ADMIN"])
+def before_request(*args, **kwargs):
+    """ Protect all of the admin endpoints. """
+    pass
+
+
+@admin_plan_blueprint.route("/plan", methods=("POST",))
 def save_plan(*args, **kwargs):
     data = request.get_json()
     validator = PlanValidator(**data, csrf_enabled=False)
@@ -46,8 +53,7 @@ def save_plan(*args, **kwargs):
     return jsonify(serialize(plan)), 201
 
 
-@plan_blueprint.route("/plan/<int:plan_id>", methods=("DELETE",))
-@token_required
+@admin_plan_blueprint.route("/plan/<int:plan_id>", methods=("DELETE",))
 def delete_plan(plan_id, *args, **kwargs):
     plan = PlanRepository.query.get(plan_id)
     if plan:
