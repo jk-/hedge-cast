@@ -31,6 +31,16 @@
                 v-if="!editing"
                 required
             ></v-text-field>
+            <v-select
+                v-model="item.roles"
+                :items="roles"
+                item-value="name"
+                item-text="id"
+                label="Roles"
+                attach
+                chips
+                multiple
+            ></v-select>
             <v-checkbox
                 :input-value="item.enabled"
                 @change="update('enabled', $event)"
@@ -59,10 +69,6 @@
                     <li><strong>Created:</strong> {{ item.created | format_date }}</li>
                     <li><strong>Stripe ID:</strong> {{ item.stripe_customer_id | or_empty }}</li>
                     <li>
-                        <strong>Roles:</strong>
-                        <span v-for="role in item.roles">{{ role.name }} </span>
-                    </li>
-                    <li>
                         <strong>Plans:</strong>
                         <span v-for="plan in item.plans">{{ plan.name }} </span>
                     </li>
@@ -80,6 +86,7 @@
     import { get_user } from '@/api/index.js'
     import { save_user } from '@/api/index.js'
     import { delete_user } from '@/api/index.js'
+    import { get_all_roles } from '@/api/index.js'
 
     export default {
         name: 'admin-user-form',
@@ -87,6 +94,7 @@
         data () {
             return {
                 item: User,
+                roles: [],
                 editing: this.isEdit,
                 pwShow: false,
                 valid: true,
@@ -99,6 +107,12 @@
             getUser () {
                 get_user(this.$route.params.id).then(response => {
                     this.item = response.data
+                    this.item.roles = response.data.roles.map(x => x.name)
+                })
+            },
+            getRoles () {
+                get_all_roles().then(response => {
+                    this.roles = response.data
                 })
             },
             update (param, value) {
@@ -128,6 +142,7 @@
         created () {
             if (this.editing)
                 this.getUser()
+            this.getRoles()
         }
     }
 </script>

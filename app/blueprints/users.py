@@ -3,6 +3,7 @@ import json
 
 from flask import Blueprint, request, jsonify
 from app.repository.user_repository import UserRepository
+from app.repository.role_repository import RoleRepository
 from app.models.user import User
 from app.util.serialize import serialize
 from app.util.token_required import token_required
@@ -38,6 +39,7 @@ def before_request(*args, **kwargs):
 @admin_users_blueprint.route("/user", methods=("POST",))
 def save_user(*args, **kwargs):
     data = request.get_json()
+    print(data)
     user_validator = UserValidator(**data, csrf_enabled=False)
 
     if not user_validator.validate():
@@ -49,6 +51,13 @@ def save_user(*args, **kwargs):
     else:
         user = UserRepository.get(data.id)
     user.update(**data)
+
+    if data.roles:
+        user.roles = []
+
+    for role in data.roles:
+        _role = RoleRepository.get_by_name(role)
+        user.roles.append(_role)
 
     UserRepository.save(user)
     return jsonify(serialize(user)), 201
