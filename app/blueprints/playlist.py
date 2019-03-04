@@ -1,6 +1,9 @@
 from flask import Blueprint, request, jsonify
 from app.repository.playlist_repository import PlaylistRepository
 from app.repository.category_repository import CategoryRepository
+from app.repository.video_playlist_repository import VideoPlaylistRepository
+from app.models.video import Video
+from app.models.video_playlist import VideoPlaylist
 from app.models.playlist import Playlist
 from app.util.serialize import serialize
 from app.util.token_required import token_required
@@ -44,17 +47,25 @@ def save_playlist(*args, **kwargs):
     if not data.id:
         playlist = Playlist()
     else:
-        playlist = PlaylistRepository.get(data.id)
+        playlist = Playlist.query.get(data.id)
     playlist.update(**data)
 
     playlist.categories = []
-    print(data.categories)
 
     for category in data.categories:
         _cat = CategoryRepository.get_by_name(category)
         playlist.categories.append(_cat)
 
     PlaylistRepository.save(playlist)
+
+    playlist.videos = []
+
+    for key, video_id in enumerate(data.videos):
+        video = Video.query.get(video_id)
+        video_playlist = VideoPlaylist(
+            playlist=playlist, video=video, order_by=key
+        )
+        VideoPlaylistRepository.save(video_playlist)
     return jsonify(serialize(playlist)), 201
 
 

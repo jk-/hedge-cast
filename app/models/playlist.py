@@ -13,10 +13,13 @@ class Playlist(db.Model):
     categories = db.relationship(
         "Category", secondary="playlist_category", lazy="joined"
     )
+    videos = db.relationship(
+        "Video", secondary="video_playlist", lazy="joined"
+    )
 
     def update(self, **kwargs):
         for attr, value in kwargs.items():
-            if attr not in ("id", "categories"):
+            if attr not in ("id", "categories", "videos"):
                 setattr(self, attr, value)
         return self
 
@@ -26,4 +29,5 @@ class Playlist(db.Model):
             name=self.name,
             enabled=self.enabled,
             categories=[serialize(x) for x in self.categories],
+            videos=[serialize(x) for x in self.videos],
         )

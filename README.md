@@ -24,12 +24,13 @@
         - [x] Validation logic in API
         - [x] Validation logic in Vue
         - [x] Construct Models in VUE (the object on create page is empty)
-        - [] For create and edit pages need to have select box for:
+        - [x] For create and edit pages need to have select box for:
             - [x] user_roles
-            - [] playlist_category
-            - [] video_playlist
+            - [x] playlist_category
+            - [x] video_playlist
             - [x] Relationship editing (user -> roles, etc)
         - [] The JWT needs to check on server for security on role access
+    - [] Redo repository setup. SQL Alchemy doesn't look at child class for typeof()
     - [X] Add global snackbar
     - [] Client Pages
         - [x] Title, meta data rendering per page

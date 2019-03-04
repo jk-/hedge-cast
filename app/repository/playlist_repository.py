@@ -3,4 +3,4 @@ from app.database import Repository
 
 
 class PlaylistRepository(Playlist, Repository):
-    pass
+    __name__ = "app.models.playlist.Playlist"

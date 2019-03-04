@@ -5,9 +5,9 @@
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
             <v-btn flat v-if="isAuthenticated" class="black-text">{{ getUsername }}</v-btn>
-            <v-btn flat :ripple=false v-if="isAuthenticated" @click="logout" class="black-text">Logout</v-btn>
-            <v-btn flat :ripple=false v-if="!isAuthenticated" :to="{ name: 'login'}" class="black-text">Login</v-btn>
-            <v-btn flat :ripple=false v-if="!isAuthenticated" :to="{ name: 'register'}" class="black-text">Sign-up</v-btn>
+            <v-btn flat :ripple="false" v-if="isAuthenticated" @click="logout" class="black-text">Logout</v-btn>
+            <v-btn flat :ripple="false" v-if="!isAuthenticated" :to="{ name: 'login'}" class="black-text">Login</v-btn>
+            <v-btn flat :ripple="false" v-if="!isAuthenticated" :to="{ name: 'register'}" class="black-text">Sign-up</v-btn>
         </v-toolbar-items>
     </v-toolbar>
 </template>

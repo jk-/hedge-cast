@@ -21,6 +21,12 @@ def get_video(video_id, *args, **kwargs):
     return jsonify(serialize(video)), 200
 
 
+@videos_blueprint.route("/video/<search_term>", methods=("GET",))
+def search_videos(search_term, *args, **kwargs):
+    videos = VideoRepository.get_by_search(search_term)
+    return jsonify(serialize(videos)), 200
+
+
 admin_videos_blueprint = Blueprint("admin_videos", __name__)
 
 

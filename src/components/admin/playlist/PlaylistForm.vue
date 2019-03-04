@@ -30,12 +30,7 @@
             </v-checkbox>
         </v-flex>
         <v-spacer></v-spacer>
-        <v-flex md9>
-            <v-text-field
-                append-icon="search"
-                label="Add video"
-            ></v-text-field>
-        </v-flex>
+        <VideoPlaylistCreator :is-edit="editing" :video-list="initialVideos" />
         <v-flex md4>
             <v-btn color="primary" @click="save">Save</v-btn>
             <v-btn v-if="editing" color="error" @click="remove">Delete</v-btn>
@@ -45,11 +40,13 @@
 
 <script>
     import Playlist from '@/models/playlist'
+    import VideoPlaylistCreator from '@/components/admin/video/PlaylistCreator.vue'
+
     import { get_playlist } from '@/api/index.js'
     import { save_playlist } from '@/api/index.js'
     import { delete_playlist } from '@/api/index.js'
     import { get_all_categories } from '@/api/index.js'
-    import { search_video } from '@/api/index.js'
+    import { EventBus } from '@/util/index.js'
 
     export default {
         name: 'admin-playlist-form',
@@ -60,6 +57,7 @@
                 editing: this.isEdit,
                 categories: [],
                 valid: true,
+                initialVideos: [],
                 rules: {
                     required: value => !!value || 'Required.'
                 }
@@ -71,6 +69,9 @@
                     this.item = response.data
                     if (response.data.categories !== 'undefined')
                         this.item.categories = response.data.categories.map(x => x.name)
+
+                    if (response.data.videos !== 'undefined')
+                        this.initialVideos = response.data.videos
                 })
             },
             getCategories () {
@@ -106,6 +107,17 @@
             if (this.editing)
                 this.getItem()
             this.getCategories()
+        },
+        mounted () {
+            EventBus.$on('videoPlaylist', (videoList) => {
+                this.item.videos = videoList
+            })
+        },
+        beforeDestroy () {
+            EventBus.$off('videoPlaylist')
+        },
+        components: {
+            VideoPlaylistCreator
         }
     }
 </script>

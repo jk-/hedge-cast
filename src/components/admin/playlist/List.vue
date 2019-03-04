@@ -10,7 +10,7 @@
         <tr @click="edit(props.item.id)">
             <td>{{ props.item.id }}</td>
             <td>{{ props.item.name }}</td>
-            <td>{{ props.item.enabled | trom_boolean }}</td>
+            <td>{{ props.item.enabled | from_boolean }}</td>
         </tr>
         </template>
     </v-data-table>

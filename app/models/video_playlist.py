@@ -1,4 +1,6 @@
 from app.database import db
+from app.models.video import Video
+from app.models.playlist import Playlist
 
 
 class VideoPlaylist(db.Model):
@@ -17,3 +19,5 @@ class VideoPlaylist(db.Model):
         primary_key=True,
     )
     order_by = db.Column(db.Integer, default=0)
+    video = db.relationship(Video, backref=db.backref("video"))
+    playlist = db.relationship(Playlist, backref=db.backref("playlist"))
