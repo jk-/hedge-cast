@@ -9,7 +9,7 @@ from unittest.mock import patch
 class TestPlanRepository:
     @pytest.mark.smoke
     def test_init(self):
-        assert True is PlanRepository._isinstance(Plan(), raise_error=False)
+        assert PlanRepository._isinstance(Plan(), raise_error=False)
 
     @patch("flask_sqlalchemy._QueryProperty.__get__")
     def test_get(self, mocked_query_get, app_test):
