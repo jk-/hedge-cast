@@ -20,7 +20,8 @@ const APP_TITLE = "Hedge Cast"
 const LAYOUTS = {
     APP: 'app-layout',
     ADMIN: 'admin-layout',
-    SIMPLE: 'simple-layout'
+    SIMPLE: 'simple-layout',
+    HOMEPAGE: 'homepage-layout'
 }
 
 Vue.use(Router)
@@ -46,7 +47,7 @@ const router = new Router({
         component: Home,
         meta: {
             title: APP_TITLE,
-            layout: LAYOUTS.APP
+            layout: LAYOUTS.HOMEPAGE
         }
     },
     {
@@ -69,7 +70,6 @@ const router = new Router({
     },
     {
         path: '/admin',
-        name: 'admin_home',
         component: AdminHome,
         meta: {
             requiresLogin: true,

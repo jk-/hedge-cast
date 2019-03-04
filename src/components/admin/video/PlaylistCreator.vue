@@ -1,6 +1,6 @@
 <template>
     <v-layout row>
-        <v-flex md9>
+        <v-flex md11>
             <v-autocomplete
                 v-model="videoModel"
                 :items="items"

@@ -8,6 +8,7 @@
     import AppLayout from '@/layouts/AppLayout.vue'
     import AdminLayout from '@/layouts/AdminLayout.vue'
     import SimpleLayout from '@/layouts/SimpleLayout.vue'
+    import HomepageLayout from '@/layouts/HomepageLayout.vue'
 
     export default {
         computed: {
@@ -18,7 +19,8 @@
         components: {
             'app-layout': AppLayout,
             'simple-layout': SimpleLayout,
-            'admin-layout': AdminLayout
+            'admin-layout': AdminLayout,
+            'homepage-layout': HomepageLayout
         }
     }
 </script>

@@ -1,9 +1,9 @@
 <template>
-    <v-form
+    <v-form v-if="!isLoading"
         ref="form"
         :model="valid"
         lazy-validation>
-        <v-flex md9>
+        <v-flex md11>
             <v-text-field
                 label="Name"
                 :value="item.name"
@@ -31,7 +31,7 @@
         </v-flex>
         <v-spacer></v-spacer>
         <VideoPlaylistCreator :is-edit="editing" :video-list="initialVideos" />
-        <v-flex md4>
+        <v-flex md11>
             <v-btn color="primary" @click="save">Save</v-btn>
             <v-btn v-if="editing" color="error" @click="remove">Delete</v-btn>
         </v-flex>
@@ -57,6 +57,7 @@
                 editing: this.isEdit,
                 categories: [],
                 valid: true,
+                isLoading: true,
                 initialVideos: [],
                 rules: {
                     required: value => !!value || 'Required.'
@@ -72,6 +73,8 @@
 
                     if (response.data.videos !== 'undefined')
                         this.initialVideos = response.data.videos
+
+                    this.isLoading = false
                 })
             },
             getCategories () {
@@ -104,8 +107,11 @@
             }
         },
         created () {
-            if (this.editing)
+            if (this.editing) {
                 this.getItem()
+            } else {
+                this.isLoading = false
+            }
             this.getCategories()
         },
         mounted () {

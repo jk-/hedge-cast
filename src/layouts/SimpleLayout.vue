@@ -15,7 +15,7 @@
     import Snackbar from '@/components/Snackbar.vue'
 
     export default {
-        name: 'App',
+        name: 'SimpleLayout',
         components: {
             Snackbar
         }
