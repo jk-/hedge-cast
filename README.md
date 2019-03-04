@@ -29,7 +29,7 @@
             - [x] playlist_category
             - [x] video_playlist
             - [x] Relationship editing (user -> roles, etc)
-        - [] The JWT needs to check on server for security on role access
+    - [] The JWT needs to check on server for security on role access
     - [x] Redo repository setup. SQL Alchemy doesn't look at child class for typeof()
     - [X] Add global snackbar
     - [] Client Pages
