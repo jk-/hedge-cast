@@ -82,10 +82,19 @@ export default {
             }).finally(() => this.isLoading = false)
         },
         videoModel () {
-            if (this.videoModel)
-                this.videoList.push(this.videoModel)
+            if (this.videoModel) {
+                const pos = this.videoList.map(function(e) { return e.id; }).indexOf(this.videoModel.id);
+                if (pos < 0) {
+                    this.videoList.push(this.videoModel)
+                } else {
+                    this.$store.dispatch('setSnackbar', {
+                        color: 'error',
+                        text: 'That video is already in the playlist.'
+                    })
+                }
                 this.videoModel = null
                 this.entries = []
+            }
         },
         videoList (newVideoList) {
             if (newVideoList !== "undefined")
