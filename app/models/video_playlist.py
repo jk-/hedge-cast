@@ -19,5 +19,5 @@ class VideoPlaylist(db.Model):
         primary_key=True,
     )
     order_by = db.Column(db.Integer, default=0)
-    video = db.relationship(Video, backref=db.backref("video"))
-    playlist = db.relationship(Playlist, backref=db.backref("playlist"))
+    video = db.relationship(Video)
+    playlist = db.relationship(Playlist)

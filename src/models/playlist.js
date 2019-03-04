@@ -1,5 +1,6 @@
 export default {
     name: '',
     enabled: true,
-    categories: []
+    categories: [],
+    videos: []
 }
