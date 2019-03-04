@@ -2,11 +2,12 @@ from app.models.video import Video
 from app.database import Repository
 
 
-class VideoRepository(Video, Repository):
-    @staticmethod
+class VideoRepository(Repository):
+    __model__ = Video
+
     def get_by_search(search_term):
         if isinstance(search_term, str):
-            return Video.query.filter(
-                Video.title.like(search_term + "%")
+            return self.__model__.query.filter(
+                self.__model__.title.like(search_term + "%")
             ).all()
         return None

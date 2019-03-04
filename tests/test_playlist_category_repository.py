@@ -11,29 +11,15 @@ from unittest.mock import patch
 class TestPlaylistCategoryRepository:
     @pytest.mark.smoke
     def test_init(self):
-        assert issubclass(PlaylistCategoryRepository, PlaylistCategory)
-        assert issubclass(PlaylistCategoryRepository, Repository)
+        assert PlaylistCategoryRepository._isinstance(
+            PlaylistCategory(), raise_error=False
+        )
 
-    @pytest.mark.parametrize(
-        "invalid_type, expected", [({}, None), ([], None), ((), None)]
-    )
     @patch("flask_sqlalchemy._QueryProperty.__get__")
-    def test_get_by_id(
-        self, mocked_query_get, app_test, invalid_type, expected
-    ):
+    def test_get(self, mocked_query_get, app_test):
         dummy = PlaylistCategory()
-        dummy.playlist_id = 1
-        dummy.category_id = 2
         mocked_query_get.return_value.get.return_value = dummy
 
         with app_test.app_context():
-            first_playlist_category = PlaylistCategoryRepository.get_by_id(1)
+            first_playlist_category = PlaylistCategoryRepository.get(1)
             assert isinstance(first_playlist_category, PlaylistCategory)
-            assert first_playlist_category.playlist_id == 1
-            assert first_playlist_category.category_id == 2
-
-            invalid_playlist_category = PlaylistCategoryRepository.get_by_id(
-                invalid_type
-            )
-            assert invalid_playlist_category is expected
-            assert not invalid_playlist_category

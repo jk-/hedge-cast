@@ -21,7 +21,6 @@ class Video(db.Model):
     def update(self, **kwargs):
         for attr, value in kwargs.items():
             if attr not in ("id", "created"):
-                print(attr, value)
                 setattr(self, attr, value)
         return self
 

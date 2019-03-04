@@ -11,13 +11,13 @@ videos_blueprint = Blueprint("videos", __name__)
 
 @videos_blueprint.route("/videos", methods=("GET",))
 def get_videos(*args, **kwargs):
-    videos = VideoRepository.query.all()
+    videos = VideoRepository.all()
     return jsonify(serialize(videos)), 200
 
 
 @videos_blueprint.route("/video/<int:video_id>", methods=("GET",))
 def get_video(video_id, *args, **kwargs):
-    video = VideoRepository.query.get(video_id)
+    video = VideoRepository.get(video_id)
     return jsonify(serialize(video)), 200
 
 
@@ -57,7 +57,7 @@ def save_video(*args, **kwargs):
 
 @admin_videos_blueprint.route("/video/<int:video_id>", methods=("DELETE",))
 def delete_video(video_id, *args, **kwargs):
-    video = VideoRepository.query.get(video_id)
+    video = VideoRepository.get(video_id)
     if video:
         VideoRepository.delete(video)
     return jsonify({"message": "Video deleted.", "type": "success"}), 200

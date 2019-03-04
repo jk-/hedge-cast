@@ -11,13 +11,13 @@ category_blueprint = Blueprint("category", __name__)
 
 @category_blueprint.route("/categories", methods=("GET",))
 def get_categories(*args, **kwargs):
-    categories = CategoryRepository.query.all()
+    categories = CategoryRepository.all()
     return jsonify(serialize(categories)), 200
 
 
 @category_blueprint.route("/category/<int:category_id>", methods=("GET",))
 def get_category(category_id, *args, **kwargs):
-    category_id = CategoryRepository.query.get(category_id)
+    category_id = CategoryRepository.get(category_id)
     return jsonify(serialize(category_id)), 200
 
 
@@ -53,7 +53,7 @@ def update_category(*args, **kwargs):
     "/category/<int:category_id>", methods=("DELETE",)
 )
 def delete_category(category_id, *args, **kwargs):
-    category = CategoryRepository.query.get(category_id)
+    category = CategoryRepository.get(category_id)
     if category:
         CategoryRepository.delete(category)
     return jsonify({"message": "Category deleted.", "type": "success"}), 200

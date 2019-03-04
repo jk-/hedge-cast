@@ -13,13 +13,13 @@ users_blueprint = Blueprint("users", __name__)
 
 @users_blueprint.route("/users", methods=("GET",))
 def get_users(*args, **kwargs):
-    users = UserRepository.query.all()
+    users = UserRepository.all()
     return jsonify(serialize(users)), 200
 
 
 @users_blueprint.route("/user/<int:user_id>", methods=("GET",))
 def get_user(user_id, *args, **kwargs):
-    user = UserRepository.query.get(user_id)
+    user = UserRepository.get(user_id)
     return jsonify(serialize(user)), 200
 
 
@@ -36,7 +36,6 @@ def before_request(*args, **kwargs):
 @admin_users_blueprint.route("/user", methods=("POST",))
 def save_user(*args, **kwargs):
     data = request.get_json()
-    print(data)
     user_validator = UserValidator(**data, csrf_enabled=False)
 
     if not user_validator.validate():
@@ -52,16 +51,17 @@ def save_user(*args, **kwargs):
     user.roles = []
 
     for role in data.roles:
-        _role = RoleRepository.get_by_name(role)
+        _role = RoleRepository.first(name=role)
         user.roles.append(_role)
 
     UserRepository.save(user)
+
     return jsonify(serialize(user)), 201
 
 
 @admin_users_blueprint.route("/user/<int:user_id>", methods=("DELETE",))
 def delete_user(user_id, *args, **kwargs):
-    user = UserRepository.query.get(user_id)
+    user = UserRepository.get(user_id)
     if user:
         UserRepository.delete(user)
     return jsonify({"message": "User deleted.", "type": "success"}), 200

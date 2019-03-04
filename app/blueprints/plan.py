@@ -11,13 +11,13 @@ admin_plan_blueprint = Blueprint("admin_plans", __name__)
 
 @admin_plan_blueprint.route("/plans", methods=("GET",))
 def get_plans(*args, **kwargs):
-    plans = PlanRepository.query.all()
+    plans = PlanRepository.all()
     return jsonify(serialize(plans)), 200
 
 
 @admin_plan_blueprint.route("/plan/<int:plan_id>", methods=("GET",))
 def get_plan(plan_id, *args, **kwargs):
-    plan = PlanRepository.query.get(plan_id)
+    plan = PlanRepository.get(plan_id)
     return jsonify(serialize(plan)), 200
 
 
@@ -48,7 +48,7 @@ def save_plan(*args, **kwargs):
 
 @admin_plan_blueprint.route("/plan/<int:plan_id>", methods=("DELETE",))
 def delete_plan(plan_id, *args, **kwargs):
-    plan = PlanRepository.query.get(plan_id)
+    plan = PlanRepository.get(plan_id)
     if plan:
         PlanRepository.delete(plan)
     return jsonify({"message": "Plan deleted.", "type": "success"}), 200

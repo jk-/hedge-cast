@@ -11,13 +11,13 @@ admin_role_blueprint = Blueprint("admin_role", __name__)
 
 @admin_role_blueprint.route("/roles", methods=("GET",))
 def get_roles(*args, **kwargs):
-    roles = RoleRepository.query.all()
+    roles = RoleRepository.all()
     return jsonify(serialize(roles)), 200
 
 
 @admin_role_blueprint.route("/role/<int:role_id>", methods=("GET",))
 def get_role(role_id, *args, **kwargs):
-    role = RoleRepository.query.get(role_id)
+    role = RoleRepository.get(role_id)
     return jsonify(serialize(role)), 200
 
 
@@ -48,7 +48,7 @@ def save_role(*args, **kwargs):
 
 @admin_role_blueprint.route("/role/<int:role_id>", methods=("DELETE",))
 def delete_role(role_id, *args, **kwargs):
-    role = RoleRepository.query.get(role_id)
+    role = RoleRepository.get(role_id)
     if role:
         RoleRepository.delete(role)
     return jsonify({"message": "Role deleted.", "type": "success"}), 200

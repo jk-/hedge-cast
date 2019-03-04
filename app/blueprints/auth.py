@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 
 from flask import Blueprint, request, current_app, jsonify
 from app.util.user_authenticator import UserAuthenticator
-from app.repository.user_repository import UserRepository
 from app.models.user import User
+from app.repository.user_repository import UserRepository
 from app.exception import InvalidAuthUser
 
 auth_blueprint = Blueprint("auth", __name__)

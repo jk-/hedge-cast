@@ -9,28 +9,13 @@ from unittest.mock import patch
 class TestVideoRepository:
     @pytest.mark.smoke
     def test_init(self):
-        assert issubclass(VideoRepository, Video)
-        assert issubclass(VideoRepository, Repository)
+        assert VideoRepository._isinstance(Video(), raise_error=False)
 
-    @pytest.mark.parametrize(
-        "invalid_type, expected", [({}, None), ([], None), ((), None)]
-    )
     @patch("flask_sqlalchemy._QueryProperty.__get__")
-    def test_get_by_id(
-        self, mocked_query_get, app_test, invalid_type, expected
-    ):
+    def test_get(self, mocked_query_get, app_test):
         dummy = Video()
-        dummy.id = 1
-        dummy.title = "jon"
         mocked_query_get.return_value.get.return_value = dummy
 
         with app_test.app_context():
-            first_video = VideoRepository.get_by_id(1)
+            first_video = VideoRepository.get(1)
             assert isinstance(first_video, Video)
-            assert first_video.id == 1
-            assert first_video.title == "jon"
-            assert not first_video.title == "josh"
-
-            invalid_video = VideoRepository.get_by_id(invalid_type)
-            assert invalid_video is expected
-            assert not invalid_video

@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app.repository.playlist_repository import PlaylistRepository
 from app.repository.category_repository import CategoryRepository
 from app.repository.video_playlist_repository import VideoPlaylistRepository
+from app.repository.video_repository import VideoRepository
 from app.models.video import Video
 from app.models.video_playlist import VideoPlaylist
 from app.models.playlist import Playlist
@@ -15,13 +16,13 @@ playlist_blueprint = Blueprint("playlists", __name__)
 
 @playlist_blueprint.route("/playlists", methods=("GET",))
 def get_playlists(*args, **kwargs):
-    playlists = PlaylistRepository.query.all()
+    playlists = PlaylistRepository.all()
     return jsonify(serialize(playlists)), 200
 
 
 @playlist_blueprint.route("/playlist/<int:playlist_id>", methods=("GET",))
 def get_playlist(playlist_id, *args, **kwargs):
-    playlist = PlaylistRepository.query.get(playlist_id)
+    playlist = PlaylistRepository.get(playlist_id)
     return jsonify(serialize(playlist)), 200
 
 
@@ -47,13 +48,13 @@ def save_playlist(*args, **kwargs):
     if not data.id:
         playlist = Playlist()
     else:
-        playlist = Playlist.query.get(data.id)
+        playlist = PlaylistRepository.get(data.id)
     playlist.update(**data)
 
     playlist.categories = []
 
     for category in data.categories:
-        _cat = CategoryRepository.get_by_name(category)
+        _cat = CategoryRepository.first(name=category)
         playlist.categories.append(_cat)
 
     PlaylistRepository.save(playlist)
@@ -61,7 +62,7 @@ def save_playlist(*args, **kwargs):
     playlist.videos = []
 
     for key, video_id in enumerate(data.videos):
-        video = Video.query.get(video_id)
+        video = VideoRepository.get(video_id)
         video_playlist = VideoPlaylist(
             playlist=playlist, video=video, order_by=key
         )
@@ -73,7 +74,7 @@ def save_playlist(*args, **kwargs):
     "/playlist/<int:playlist_id>", methods=("DELETE",)
 )
 def delete_playlist(playlist_id, *args, **kwargs):
-    playlist = PlaylistRepository.query.get(playlist_id)
+    playlist = PlaylistRepository.get(playlist_id)
     if playlist:
         PlaylistRepository.delete(playlist)
     return jsonify({"message": "Playlist deleted.", "type": "success"}), 200

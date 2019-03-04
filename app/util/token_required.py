@@ -22,9 +22,7 @@ def token_required(roles=None):
             try:
                 token = auth_headers[1]
                 data = jwt.decode(token, current_app.config["SECRET_KEY"])
-                user = UserRepository.query.filter_by(
-                    username=data["sub"]
-                ).first()
+                user = UserRepository.find(username=data["sub"]).first()
                 if not user:
                     raise InvalidAuthUser(
                         "You are unathorized to access this resource."

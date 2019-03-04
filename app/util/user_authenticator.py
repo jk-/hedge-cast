@@ -1,7 +1,7 @@
 from app.repository.user_repository import UserRepository
 
 
-class UserAuthenticator(UserRepository):
+class UserAuthenticator:
     @staticmethod
     def authenticate(**kwargs):
         username = kwargs.get("username")
@@ -10,7 +10,7 @@ class UserAuthenticator(UserRepository):
         if not username or not password:
             return None
 
-        user = UserRepository.query.filter_by(username=username).first()
+        user = UserRepository.first(username=username)
         if not user or not user.check_password(password):
             return None
 
