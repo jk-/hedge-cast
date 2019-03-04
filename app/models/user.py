@@ -40,8 +40,8 @@ class User(db.Model):
     locked = db.Column(db.Boolean(), default=0)
     confirmation_token = db.Column(db.String(255))
     password_requested_at = db.Column(db.DateTime(timezone=True))
-    roles = db.relationship("Role", secondary="user_roles", lazy="joined")
-    plans = db.relationship("Plan", secondary="user_plan", lazy="joined")
+    roles = db.relationship("Role", secondary="user_roles", lazy="dynamic")
+    plans = db.relationship("Plan", secondary="user_plan", lazy="dynamic")
     credentials_expire_at = db.Column(db.DateTime(timezone=True))
     _created = db.Column(
         "created", db.DateTime(timezone=True), default=datetime.datetime.utcnow

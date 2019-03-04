@@ -11,10 +11,13 @@ class Playlist(db.Model):
     name = db.Column(db.String(255), nullable=False)
     enabled = db.Column(db.Boolean(), default=0)
     categories = db.relationship(
-        "Category", secondary="playlist_category", lazy="joined"
+        "Category", secondary="playlist_category", lazy="dynamic"
     )
     videos = db.relationship(
-        "Video", secondary="video_playlist", lazy="joined"
+        "Video",
+        secondary="video_playlist",
+        lazy="dynamic",
+        order_by="VideoPlaylist.order_by",
     )
 
     def update(self, **kwargs):

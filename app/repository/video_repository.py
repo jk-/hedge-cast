@@ -5,9 +5,10 @@ from app.database import Repository
 class VideoRepository(Repository):
     __model__ = Video
 
-    def get_by_search(search_term):
+    @classmethod
+    def get_by_search(cls, search_term):
         if isinstance(search_term, str):
-            return self.__model__.query.filter(
-                self.__model__.title.like(search_term + "%")
+            return cls.__model__.query.filter(
+                cls.__model__.title.like(search_term + "%")
             ).all()
         return None
