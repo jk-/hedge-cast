@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar color="transparent z-depth-0">
+    <v-toolbar color="white z-depth-0">
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-flex md2>

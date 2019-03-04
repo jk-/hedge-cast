@@ -1,60 +1,58 @@
 <template>
-    <v-layout>
-        <v-flex xs12 sm6 offset-sm3>
-            <v-card color="transparent z-depth-0">
-                <v-toolbar color="z-depth-0">
-                    <v-toolbar-title>Login</v-toolbar-title>
-                </v-toolbar>
-                <v-alert :value="errorMsg" error>{{ errorMsg }}</v-alert>
-                <v-form
-                    ref="form"
-                    v-model="valid"
-                    lazy-validation>
-                    <v-container>
-                        <v-layout>
-                            <v-flex md12 lg12>
-                                <v-text-field
-                                    v-model="username"
-                                    :rules="[rules.required]"
-                                    label="Username"
-                                    name="username"
-                                    autocomplete="username"
-                                    required
-                                ></v-text-field>
-                            </v-flex>
-                        </v-layout>
+    <v-flex md12 lg12 xs12>
+        <v-card color="transparent">
+            <v-toolbar color="z-depth-0">
+                <v-toolbar-title>Login</v-toolbar-title>
+            </v-toolbar>
+            <v-alert :value="errorMsg" error>{{ errorMsg }}</v-alert>
+            <v-form
+                ref="form"
+                v-model="valid"
+                lazy-validation>
+                <v-container>
+                    <v-layout>
+                        <v-flex>
+                            <v-text-field
+                                v-model="username"
+                                :rules="[rules.required]"
+                                label="Username"
+                                name="username"
+                                autocomplete="username"
+                                required
+                            ></v-text-field>
+                        </v-flex>
+                    </v-layout>
 
-                        <v-layout>
-                            <v-flex md12 lg12>
-                                <v-text-field
-                                    v-model="password"
-                                    :append-icon="pwShow ? 'visibility_off' : 'visibility'"
-                                    :rules="[rules.required]"
-                                    :type="pwShow ? 'text' : 'password'"
-                                    @click:append="pwShow = !pwShow"
-                                    v-on:keypress.enter="authenticate"
-                                    label="password"
-                                    name="password"
-                                    autocomplete="current-password"
-                                    required
-                                ></v-text-field>
-                            </v-flex>
-                        </v-layout>
+                    <v-layout>
+                        <v-flex>
+                            <v-text-field
+                                v-model="password"
+                                :append-icon="pwShow ? 'visibility_off' : 'visibility'"
+                                :rules="[rules.required]"
+                                :type="pwShow ? 'text' : 'password'"
+                                @click:append="pwShow = !pwShow"
+                                v-on:keypress.enter="authenticate"
+                                label="password"
+                                name="password"
+                                autocomplete="current-password"
+                                required
+                            ></v-text-field>
+                        </v-flex>
+                    </v-layout>
 
-                        <v-checkbox
-                        v-model="checkbox"
-                        label="Remember me"
-                        ></v-checkbox>
+                    <v-checkbox
+                    v-model="checkbox"
+                    label="Remember me"
+                    ></v-checkbox>
 
-                        <v-card-actions>
-                            <v-btn color="primary" @click="authenticate">Login</v-btn>
-                            <v-btn color="info" flat>forgot password?</v-btn>
-                        </v-card-actions>
-                    </v-container>
-                </v-form>
-            </v-card>
-        </v-flex>
-    </v-layout>
+                    <v-card-actions>
+                        <v-btn color="primary" @click="authenticate">Login</v-btn>
+                        <v-btn color="info" flat>forgot password?</v-btn>
+                    </v-card-actions>
+                </v-container>
+            </v-form>
+        </v-card>
+    </v-flex>
 </template>
 
 <script>

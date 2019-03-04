@@ -1,22 +1,24 @@
 <template>
-    <v-app v-cloak>
-        <Toolbar />
-        <v-content>
-            <router-view></router-view>
-        </v-content>
-        <Snackbar />
+    <v-app>
+        <component v-bind:is="layout"></component>
     </v-app>
 </template>
 
 <script>
-    import Toolbar from '@/components/Toolbar.vue'
-    import Snackbar from '@/components/Snackbar.vue'
+    import AppLayout from '@/layouts/AppLayout.vue'
+    import AdminLayout from '@/layouts/AdminLayout.vue'
+    import SimpleLayout from '@/layouts/SimpleLayout.vue'
 
     export default {
-        name: 'App',
+        computed: {
+            layout () {
+                return this.$store.getters.layout
+            }
+        },
         components: {
-            Toolbar,
-            Snackbar
+            'app-layout': AppLayout,
+            'simple-layout': SimpleLayout,
+            'admin-layout': AdminLayout
         }
     }
 </script>

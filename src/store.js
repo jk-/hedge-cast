@@ -22,7 +22,8 @@ const state = {
         color: '',
         timeout: 2000,
         text: ''
-    }
+    },
+    layout: 'app-layout'
 }
 
 const actions = {
@@ -42,6 +43,8 @@ const actions = {
     logout (context) {
         context.commit('setJwtToken')
         context.commit('setUserData')
+        context.commit('setLayout', 'simple-layout')
+        // how come push doesn't update layout?
         router.push({ name: 'login' })
     },
     register (context, userData) {
@@ -85,6 +88,9 @@ const mutations = {
         state.snackbar.visible = false
         state.snackbar.text = null
     },
+    setLayout (state, payload) {
+        state.layout = payload
+    }
 }
 
 const getters = {
@@ -93,6 +99,9 @@ const getters = {
     },
     getUsername (state) {
         return state.userData.username
+    },
+    layout (state) {
+        return state.layout
     }
 }
 
