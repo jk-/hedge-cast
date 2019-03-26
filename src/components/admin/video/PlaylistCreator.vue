@@ -97,8 +97,10 @@ export default {
             }
         },
         videoList (newVideoList) {
-            if (newVideoList !== "undefined")
+            if (newVideoList !== "undefined") {
+                console.log("EMITTING!")
                 EventBus.$emit('videoPlaylist', newVideoList.map(x => x.id))
+            }
         }
     },
     methods: {

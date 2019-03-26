@@ -13,6 +13,7 @@ from app.commands import populate_category
 from app.commands import populate_plans
 from app.commands import populate_playlist
 from app.commands import populate_videos
+from app.commands import populate_db
 from app.commands import drop_db
 from app.extensions import migrate
 from app.extensions import bcrypt
@@ -109,5 +110,6 @@ def register_commands(app):
         populate_plans,
         populate_playlist,
         populate_videos,
+        populate_db,
     ]:
         app.cli.command()(command)

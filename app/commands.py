@@ -114,6 +114,14 @@ def populate_videos():
     db.session.commit()
 
 
+def populate_db():
+    populate_users(5)
+    populate_category()
+    populate_plans()
+    populate_playlist()
+    populate_videos()
+
+
 def drop_db():
     """Drops the database."""
     if click.confirm("Are you sure?", abort=True):

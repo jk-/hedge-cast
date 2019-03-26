@@ -19,6 +19,7 @@
         - [x] Ability to save entity
         - [x] Add AXIO interceptors for errors
         - [x] Ability to delete
+            - [] Can't delete playlist
         - [x] Ability to create
         - [x] consolidate routes
         - [x] Validation logic in API
@@ -47,3 +48,6 @@
         - [] AWS integration
         - [] Fix salt and password in user entity
         - [x] token required role check
+
+
+-- Figure out mysql network_mode: host

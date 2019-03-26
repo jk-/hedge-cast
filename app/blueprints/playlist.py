@@ -57,16 +57,20 @@ def save_playlist(*args, **kwargs):
         _cat = CategoryRepository.first(name=category)
         playlist.categories.append(_cat)
 
+    playlist.videos = []
     PlaylistRepository.save(playlist)
 
-    playlist.videos = []
+    for key, video in enumerate(data.videos):
+        if type(video).__name__ == "dict":
+            video = VideoRepository.get(video["id"])
+        else:
+            video = VideoRepository.get(video)
 
-    for key, video_id in enumerate(data.videos):
-        video = VideoRepository.get(video_id)
         video_playlist = VideoPlaylist(
-            playlist=playlist, video=video, order_by=key
+            playlist=playlist, video=video, order=key
         )
         VideoPlaylistRepository.save(video_playlist)
+
     return jsonify(serialize(playlist)), 201
 
 

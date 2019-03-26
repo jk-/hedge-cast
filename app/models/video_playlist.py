@@ -18,6 +18,6 @@ class VideoPlaylist(db.Model):
         db.ForeignKey("playlist.id", ondelete="CASCADE"),
         primary_key=True,
     )
-    order_by = db.Column(db.Integer, default=0)
+    order = db.Column(db.Integer, default=0)
     video = db.relationship(Video)
     playlist = db.relationship(Playlist)

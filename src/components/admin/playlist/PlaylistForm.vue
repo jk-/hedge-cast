@@ -1,8 +1,7 @@
 <template>
     <v-form v-if="!isLoading"
         ref="form"
-        :model="valid"
-        lazy-validation>
+        :model="valid">
         <v-flex md11>
             <v-text-field
                 label="Name"
@@ -66,6 +65,7 @@
         },
         methods: {
             getItem () {
+                console.log("getting item")
                 get_playlist(this.$route.params.id).then(response => {
                     this.item = response.data
                     if (response.data.categories !== 'undefined')
@@ -78,23 +78,26 @@
                 })
             },
             getCategories () {
+                console.log("getting categories")
                 get_all_categories().then(response => {
                     this.categories = response.data.map(x => x.name)
                 })
             },
             update (param, value) {
+                console.log("updating..")
                 if (value === null) {
                     value = 0
                 }
                 this.$set(this.item, param, value)
             },
             save () {
+                console.log("before validation", this.item)
                 if (!this.$refs.form.validate()) {
                     this.valid = false
                 } else {
+                    console.log("after validation", this.item)
                     this.valid = true
                     save_playlist(this.item).then(response => {
-                        this.item = response.data
                         this.$router.push({ name: 'admin_playlist' })
                     })
                 }
@@ -107,6 +110,7 @@
             }
         },
         created () {
+            console.log("creating")
             if (this.editing) {
                 this.getItem()
             } else {
@@ -117,9 +121,11 @@
         mounted () {
             EventBus.$on('videoPlaylist', (videoList) => {
                 this.item.videos = videoList
+                console.log("received", this.item)
             })
         },
         beforeDestroy () {
+            console.log("destroying event")
             EventBus.$off('videoPlaylist')
         },
         components: {

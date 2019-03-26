@@ -1,3 +1,6 @@
+
+@import "materialize/components/color-variables";
+
 [v-cloak] {
     display: none;
 }
@@ -11,4 +14,9 @@
     thead tr th {
         font-weight: 900;
     }
+}
+
+.sortable-chosen {
+    opacity: 1;
+    background-color: color("blue", "lighten-4");
 }

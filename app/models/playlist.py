@@ -17,7 +17,7 @@ class Playlist(db.Model):
         "Video",
         secondary="video_playlist",
         lazy="dynamic",
-        order_by="VideoPlaylist.order_by",
+        order_by="VideoPlaylist.order",
     )
 
     def update(self, **kwargs):
