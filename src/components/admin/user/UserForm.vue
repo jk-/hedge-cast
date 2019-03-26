@@ -1,5 +1,5 @@
 <template>
-    <v-form
+    <v-form v-if="!isLoading"
         ref="form"
         :model="valid"
         lazy-validation>
@@ -99,6 +99,7 @@
                 editing: this.isEdit,
                 pwShow: false,
                 valid: true,
+                isLoading: true,
                 rules: {
                     required: value => !!value || 'Required.'
                 }
@@ -109,6 +110,7 @@
                 get_user(this.$route.params.id).then(response => {
                     this.item = response.data
                     this.item.roles = response.data.roles.map(x => x.name)
+                    this.isLoading = false
                 })
             },
             getRoles () {
@@ -141,8 +143,11 @@
             }
         },
         created () {
-            if (this.editing)
+            if (this.editing) {
                 this.getUser()
+            } else {
+                this.isLoading = false
+            }
             this.getRoles()
         }
     }

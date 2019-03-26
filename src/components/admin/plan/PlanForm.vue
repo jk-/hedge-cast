@@ -1,5 +1,5 @@
 <template>
-    <v-form
+    <v-form v-if="!isLoading"
         ref="form"
         :model="valid"
         lazy-validation>
@@ -90,6 +90,7 @@
                 item: Plan,
                 editing: this.isEdit,
                 valid: true,
+                isLoading: true,
                 rules: {
                     required: value => !!value || 'Required.'
                 }
@@ -99,6 +100,7 @@
             getItem () {
                 get_plan(this.$route.params.id).then(response => {
                     this.item = response.data
+                    this.isLoading = false
                 })
             },
             update (param, value) {
@@ -126,8 +128,11 @@
             }
         },
         created () {
-            if (this.editing)
+            if (this.editing) {
                 this.getItem()
+            } else {
+                this.isLoading = false
+            }
         }
     }
 </script>

@@ -9,10 +9,9 @@
         >
         <v-toolbar flat>
           <v-list class="blue darken-4 white--text">
-            <v-list-tile  :to="{ name: 'admin_dashboard' }"
-            active-class="">
+            <v-list-tile active-class="">
               <v-list-tile-title class="title">
-                  Navigation
+                  Menu
               </v-list-tile-title>
             </v-list-tile>
           </v-list>

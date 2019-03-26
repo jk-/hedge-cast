@@ -1,9 +1,9 @@
 <template>
-    <v-container>
-        <v-layout white>
+    <v-layout>
+        <v-container>
             <router-view></router-view>
-        </v-layout>
-    </v-container>
+        </v-container>
+    </v-layout>
 </template>
 
 <script>

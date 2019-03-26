@@ -1,7 +1,7 @@
 <template>
     <v-flex>
         <v-layout row>
-            <AdminSubToolbar title="Videos" />
+            <AdminSubToolbar icon="videocam" title="Videos" />
             <v-btn :ripple="false" :to="{name: 'admin_video_create'}">New</v-btn>
         </v-layout>
         <v-layout row>

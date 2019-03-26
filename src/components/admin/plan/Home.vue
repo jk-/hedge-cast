@@ -1,7 +1,7 @@
 <template>
     <v-flex>
         <v-layout row>
-            <AdminSubToolbar title="Plans" />
+            <AdminSubToolbar icon="layers" title="Plans" />
             <v-btn :ripple="false" :to="{name: 'admin_plan_create'}">New</v-btn>
         </v-layout>
         <v-layout row>

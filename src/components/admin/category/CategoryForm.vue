@@ -1,5 +1,5 @@
 <template>
-    <v-form
+    <v-form v-if="!isLoading"
         ref="form"
         :model="valid"
         lazy-validation>
@@ -36,6 +36,7 @@
                 item: Category,
                 editing: this.isEdit,
                 valid: true,
+                isLoading: true,
                 rules: {
                     required: value => !!value || 'Required.'
                 }
@@ -45,6 +46,7 @@
             getCategory () {
                 get_category(this.$route.params.id).then(response => {
                     this.item = response.data
+                    this.isLoading = false
                 })
             },
             update (param, value) {
@@ -72,8 +74,11 @@
             }
         },
         created () {
-            if (this.editing)
+            if (this.editing) {
                 this.getCategory()
+            } else {
+                this.isLoading = false
+            }
         }
     }
 

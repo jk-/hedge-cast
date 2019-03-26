@@ -1,7 +1,7 @@
 <template>
     <v-flex>
         <v-layout row>
-            <AdminSubToolbar title="Playlist" />
+            <AdminSubToolbar icon="playlist_play" title="Playlist" />
             <v-btn :ripple="false" :to="{name: 'admin_playlist_create'}">New</v-btn>
         </v-layout>
         <v-layout row>

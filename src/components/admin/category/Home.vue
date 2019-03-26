@@ -1,7 +1,7 @@
 <template>
     <v-flex>
         <v-layout row>
-            <AdminSubToolbar title="Category" />
+            <AdminSubToolbar icon="folder" title="Category" />
             <v-btn :ripple="false" :to="{name: 'admin_category_create'}">New</v-btn>
         </v-layout>
         <v-layout row>

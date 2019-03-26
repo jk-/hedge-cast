@@ -1,7 +1,7 @@
 <template>
     <v-flex>
         <v-layout row>
-            <AdminSubToolbar title="Roles" />
+            <AdminSubToolbar icon="supervised_user_circle" title="Roles" />
             <v-btn :ripple="false" :to="{name: 'admin_role_create'}">New</v-btn>
         </v-layout>
         <v-layout row>

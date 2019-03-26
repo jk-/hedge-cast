@@ -1,13 +1,13 @@
 <template>
-    <v-app v-cloak>
+    <v-app class="white" v-cloak>
         <Navigation />
         <v-toolbar app absolute flat>
           <v-toolbar-side-icon
             @click.stop="primaryDrawer.model = !primaryDrawer.model"
           ></v-toolbar-side-icon>
-          <v-toolbar-title>Dashboard</v-toolbar-title>
+          <v-toolbar-title>Hedge Cast</v-toolbar-title>
         </v-toolbar>
-        <v-content fluid>
+        <v-content fluid fill-height>
             <router-view></router-view>
         </v-content>
         <Snackbar />
